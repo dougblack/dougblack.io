@@ -1,0 +1,30 @@
+body {
+    background: #fff;
+    color: #111;
+}
+
+#container {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+}
+
+#bio {
+    color: #ddd;
+    text-align: center;
+    font-size: 30;
+    font-family: Baskerville;
+}
+
+a {
+    color: #999;
+    text-decoration: none;
+    -webkit-transition all 0.1s ease-in-out;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #ccc;
+}
+
