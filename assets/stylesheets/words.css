@@ -1,0 +1,137 @@
+
+#header {
+    padding-top: 10px;
+    /*border-bottom: 3px solid #aaa;*/
+    position: fixed;
+    left: 5px;
+    top: 5px;
+}
+
+#name {
+    font-family: "Montserrat";
+    font-size: 25;
+    letter-spacing: -2;
+    color: #ddd;
+    font-weight: 700;
+    display: inline;
+    //border: 5px solid #ddd;
+    padding: 3px 8px 3px 6px;
+}
+
+#name:hover {
+    color: #333;
+}
+
+#right {
+    text-align: right;
+    font-size: 18;
+    display: inline;
+    float: right;
+    font-family: "Montserrat";
+    color: #aaa;
+    margin-top: 7px;
+}
+
+#container {
+    width: 600px;
+    margin-top: -20px;
+}
+
+#title {
+    font-family: "Montserrat";
+    font-size: 60;
+    color: #444;
+    padding-left: 10px;
+    width: 560;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: -3px;
+}
+
+#date {
+    font-family: "Montserrat";
+    font-size: 14;
+    color: #bbb;
+    width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#article {
+    font-family: "Georgia";
+    font-size: 18;
+    line-height: 1.4em;
+    color: #444;
+    width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#article a {
+    color: #e33;
+}
+
+#article a:hover {
+    border-bottom: 1px solid #e33;
+}
+
+#footer {
+    margin-top: 50px;
+    margin: 50px auto 100px auto;
+}
+
+#more-words {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25;
+    font-family: Montserrat;
+    color: #ddd;
+    letter-spacing: -2;
+    font-weight: 700;
+    padding: 4px;
+}
+
+#more-words:hover {
+    color: #333;
+}
+
+#word-list {
+    margin-top: 50px;
+    width: 600px;
+}
+
+#word-list a {
+    color: #444;
+}
+
+#word-list a:hover {
+    color: #444;
+}
+
+.post-name {
+    margin-top: 40px;
+    font-size: 40;
+    font-family: Montserrat;
+    letter-spacing: -2;
+    font-weight: 700;
+}
+
+.post-date {
+    font-size: 20px;
+    font-family: Montserrat;
+    letter-spacing: -2;
+    display: inline;
+    color: #aaa;
+    float: right;
+}
+
+#word-title {
+    font-size: 30px;
+    font-family: Montserrat;
+    text-align: center;
+    letter-spacing: -2;
+    font-weight: 700;
+    color: #444;
+    padding-bottom: 10px;
+}

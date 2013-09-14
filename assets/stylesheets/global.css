@@ -10,21 +10,26 @@ body {
     padding-top: 100px;
 }
 
-#bio {
-    color: #ddd;
-    text-align: center;
-    font-size: 30;
-    font-family: Baskerville;
-}
-
 a {
-    color: #999;
+    color: #ccc;
     text-decoration: none;
     -webkit-transition all 0.1s ease-in-out;
 }
 
 a:hover {
     text-decoration: none;
-    color: #ccc;
+    color: #999;
 }
 
+#name {
+    font-size: 120;
+    color: #111;
+    font-family: "Montserrat";
+    text-align: center;
+    letter-spacing: -10;
+    font-weight: 700;
+}
+
+h1 {
+    font-family: Montserrat;
+}
