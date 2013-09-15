@@ -5,6 +5,22 @@ $link-hover-color: #999;
 $fancy-link-color: #ddd;
 $fancy-link-hover-color: #333;
 
+@font-face {
+    font-family: "Inconsolata";
+    src: url('../fonts/Inconsolata.otf');
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url('../fonts/Montserrat-Regular.otf');
+}
+@font-face {
+    font-family: "Montserrat";
+    src: url('../fonts/Montserrat-Bold.otf');
+    font-weight: 700;
+}
+
+
 @mixin center {
     margin-left: auto;
     margin-right: auto;
