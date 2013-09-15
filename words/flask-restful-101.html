@@ -29,7 +29,7 @@ def root(path):
 if __name__ == '__main__':
     app.run()
 </pre>
-                <p>As you might guess, this snippet creates simple Flask server that responds to every request with the path requested. This is cool. Let's see how we might use Flask to build a RESTful API. We need an simple API to build, so let's build an API for managing a set of tasks. A Task API.</p>
+                <p>As you might guess, this snippet creates simple Flask server that responds to every request with the path requested. This is cool. Let's see how we might use Flask to build a RESTful API. We need a simple API to build, so let's build an API for managing a set of tasks. A Task API.</p>
                 <p>First let's define our endpoints. For this simple example, we'll only have one: <span class="inline-code">/tasks</span>. We need to allow creating a new task, retrieving all tasks, and retrieving a single task. Using what we know about Flask, the code for our Task API might look something like this:</p>
 <pre>from flask import Flask, request
 import task_db # handles all database interaction
@@ -83,7 +83,7 @@ api.add_resource(Users, '/users')
 api.add_resource(User, '/user/&lt;int:id&gt;')
 </pre>
                 <p>As you might have guessed, these two lines add a given resource to our API at the specified route. We no longer need to enumerate what methods a route supports, since Flask-RESTful resolves this information by inspecting what methods you've defined on your resource object.</p>
-                <p>You might be wandering what the <span class="inline-code">&lt;int:id&gt;</span> snippet means. This is called a <i>variable rule</i>. It assigns whatever is in that part of the URI for the incomin request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the <span class="inline-code">fetch_task</span> call.</p>
+                <p>You might be wondering what the <span class="inline-code">&lt;int:id&gt;</span> snippet means. This is called a <i>variable rule</i>. It assigns whatever is in that part of the URI for the incomin request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the <span class="inline-code">fetch_task</span> call.</p>
                 <p>Finally, you might be wondering how to get values out of the POST params. Check it out:</p>
 <pre>task_string = request.form['task']</pre>
                 <p>POST params live on the <span class="inline-code">request</span> object in a <span class="inline-code">form</span> dictionary. It's as simple as that.</p>
