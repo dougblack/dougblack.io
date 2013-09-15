@@ -13,7 +13,7 @@
 #title {
     font-family: "Montserrat";
     font-size: 50;
-    color: #444;
+    color: $article-text;
     width: 560;
     letter-spacing: -3px;
     @include center;
@@ -31,7 +31,7 @@
     font-family: "Georgia";
     font-size: 18;
     line-height: 1.4em;
-    color: #444;
+    color: $article-text;
     width: 560px;
     @include center;
 }
@@ -53,7 +53,7 @@
     width: 200px;
     font-size: 25;
     font-family: Montserrat;
-    color: #ddd;
+    color: $fancy-link-color;
     letter-spacing: -2;
     font-weight: 700;
     padding: 4px;
@@ -61,7 +61,7 @@
 }
 
 #more-words:hover {
-    color: #333;
+    color: $fancy-link-hover-color;
 }
 
 pre {
