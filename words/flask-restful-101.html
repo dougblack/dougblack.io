@@ -15,6 +15,7 @@
             <div id="date">Posted on September 14th, 2013</div>
             <div id="article">
                 <p>There are tons of great frameworks to help you build restful APIs. Today we're going to look at my favorite python framework: <a href="http://flask-restful.readthedocs.org/en/latest/index.html">Flask-RESTful</a>. I'm also completely and totally biased towards it, since it was built by Twilio and I'm currently a maintainer of the <a href="https://github.com/twilio/flask-restful">project</a>. That being said, let's get started.</p>
+                <h1>Flask</h1>
                 <p>Flask-RESTful is an extension of <a href="http://flask.pocoo.org/docs/">Flask</a>, which itself is built on many of the excellent utilities provided by <a href="http://werkzeug.pocoo.org/">Werkzeug</a>. Flask lets you do things like this:</p>
 
 <pre>from flask import Flask
@@ -49,6 +50,7 @@ def get_task(id)
     return task_db.fetch_task(id)
 </pre>
                 <p>Great! We've got an API for tasks. But, do you see any issues using Flask to build a RESTful API? One of the biggest ideas behind REST is using HTTP to interact with <i>resources</i>. The problem with this code is our resource is split up over multiple methods. There's no encapsulation. While the API itself incorporates basic elements of REST, the code completely fails to capture these ideas. This is bad! There's no reason our internal code shouldn't match the external appearance of our API.</p>
+                <h1>Flask-RESTful</h1>
                 <p>Enter Flask-RESTful. The same API looks like this in Flask-RESTful.</p>
 <pre>from flask import Flask
 from flask.ext import restful
