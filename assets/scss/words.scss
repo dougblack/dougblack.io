@@ -14,7 +14,6 @@
     font-family: "Montserrat";
     font-size: 50;
     color: $article-text;
-    width: 560;
     letter-spacing: -3px;
     @include center;
 }
@@ -23,16 +22,14 @@
     font-family: "Montserrat";
     font-size: 14;
     color: #bbb;
-    width: 560px;
     @include center;
 }
 
 #article {
     font-family: "Georgia";
-    font-size: 18;
-    line-height: 1.4em;
+    font-size: 20;
+    line-height: 1.5em;
     color: $article-text;
-    width: 560px;
     @include center;
 }
 
