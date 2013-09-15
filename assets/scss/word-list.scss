@@ -1,0 +1,50 @@
+#word-list {
+    margin-top: 50px;
+    width: 600px;
+}
+
+#word-list a {
+    color: #444;
+}
+
+#word-list a:hover {
+    color: #444;
+}
+
+.post-name {
+    font-size: 40;
+    font-family: Montserrat;
+    letter-spacing: -2;
+    font-weight: 700;
+}
+
+.post-date {
+    font-size: 20px;
+    font-family: Montserrat;
+    letter-spacing: -1;
+    display: inline;
+    color: #aaa;
+    float: right;
+}
+
+#word-title {
+    font-size: 30px;
+    font-family: Montserrat;
+    text-align: center;
+    letter-spacing: -2;
+    font-weight: 700;
+    color: #444;
+    padding-bottom: 10px;
+}
+
+.post {
+    overflow: hidden;
+    padding: 10 30 10 30;
+    margin-bottom: 40px;
+}
+
+.post:hover {
+    background: #f8f8f8;
+    outline: 1px solid #ddd;
+}
+
