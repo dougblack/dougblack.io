@@ -3,6 +3,7 @@
         <title>Flask-RESTful 101</title>
         <link rel="stylesheet" href="../assets/stylesheets/global.css">
         <link rel="stylesheet" href="../assets/stylesheets/words.css">
+        <link rel="stylesheet" href="../assets/stylesheets/monokai.css">
         <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
         <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -68,11 +69,13 @@ api = restful.Api(app)</p>
 <p>class Users(restful.Resource):
     def get(self):
         return task_db.fetch_all_tasks()</p>
-<pre><code>def post(self):
-    task_string = request.form['task']
-    task_db.create_task(task_string)
-    return task_string
-</code></pre>
+<div class="codehilite"><pre><span class="n">def</span> <span class="n">post</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">task_string</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">form</span><span class="p">[</span><span class="err">&#39;</span><span class="n">task</span><span class="err">&#39;</span><span class="p">]</span>
+    <span class="n">task_db</span><span class="p">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_string</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">task_string</span>
+</pre></div>
+
+
 <p>class User(restful.Resource)
     def get(self, id):
         return task_db.fetch_task(id)</p>

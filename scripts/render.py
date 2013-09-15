@@ -12,7 +12,7 @@ for file in markdown_files:
     with open("markdown/%s" % file) as f:
         content = f.read()
 
-    md = markdown.markdown(content)
+    md = markdown.markdown(content, extensions=['codehilite'])
     template_loader = jinja2.FileSystemLoader(searchpath="templates")
     template_env = jinja2.Environment(loader=template_loader)
     template = template_env.get_template(TEMPLATE_FILE)
@@ -21,5 +21,3 @@ for file in markdown_files:
     html_filename = splitext(file)[0] + '.html'
     with open('words/%s' % html_filename, 'w') as f:
         f.write(output)
-
-
