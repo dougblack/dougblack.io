@@ -1,0 +1,60 @@
+$default-text: #111;
+$article-text: #444;
+$link-color: #ccc;
+$link-hover-color: #999;
+$fancy-link-color: #ddd;
+$fancy-link-hover-color: #333;
+
+@mixin center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body {
+    font-family: Baskerville;
+    color: $default-text;
+}
+
+#container {
+    width: 600px;
+    margin-top: 80px;
+    @include center;
+}
+
+
+h1 {
+    font-family: Montserrat;
+}
+
+a {
+    color: $link-color;
+    text-decoration: none;
+}
+
+a:hover {
+    color: $link-hover-color;
+}
+
+#header {
+    padding-top: 10px;
+    /*border-bottom: 3px solid #aaa;*/
+    position: fixed;
+    left: 5px;
+    top: 5px;
+}
+
+#logo {
+    font-family: "Montserrat";
+    font-size: 25;
+    letter-spacing: -2;
+    color: $fancy-link-color;
+    font-weight: 700;
+    display: inline;
+    //border: 5px solid #ddd;
+    padding: 3px 8px 3px 6px;
+}
+
+#logo:hover {
+    color: $fancy-link-hover-color;
+}
+

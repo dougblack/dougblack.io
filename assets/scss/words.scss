@@ -1,0 +1,89 @@
+@import "global";
+
+#right {
+    text-align: right;
+    font-size: 18;
+    display: inline;
+    float: right;
+    font-family: "Montserrat";
+    color: #aaa;
+    margin-top: 7px;
+}
+
+#title {
+    font-family: "Montserrat";
+    font-size: 50;
+    color: $article-text;
+    width: 560;
+    letter-spacing: -3px;
+    @include center;
+}
+
+#date {
+    font-family: "Montserrat";
+    font-size: 14;
+    color: #bbb;
+    width: 560px;
+    @include center;
+}
+
+#article {
+    font-family: "Georgia";
+    font-size: 18;
+    line-height: 1.4em;
+    color: $article-text;
+    width: 560px;
+    @include center;
+}
+
+#article a {
+    color: #e33;
+}
+
+#article a:hover {
+    border-bottom: 1px solid #e33;
+}
+
+#footer {
+    margin-top: 50px;
+    margin: 50px auto 100px auto;
+}
+
+#more-words {
+    width: 200px;
+    font-size: 25;
+    font-family: Montserrat;
+    color: $fancy-link-color;
+    letter-spacing: -2;
+    font-weight: 700;
+    padding: 4px;
+    @include center;
+}
+
+#more-words:hover {
+    color: $fancy-link-hover-color;
+}
+
+pre {
+    padding: 10px 40px 10px 40px;
+    background: #eee;
+    border: 1px solid #ababab;
+    font-family: Menlo;
+    margin: 20px -40px;
+    font-size: 16px;
+    position: relative;
+    //line-height: 1.3;
+    //letter-spacing: -1;
+}
+
+.inline-code {
+    background: #eee;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-family: Menlo;
+    font-size: 16px;
+    color: #222;
+    font-style: bold;
+    font-weight: 700;
+}
+
