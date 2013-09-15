@@ -59,16 +59,16 @@ app = Flask(__name__)
 api = restful.Api(app)
 
 class Users(restful.Resource):
-    def get():
+    def get(self):
         return task_db.fetch_all_tasks()
 
-    def post():
+    def post(self):
         task_string = request.form['task']
         task_db.create_task(task_string)
         return task_string
 
 class User(restful.Resource)
-    def get(id):
+    def get(self, id):
         return task_db.fetch_task(id)
 
 api.add_resource(Users, '/users')
