@@ -16,6 +16,7 @@ Flask-RESTful is an extension of [Flask](http://flask.pocoo.org/docs/), which it
     if __name__ == '__main__':
         app.run()
 
+## A Simple API
 As you might guess, this snippet creates a simple Flask server that responds to every request with the path requested. This is cool. Let's see how we might use Flask to build a RESTful API. We need a simple API to build, so let's build an API for managing a set of tasks. A Task API.
 
 First let's define our endpoints. For this simple example, we'll only have one: <span class="inline-code">/tasks</span>. We need to allow creating a new task, retrieving all tasks, and retrieving a single task. Using what we know about Flask, the code for our Task API might look something like this:
@@ -70,6 +71,8 @@ We have classes now! This is a huge deal. Our routes now map directly to *object
 
 So what's actually happening here? Let's investigate.
 
+## The API Object
+
 First, we create a Flask-RESTful <span class="inline-code">Api</span> object. The <span class="inline-code">Api</span> object is used to assign our eventual resources to routes. We'll temporarily skip to the end of the script to show what the <span class="inline-code">Api</span> is used for:
 
     api.add_resource(Users, '/users')
@@ -77,7 +80,11 @@ First, we create a Flask-RESTful <span class="inline-code">Api</span> object. Th
 
 As you might have guessed, these two lines add a given resource to our API at the specified route. We no longer need to enumerate what methods a route supports, since Flask-RESTful resolves this information by inspecting what methods you've defined on your resource object.
 
-You might be wondering what the <span class="inline-code"><int:id></span> snippet means. This is called a *variable rule*. It assigns whatever is in that part of the URI for the incomin request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the <span class="inline-code">fetch_task</span> call.
+## Variable Rules
+
+You might be wondering what the <span class="inline-code"><int:id></span> snippet means. This is called a *variable rule*. It assigns whatever is in that part of the URI for the incoming request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the <span class="inline-code">fetch_task</span> call.
+
+## POST Params
 
 Finally, you might be wondering how to get values out of the POST params. Check it out:
 
@@ -86,4 +93,5 @@ Finally, you might be wondering how to get values out of the POST params. Check 
 POST params live on the <span class="inline-code">request</span> object in a <span class="inline-code">form</span> dictionary. It's as simple as that.
 That wraps up this intro. I hope you like what you've seen so far. For more on Flask-RESTful, check out the [docs](http://flask-restful.readthedocs.org/en/latest/quickstart.html).
 
+## Twilio + Flask-RESTful = <3
 If you have an doubts about the viability of Flask-RESTful as framework, I'd like to let you in on a little not-so-secret: the Twilio API is powered by Flask-RESTful (and some other awesome framework magic that I'm saving for another post).

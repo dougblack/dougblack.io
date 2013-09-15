@@ -31,6 +31,7 @@
 </pre></div>
 
 
+<h2>A Simple API</h2>
 <p>As you might guess, this snippet creates a simple Flask server that responds to every request with the path requested. This is cool. Let's see how we might use Flask to build a RESTful API. We need a simple API to build, so let's build an API for managing a set of tasks. A Task API.</p>
 <p>First let's define our endpoints. For this simple example, we'll only have one: <span class="inline-code">/tasks</span>. We need to allow creating a new task, retrieving all tasks, and retrieving a single task. Using what we know about Flask, the code for our Task API might look something like this:</p>
 <div class="codehilite"><pre><span class="n">from</span> <span class="n">flask</span> <span class="n">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
@@ -82,6 +83,7 @@ from flask.ext import restful</p>
 
 <p>We have classes now! This is a huge deal. Our routes now map directly to <em>objects</em>. Even better, the methods on a given class are exactly the same as their HTTP counterparts. We no longer have to deal with naming methods on our routes like <span class="inline-code">create_task</span>, since there's a 1 to 1 mapping between HTTP methods and methods on our classes.</p>
 <p>So what's actually happening here? Let's investigate.</p>
+<h2>The API Object</h2>
 <p>First, we create a Flask-RESTful <span class="inline-code">Api</span> object. The <span class="inline-code">Api</span> object is used to assign our eventual resources to routes. We'll temporarily skip to the end of the script to show what the <span class="inline-code">Api</span> is used for:</p>
 <div class="codehilite"><pre><span class="n">api</span><span class="p">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">Users</span><span class="p">,</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">users</span><span class="err">&#39;</span><span class="p">)</span>
 <span class="n">api</span><span class="p">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">user</span><span class="o">/&lt;</span><span class="kt">int</span><span class="o">:</span><span class="n">id</span><span class="o">&gt;</span><span class="err">&#39;</span><span class="p">)</span>
@@ -89,7 +91,9 @@ from flask.ext import restful</p>
 
 
 <p>As you might have guessed, these two lines add a given resource to our API at the specified route. We no longer need to enumerate what methods a route supports, since Flask-RESTful resolves this information by inspecting what methods you've defined on your resource object.</p>
-<p>You might be wondering what the <span class="inline-code"><int:id></span> snippet means. This is called a <em>variable rule</em>. It assigns whatever is in that part of the URI for the incomin request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the <span class="inline-code">fetch_task</span> call.</p>
+<h2>Variable Rules</h2>
+<p>You might be wondering what the <span class="inline-code"><int:id></span> snippet means. This is called a <em>variable rule</em>. It assigns whatever is in that part of the URI for the incoming request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the <span class="inline-code">fetch_task</span> call.</p>
+<h2>POST Params</h2>
 <p>Finally, you might be wondering how to get values out of the POST params. Check it out:</p>
 <div class="codehilite"><pre><span class="n">task_string</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">form</span><span class="p">[</span><span class="err">&#39;</span><span class="n">task</span><span class="err">&#39;</span><span class="p">]</span>
 </pre></div>
@@ -97,6 +101,7 @@ from flask.ext import restful</p>
 
 <p>POST params live on the <span class="inline-code">request</span> object in a <span class="inline-code">form</span> dictionary. It's as simple as that.
 That wraps up this intro. I hope you like what you've seen so far. For more on Flask-RESTful, check out the <a href="http://flask-restful.readthedocs.org/en/latest/quickstart.html">docs</a>.</p>
+<h2>Twilio + Flask-RESTful = &lt;3</h2>
 <p>If you have an doubts about the viability of Flask-RESTful as framework, I'd like to let you in on a little not-so-secret: the Twilio API is powered by Flask-RESTful (and some other awesome framework magic that I'm saving for another post).</p>
             </div>
             <div id="footer">
