@@ -1,35 +1,38 @@
 body {
-    background: #fff;
-    color: #111;
-}
+  font-family: Baskerville;
+  color: #111111; }
 
 #container {
-    width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 100px;
-}
-
-a {
-    color: #ccc;
-    text-decoration: none;
-    -webkit-transition all 0.1s ease-in-out;
-}
-
-a:hover {
-    text-decoration: none;
-    color: #999;
-}
-
-#name {
-    font-size: 120;
-    color: #111;
-    font-family: "Montserrat";
-    text-align: center;
-    letter-spacing: -10;
-    font-weight: 700;
-}
+  width: 600px;
+  margin-top: 80px;
+  margin-left: auto;
+  margin-right: auto; }
 
 h1 {
-    font-family: Montserrat;
-}
+  font-family: Montserrat; }
+
+a {
+  color: #cccccc;
+  text-decoration: none; }
+
+a:hover {
+  color: #999999; }
+
+#header {
+  padding-top: 10px;
+  /*border-bottom: 3px solid #aaa;*/
+  position: fixed;
+  left: 5px;
+  top: 5px; }
+
+#logo {
+  font-family: "Montserrat";
+  font-size: 25;
+  letter-spacing: -2;
+  color: #ddd;
+  font-weight: 700;
+  display: inline;
+  padding: 3px 8px 3px 6px; }
+
+#logo:hover {
+  color: #333; }
