@@ -63,13 +63,15 @@
 
 pre {
     padding: 10px 40px 10px 40px;
-    background: #eee;
-    border: 1px solid #ababab;
-    font-family: Menlo;
-    margin: 20px -40px;
-    font-size: 16px;
+    background: #fafafa;
+    border: 1px solid #dedede;
+    border-left: 10px solid #dedede;
+    font-family: Inconsolata;
+    margin: 20px -30px;
+    font-size: 20px;
     position: relative;
     overflow: auto;
+    color: #000;
 }
 
 .inline-code {
