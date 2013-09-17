@@ -28,39 +28,35 @@
 <p>There are tons of great frameworks to help you build restful APIs. Today we're going to look at my favorite python framework: <a href="http://flask-restful.readthedocs.org/en/latest/index.html">Flask-RESTful</a>. I'm also completely and totally biased towards it, since it was built by Twilio and I'm currently a maintainer of the <a href="https://github.com/twilio/flask-restful">project</a>. That being said, let's get started.</p>
 <h2>Flask</h2>
 <p>Flask-RESTful is an extension of <a href="http://flask.pocoo.org/docs/">Flask</a>, which itself is built on many of the excellent utilities provided by <a href="http://werkzeug.pocoo.org/">Werkzeug</a>. Flask lets you do things like this:</p>
-<div class="codehilite"><pre><span class="n">from</span> <span class="n">flask</span> <span class="n">import</span> <span class="n">Flask</span>
-<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
 
-<span class="err">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="err">&#39;</span><span class="o">/&lt;</span><span class="n">string</span><span class="o">:</span><span class="n">path</span><span class="o">&gt;</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="err">&#39;</span><span class="n">GET</span><span class="err">&#39;</span><span class="p">])</span>
-<span class="n">def</span> <span class="n">root</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">:</span>
-    <span class="k">return</span> <span class="err">&#39;</span><span class="n">You</span> <span class="n">requested</span><span class="o">:</span> <span class="o">/</span><span class="err">&#39;</span> <span class="o">+</span> <span class="n">path</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&lt;string:path&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">&#39;You requested: /&#39;</span> <span class="o">+</span> <span class="n">path</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="err">&#39;</span><span class="n">__main__</span><span class="err">&#39;</span><span class="o">:</span>
-    <span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 
 
 <h2>A Simple API</h2>
 <p>As you might guess, this snippet creates a simple Flask server that responds to every request with the path requested. This is cool. Let's see how we might use Flask to build a RESTful API. We need a simple API to build, so let's build an API for managing a set of tasks. A Task API.</p>
 <p>First let's define our endpoints. For this simple example, we'll only have one: <span class="inline-code">/tasks</span>. We need to allow creating a new task, retrieving all tasks, and retrieving a single task. Using what we know about Flask, the code for our Task API might look something like this:</p>
-<div class="codehilite"><pre><span class="n">from</span> <span class="n">flask</span> <span class="n">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
-<span class="n">import</span> <span class="n">task_db</span> <span class="err">#</span> <span class="n">handles</span> <span class="n">all</span> <span class="n">database</span> <span class="n">interaction</span>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
+<span class="kn">import</span> <span class="nn">task_db</span> <span class="c"># handles all database interaction</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
-<span class="err">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="err">&#39;</span><span class="o">/</span><span class="n">tasks</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="err">&#39;</span><span class="n">GET</span><span class="err">&#39;</span><span class="p">])</span>
-<span class="n">def</span> <span class="n">get_all_tasks</span><span class="p">()</span><span class="o">:</span>
-    <span class="k">return</span> <span class="n">task_db</span><span class="p">.</span><span class="n">fetch_all_tasks</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">get_all_tasks</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">task_db</span><span class="o">.</span><span class="n">fetch_all_tasks</span><span class="p">()</span>
 
-<span class="err">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="err">&#39;</span><span class="o">/</span><span class="n">tasks</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="err">&#39;</span><span class="n">POST</span><span class="err">&#39;</span><span class="p">])</span>
-<span class="n">def</span> <span class="n">create_task</span><span class="p">()</span><span class="o">:</span>
-    <span class="n">task_string</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">form</span><span class="p">[</span><span class="err">&#39;</span><span class="n">task</span><span class="err">&#39;</span><span class="p">]</span>
-    <span class="n">task_db</span><span class="p">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_string</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_task</span><span class="p">():</span>
+    <span class="n">task_string</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s">&#39;task&#39;</span><span class="p">]</span>
+    <span class="n">task_db</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_string</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">task_string</span>
 
-<span class="err">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="err">&#39;</span><span class="o">/</span><span class="n">tasks</span><span class="o">/&lt;</span><span class="kt">int</span><span class="o">:</span><span class="n">id</span><span class="o">&gt;</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="err">&#39;</span><span class="n">GET</span><span class="err">&#39;</span><span class="p">])</span>
-<span class="n">def</span> <span class="n">get_task</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">task_db</span><span class="p">.</span><span class="n">fetch_task</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_task</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">task_db</span><span class="o">.</span><span class="n">fetch_task</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
 </pre></div>
 
 
@@ -70,23 +66,23 @@
 from flask import Flask
 from flask.ext import restful</p>
 <div class="codehilite"><pre><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
-<span class="n">api</span> <span class="o">=</span> <span class="n">restful</span><span class="p">.</span><span class="n">Api</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">restful</span><span class="o">.</span><span class="n">Api</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 
-<span class="n">class</span> <span class="n">Users</span><span class="p">(</span><span class="n">restful</span><span class="p">.</span><span class="n">Resource</span><span class="p">)</span><span class="o">:</span>
-    <span class="n">def</span> <span class="n">get</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="o">:</span>
-        <span class="k">return</span> <span class="n">task_db</span><span class="p">.</span><span class="n">fetch_all_tasks</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">Users</span><span class="p">(</span><span class="n">restful</span><span class="o">.</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">task_db</span><span class="o">.</span><span class="n">fetch_all_tasks</span><span class="p">()</span>
 
-    <span class="n">def</span> <span class="n">post</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="o">:</span>
-        <span class="n">task_string</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">form</span><span class="p">[</span><span class="err">&#39;</span><span class="n">task</span><span class="err">&#39;</span><span class="p">]</span>
-        <span class="n">task_db</span><span class="p">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_string</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">task_string</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s">&#39;task&#39;</span><span class="p">]</span>
+        <span class="n">task_db</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_string</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">task_string</span>
 
-<span class="n">class</span> <span class="n">User</span><span class="p">(</span><span class="n">restful</span><span class="p">.</span><span class="n">Resource</span><span class="p">)</span>
-    <span class="n">def</span> <span class="n">get</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span><span class="o">:</span>
-        <span class="k">return</span> <span class="n">task_db</span><span class="p">.</span><span class="n">fetch_task</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">restful</span><span class="o">.</span><span class="n">Resource</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">task_db</span><span class="o">.</span><span class="n">fetch_task</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
 
-<span class="n">api</span><span class="p">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">Users</span><span class="p">,</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">users</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">user</span><span class="o">/&lt;</span><span class="kt">int</span><span class="o">:</span><span class="n">id</span><span class="o">&gt;</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">Users</span><span class="p">,</span> <span class="s">&#39;/users&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="s">&#39;/user/&lt;int:id&gt;&#39;</span><span class="p">)</span>
 </pre></div>
 
 
@@ -94,8 +90,8 @@ from flask.ext import restful</p>
 <p>So what's actually happening here? Let's investigate.</p>
 <h2>The API Object</h2>
 <p>First, we create a Flask-RESTful <span class="inline-code">Api</span> object. The <span class="inline-code">Api</span> object is used to assign our eventual resources to routes. We'll temporarily skip to the end of the script to show what the <span class="inline-code">Api</span> is used for:</p>
-<div class="codehilite"><pre><span class="n">api</span><span class="p">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">Users</span><span class="p">,</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">users</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">user</span><span class="o">/&lt;</span><span class="kt">int</span><span class="o">:</span><span class="n">id</span><span class="o">&gt;</span><span class="err">&#39;</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">Users</span><span class="p">,</span> <span class="s">&#39;/users&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="s">&#39;/user/&lt;int:id&gt;&#39;</span><span class="p">)</span>
 </pre></div>
 
 
@@ -104,14 +100,14 @@ from flask.ext import restful</p>
 <p>You might be wondering what the <span class="inline-code"><int:id></span> snippet means. This is called a <em>variable rule</em>. It assigns whatever is in that part of the URI for the incoming request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the <span class="inline-code">fetch_task</span> call.</p>
 <h2>POST Params</h2>
 <p>Finally, you might be wondering how to get values out of the POST params. Check it out:</p>
-<div class="codehilite"><pre><span class="n">task_string</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">form</span><span class="p">[</span><span class="err">&#39;</span><span class="n">task</span><span class="err">&#39;</span><span class="p">]</span>
+<div class="codehilite"><pre><span class="n">task_string</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s">&#39;task&#39;</span><span class="p">]</span>
 </pre></div>
 
 
 <p>POST params live on the <span class="inline-code">request</span> object in a <span class="inline-code">form</span> dictionary. It's as simple as that.
 That wraps up this intro. I hope you like what you've seen so far. For more on Flask-RESTful, check out the <a href="http://flask-restful.readthedocs.org/en/latest/quickstart.html">docs</a>.</p>
 <h2>Twilio + Flask-RESTful = &lt;3</h2>
-<p>If you have an doubts about the viability of Flask-RESTful as framework, I'd like to let you in on a little not-so-secret: the Twilio API is powered by Flask-RESTful (and some other awesome framework magic that I'm saving for another post).</p>
+<p>If you have any doubts about the viability of Flask-RESTful as framework, I'd like to let you in on a little not-so-secret: the Twilio API is powered by Flask-RESTful (and some other awesome framework magic that I'm saving for another post).</p>
             </div>
             <div id="footer">
                 <a href="../words.html"><div id="more-words">MORE WORDS</div></a>

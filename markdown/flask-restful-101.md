@@ -6,8 +6,8 @@ There are tons of great frameworks to help you build restful APIs. Today we're g
 ## Flask
 Flask-RESTful is an extension of [Flask][flask-home], which itself is built on many of the excellent utilities provided by [Werkzeug][werkzeug-home]. Flask lets you do things like this:
 
+    :::python
     from flask import Flask
-    app = Flask(__name__)
 
     @app.route('/<string:path>', methods=['GET'])
     def root(path):
@@ -21,22 +21,20 @@ As you might guess, this snippet creates a simple Flask server that responds to 
 
 First let's define our endpoints. For this simple example, we'll only have one: <span class="inline-code">/tasks</span>. We need to allow creating a new task, retrieving all tasks, and retrieving a single task. Using what we know about Flask, the code for our Task API might look something like this:
 
+    :::python
     from flask import Flask, request
     import task_db # handles all database interaction
 
     app = Flask(__name__)
 
-    @app.route('/tasks', methods=['GET'])
     def get_all_tasks():
         return task_db.fetch_all_tasks()
 
-    @app.route('/tasks', methods=['POST'])
     def create_task():
         task_string = request.form['task']
         task_db.create_task(task_string)
         return task_string
 
-    @app.route('/tasks/<int:id>', methods=['GET'])
     def get_task(id)
         return task_db.fetch_task(id)
 
@@ -48,6 +46,7 @@ Enter Flask-RESTful. The same API looks like this in Flask-RESTful.
 from flask import Flask
 from flask.ext import restful
 
+    :::python
     app = Flask(__name__)
     api = restful.Api(app)
 
@@ -75,6 +74,7 @@ So what's actually happening here? Let's investigate.
 
 First, we create a Flask-RESTful <span class="inline-code">Api</span> object. The <span class="inline-code">Api</span> object is used to assign our eventual resources to routes. We'll temporarily skip to the end of the script to show what the <span class="inline-code">Api</span> is used for:
 
+    ::python
     api.add_resource(Users, '/users')
     api.add_resource(User, '/user/<int:id>')
 
@@ -88,6 +88,7 @@ You might be wondering what the <span class="inline-code"><int:id></span> snippe
 
 Finally, you might be wondering how to get values out of the POST params. Check it out:
 
+    :::python
     task_string = request.form['task']
 
 POST params live on the <span class="inline-code">request</span> object in a <span class="inline-code">form</span> dictionary. It's as simple as that.
