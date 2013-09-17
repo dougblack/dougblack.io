@@ -1,10 +1,10 @@
 # Flask-RESTful 101
 #### Posted on September 14th, 2013
 
-There are tons of great frameworks to help you build restful APIs. Today we're going to look at my favorite python framework: [Flask-RESTful](http://flask-restful.readthedocs.org/en/latest/index.html). I'm also completely and totally biased towards it, since it was built by Twilio and I'm currently a maintainer of the [project](https://github.com/twilio/flask-restful). That being said, let's get started.
+There are tons of great frameworks to help you build restful APIs. Today we're going to look at my favorite python framework: [Flask-RESTful][flask-restful-home]. I'm also completely and totally biased towards it, since it was built by Twilio and I'm currently a maintainer of the [project][flask-restful-github]. That being said, let's get started.
 
 ## Flask
-Flask-RESTful is an extension of [Flask](http://flask.pocoo.org/docs/), which itself is built on many of the excellent utilities provided by [Werkzeug](http://werkzeug.pocoo.org/). Flask lets you do things like this:
+Flask-RESTful is an extension of [Flask][flask-home], which itself is built on many of the excellent utilities provided by [Werkzeug][werkzeug-home]. Flask lets you do things like this:
 
     from flask import Flask
     app = Flask(__name__)
@@ -91,7 +91,13 @@ Finally, you might be wondering how to get values out of the POST params. Check 
     task_string = request.form['task']
 
 POST params live on the <span class="inline-code">request</span> object in a <span class="inline-code">form</span> dictionary. It's as simple as that.
-That wraps up this intro. I hope you like what you've seen so far. For more on Flask-RESTful, check out the [docs](http://flask-restful.readthedocs.org/en/latest/quickstart.html).
+That wraps up this intro. I hope you like what you've seen so far. For more on Flask-RESTful, check out the [docs][flask-docs].
 
 ## Twilio + Flask-RESTful = <3
-If you have an doubts about the viability of Flask-RESTful as framework, I'd like to let you in on a little not-so-secret: the Twilio API is powered by Flask-RESTful (and some other awesome framework magic that I'm saving for another post).
+If you have any doubts about the viability of Flask-RESTful as framework, I'd like to let you in on a little not-so-secret: the Twilio API is powered by Flask-RESTful (and some other awesome framework magic that I'm saving for another post).
+
+[flask-restful-github]: https://github.com/twilio/flask-restful
+[flask-restful-home]: http://flask-restful.readthedocs.org/en/latest/index.html
+[flask-docs]: http://flask-restful.readthedocs.org/en/latest/quickstart.html
+[flask-home]: http://flask.pocoo.org/docs/
+[werkzeug-home]: http://werkzeug.pocoo.org/
