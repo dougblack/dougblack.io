@@ -62,10 +62,11 @@
 
 <p>Great! We've got an API for tasks. But, do you see any issues using Flask to build a RESTful API? One of the biggest ideas behind REST is using HTTP to interact with <em>resources</em>. The problem with this code is our resource is split up over multiple methods. There's no encapsulation. While the API itself incorporates basic elements of REST, the code completely fails to capture these ideas. This is bad! There's no reason our internal code shouldn't match the external appearance of our API.</p>
 <h2>Flask-RESTful</h2>
-<p>Enter Flask-RESTful. The same API looks like this in Flask-RESTful.
-from flask import Flask
-from flask.ext import restful</p>
-<div class="codehilite"><pre><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<p>Enter Flask-RESTful. The same API looks like this in Flask-RESTful.</p>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">flask.ext</span> <span class="kn">import</span> <span class="n">restful</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 <span class="n">api</span> <span class="o">=</span> <span class="n">restful</span><span class="o">.</span><span class="n">Api</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Users</span><span class="p">(</span><span class="n">restful</span><span class="o">.</span><span class="n">Resource</span><span class="p">):</span>

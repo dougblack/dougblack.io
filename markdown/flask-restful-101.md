@@ -43,10 +43,11 @@ Great! We've got an API for tasks. But, do you see any issues using Flask to bui
 ## Flask-RESTful
 
 Enter Flask-RESTful. The same API looks like this in Flask-RESTful.
-from flask import Flask
-from flask.ext import restful
 
     :::python
+    from flask import Flask
+    from flask.ext import restful
+
     app = Flask(__name__)
     api = restful.Api(app)
 
