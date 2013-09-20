@@ -47,14 +47,17 @@
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/tasks&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;GET&#39;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">get_all_tasks</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">task_db</span><span class="o">.</span><span class="n">fetch_all_tasks</span><span class="p">()</span>
 
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/tasks&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;POST&#39;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">create_task</span><span class="p">():</span>
     <span class="n">task_string</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s">&#39;task&#39;</span><span class="p">]</span>
     <span class="n">task_db</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_string</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">task_string</span>
 
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/tasks/&lt;int:id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;GET&#39;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">get_task</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">task_db</span><span class="o">.</span><span class="n">fetch_task</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
 </pre></div>
@@ -98,7 +101,7 @@
 
 <p>As you might have guessed, these two lines add a given resource to our API at the specified route. We no longer need to enumerate what methods a route supports, since Flask-RESTful resolves this information by inspecting what methods you've defined on your resource object.</p>
 <h2>Variable Rules</h2>
-<p>You might be wondering what the <span class="inline-code"><int:id></span> snippet means. This is called a <em>variable rule</em>. It assigns whatever is in that part of the URI for the incoming request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the <span class="inline-code">fetch_task</span> call.</p>
+<p>You might be wondering what the <span class="inline-code">&lt;int:id&gt;</span> snippet means. This is called a <em>variable rule</em>. It assigns whatever is in that part of the URI for the incoming request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the <span class="inline-code">fetch_task</span> call.</p>
 <h2>POST Params</h2>
 <p>Finally, you might be wondering how to get values out of the POST params. Check it out:</p>
 <div class="codehilite"><pre><span class="n">task_string</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s">&#39;task&#39;</span><span class="p">]</span>

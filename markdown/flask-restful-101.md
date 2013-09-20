@@ -27,14 +27,17 @@ First let's define our endpoints. For this simple example, we'll only have one: 
 
     app = Flask(__name__)
 
+    @app.route('/tasks', methods=['GET'])
     def get_all_tasks():
         return task_db.fetch_all_tasks()
 
+    @app.route('/tasks', methods=['POST'])
     def create_task():
         task_string = request.form['task']
         task_db.create_task(task_string)
         return task_string
 
+    @app.route('/tasks/<int:id>', methods=['GET'])
     def get_task(id)
         return task_db.fetch_task(id)
 
@@ -83,7 +86,7 @@ As you might have guessed, these two lines add a given resource to our API at th
 
 ## Variable Rules
 
-You might be wondering what the <span class="inline-code"><int:id></span> snippet means. This is called a *variable rule*. It assigns whatever is in that part of the URI for the incoming request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the <span class="inline-code">fetch_task</span> call.
+You might be wondering what the <span class="inline-code">&lt;int:id&gt;</span> snippet means. This is called a *variable rule*. It assigns whatever is in that part of the URI for the incoming request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the <span class="inline-code">fetch_task</span> call.
 
 ## POST Params
 
