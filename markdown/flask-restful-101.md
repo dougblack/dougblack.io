@@ -19,7 +19,7 @@ Flask-RESTful is an extension of [Flask][flask-home], which itself is built on m
 ## A Simple API
 As you might guess, this snippet creates a simple Flask server that responds to every request with the path requested. This is cool. Let's see how we might use Flask to build a RESTful API. We need a simple API to build, so let's build an API for managing a set of tasks. A Task API.
 
-First let's define our endpoints. For this simple example, we'll only have one: <span class="inline-code">/tasks</span>. We need to allow creating a new task, retrieving all tasks, and retrieving a single task. Using what we know about Flask, the code for our Task API might look something like this:
+First let's define our endpoints. For this simple example, we'll only have one: `/tasks`. We need to allow creating a new task, retrieving all tasks, and retrieving a single task. Using what we know about Flask, the code for our Task API might look something like this:
 
     :::python
     from flask import Flask, request
@@ -70,13 +70,13 @@ Enter Flask-RESTful. The same API looks like this in Flask-RESTful.
     api.add_resource(Users, '/users')
     api.add_resource(User, '/user/<int:id>')
 
-We have classes now! This is a huge deal. Our routes now map directly to *objects*. Even better, the methods on a given class are exactly the same as their HTTP counterparts. We no longer have to deal with naming methods on our routes like <span class="inline-code">create_task</span>, since there's a 1 to 1 mapping between HTTP methods and methods on our classes.
+We have classes now! This is a huge deal. Our routes now map directly to *objects*. Even better, the methods on a given class are exactly the same as their HTTP counterparts. We no longer have to deal with naming methods on our routes like `create_task`, since there's a 1 to 1 mapping between HTTP methods and methods on our classes.
 
 So what's actually happening here? Let's investigate.
 
 ## The API Object
 
-First, we create a Flask-RESTful <span class="inline-code">Api</span> object. The <span class="inline-code">Api</span> object is used to assign our eventual resources to routes. We'll temporarily skip to the end of the script to show what the <span class="inline-code">Api</span> is used for:
+First, we create a Flask-RESTful `Api` object. The `Api` object is used to assign our eventual resources to routes. We'll temporarily skip to the end of the script to show what the `Api` is used for:
 
     ::python
     api.add_resource(Users, '/users')
@@ -86,7 +86,7 @@ As you might have guessed, these two lines add a given resource to our API at th
 
 ## Variable Rules
 
-You might be wondering what the <span class="inline-code">&lt;int:id&gt;</span> snippet means. This is called a *variable rule*. It assigns whatever is in that part of the URI for the incoming request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the <span class="inline-code">fetch_task</span> call.
+You might be wondering what the `<int:id>` snippet means. This is called a *variable rule*. It assigns whatever is in that part of the URI for the incoming request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the `fetch_task` call.
 
 ## POST Params
 
@@ -95,7 +95,7 @@ Finally, you might be wondering how to get values out of the POST params. Check 
     :::python
     task_string = request.form['task']
 
-POST params live on the <span class="inline-code">request</span> object in a <span class="inline-code">form</span> dictionary. It's as simple as that.
+POST params live on the `request` object in a `form` dictionary. It's as simple as that.
 That wraps up this intro. I hope you like what you've seen so far. For more on Flask-RESTful, check out the [docs][flask-docs].
 
 ## Twilio + Flask-RESTful = <3
