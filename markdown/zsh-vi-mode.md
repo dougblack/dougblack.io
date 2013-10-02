@@ -126,10 +126,10 @@ comes after it to yellow. So, the `[% NORMAL]%` bit outputs `[NORMAL]` in yellow
 `%` symbols are used to escape the brackets. Finally, we'll have to end with `%{$reset_color%}`
 to stop outputting yellow.
 
-Next, we'll set the regular left prompt. To understand the next line, you'll need
-to know about zsh parameter expansion. Basically, it's just `${VARIABLE/PATTERN/REPLACEMENT}`.
-If the `VARIABLE` matches the `PATTERN`, replace it with `REPLACEMENT`. The line we're
-looking at is this:
+Next, we have to put this snippet in the right prompt depending on the current vim mode.
+To understand the next line, you'll need to know about zsh parameter expansion. Basically,
+it's just `${VARIABLE/PATTERN/REPLACEMENT}`.  If the `VARIABLE` matches the `PATTERN`,
+replace it with `REPLACEMENT`. The line we're looking at is this:
 
     :::bash
     RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) $EPS1"
@@ -151,7 +151,7 @@ To redraw the current prompt.
 
 ## Attach The Widgets
 
-We have a working function, but how do we register it to `zle`. You'll notice our
+We have a working function, but how do we register with `zle`? You'll notice our
 function is named `zle-line-init` and `zle-keymap-select`. As previously discussed, these
 are also the names of two important widgets that get triggered when moving between Vim modes.
 So, to make our new widget respond to the correct Vim mode we have to add these widgets to
