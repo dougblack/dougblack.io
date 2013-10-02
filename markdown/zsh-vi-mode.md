@@ -161,9 +161,9 @@ the `zle` module. This is easy, the lines are:
     zle -N zle-line-init
     zle -N zle-keymap-string
 
-## Final Script
+## Full Snippet
 
-Here's the final snippet:
+Here's the full snippet:
 
     :::bash
     bindkey -v
