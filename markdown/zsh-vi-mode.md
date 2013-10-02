@@ -105,7 +105,10 @@ Currently, my prompt looks something like this:
 
 The current directory is on the left and my current git branch is on the right.
 I want to add a `[NORMAL]` status message to the right prompt when I'm in command
-mode for vim.
+mode for vim so that it looks like this:
+
+    :::bash
+    [~/code]:                         [NORMAL] [master]
 
 So let's take a look at our actual function that updates my prompt. I'll present
 it in full here first, and then step through it slowly and explain more.
