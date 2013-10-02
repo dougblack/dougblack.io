@@ -105,7 +105,10 @@ Currently, my prompt looks something like this:
 
 The current directory is on the left and my current git branch is on the right.
 I want to add a `[NORMAL]` status message to the right prompt when I'm in command
-mode for vim.
+mode for vim so that it looks like this:
+
+    :::bash
+    [~/code]:                         [NORMAL] [master]
 
 So let's take a look at our actual function that updates my prompt. I'll present
 it in full here first, and then step through it slowly and explain more.
@@ -120,13 +123,13 @@ it in full here first, and then step through it slowly and explain more.
 Let's look at the `VIM_PROMPT` variable. If you've never messed with zsh colors, take
 note that the `%{fg_bold[yellow]%}` snippet sets ths text color of everything that
 comes after it to yellow. So, the `[% NORMAL]%` bit outputs `[NORMAL]` in yellow. The
-`%` symbols are used to escape the brackets. Next, we call `%{$reset_color%}` to stop
-outputting yellow.
+`%` symbols are used to escape the brackets. Finally, we'll have to end with `%{$reset_color%}`
+to stop outputting yellow.
 
-Next, we'll set the regular left prompt. To understand the next line, you'll need
-to know about zsh parameter expansion. Basically, it's just `${VARIABLE/PATTERN/REPLACEMENT}`.
-If the `VARIABLE` matches the `PATTERN`, replace it with `REPLACEMENT`. The line we're
-looking at is this:
+Next, we have to put this snippet in the right prompt depending on the current vim mode.
+To understand the next line, you'll need to know about zsh parameter expansion. Basically,
+it's just `${VARIABLE/PATTERN/REPLACEMENT}`.  If the `VARIABLE` matches the `PATTERN`,
+replace it with `REPLACEMENT`. The line we're looking at is this:
 
     :::bash
     RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) $EPS1"
@@ -148,7 +151,7 @@ To redraw the current prompt.
 
 ## Attach The Widgets
 
-We have a working function, but how do we register it to `zle`. You'll notice our
+We have a working function, but how do we register with `zle`? You'll notice our
 function is named `zle-line-init` and `zle-keymap-select`. As previously discussed, these
 are also the names of two important widgets that get triggered when moving between Vim modes.
 So, to make our new widget respond to the correct Vim mode we have to add these widgets to
@@ -181,9 +184,9 @@ are a few that I've found useful.
     # ctrl-r starts searching history backward
     bindkey '^r' history-incremental-search-backward
 
-## Final Script
+## Full Snippet
 
-Here's the final snippet:
+Here's the full snippet:
 
     :::bash
     bindkey -v
