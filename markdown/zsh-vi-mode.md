@@ -212,7 +212,7 @@ This goes in your `.zshrc` file.
 
 ## Wrapping It Up
 
-That's pretty much it. You show now have a more informative, prettier prompt and know
+That's pretty much it. You should now have a more informative, prettier prompt and know
 a little more about how `zle` works!
 
 Questions? [@dougblackio](https://twitter.com/dougblackio)
