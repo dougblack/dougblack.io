@@ -158,6 +158,23 @@ the `zle` module. This is easy, the lines are:
     zle -N zle-line-init
     zle -N zle-keymap-string
 
+## Final Script
+
+Here's the final snippet:
+
+    :::bash
+    bindkey -v
+    function zle-line-init zle-keymap-select {
+        VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+        RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) $EPS1"
+        zle reset-prompt
+    }
+    zle -N zle-line-init
+    zle -N zle-keymap-select
+    export KEYTIMEOUT=1
+
+This goes in your `.zshrc` file.
+
 ## Wrapping It Up
 
 That's pretty much it. You show now have a more informative, prettier prompt and know
