@@ -20,5 +20,5 @@ for file in markdown_files:
     output = template.render(title=title, content=md)
 
     html_filename = splitext(file)[0] + '.html'
-    with open('words/%s' % html_filename, 'w') as f:
+    with open('words/%s' % html_filename, 'w+') as f:
         f.write(output)
