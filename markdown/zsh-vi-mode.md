@@ -121,7 +121,7 @@ it in full here first, and then step through it slowly and explain more.
     }
 
 Let's look at the `VIM_PROMPT` variable. If you've never messed with zsh colors, take
-note that the `%{fg_bold[yellow]%}` snippet sets ths text color of everything that
+note that the `%{fg_bold[yellow]%}` snippet sets the text color of everything that
 comes after it to yellow. So, the `[% NORMAL]%` bit outputs `[NORMAL]` in yellow. The
 `%` symbols are used to escape the brackets. Finally, we'll have to end with `%{$reset_color%}`
 to stop outputting yellow.
