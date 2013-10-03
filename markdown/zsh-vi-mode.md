@@ -83,7 +83,7 @@ The second is `zle-keymap-select`. Per the zsh documentation:
 Sounds perfect, if we can modify the code run during these two events, we have
 found the hooks we need to modify our prompt depending on which mode we're in!
 
-The syntax for adding custom function to a `zle` widget looks like this:
+The syntax for adding custom a function to a `zle` widget looks like this:
 
     :::bash
     something() {
@@ -159,7 +159,7 @@ the `zle` module. This is easy, the lines are:
 
     :::bash
     zle -N zle-line-init
-    zle -N zle-keymap-string
+    zle -N zle-keymap-select
 
 ## Common Key Bindings
 
