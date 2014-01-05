@@ -215,9 +215,9 @@ This goes in your `.zshrc` file.
 That's pretty much it. You should now have a more informative, prettier prompt and know
 a little more about how `zle` works!
 
-*Update:* From the short discussion of this article on [lobsters](https://lobste.rs/s/tfjs4k/adding_vi_to_your_zsh)
+**Update:** From the short discussion of this article on [lobsters](https://lobste.rs/s/tfjs4k/adding_vi_to_your_zsh)
 I was tipped off to the existence of [opp.zsh](https://github.com/hchbaw/opp.zsh), a wonderful
-plugin for zsh that makes vi mode even better! This enables text objects &mdash;, a wonderful
+plugin for zsh that makes vi mode even better! This enables text objects&mdash;a wonderful
 magical feature added in Vim. Text object support lets you run commands like `ciw` (for change
 inner word) that make line editing even simpler. I highly recommend checking out opp.zsh for an
 even better vi-mode in zsh.
