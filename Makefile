@@ -7,3 +7,6 @@ style:
 render: style
 	python scripts/render.py
 
+watch:
+	sass --watch assets/scss:assets/stylesheets
+
