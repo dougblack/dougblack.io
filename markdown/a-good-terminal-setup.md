@@ -61,12 +61,13 @@ Much faster.
 This is the latest addition to my environment. Tmux is a Terminal MUltipleXer.
 It's basically a window manager for you terminal, where each window/pane is its
 own shell session. So you can split your terminal in half and have a file open in
-one split and an ssh session to your serve in the other half. iTerm2 provides this
-same functionality at the GUI level, but I'm a big fan of having heavily customizable
-tools and tmux appears to have better prospects in this regard. It also has this
-thing called `copy-mode`, where you can do a vi-like visual block selection thing
-to copy text from one window to another without using the mouse. The mouse is evil.
-This is a win.
+one split and an ssh session to your serve in the other half.
+
+iTerm2 provides this same functionality at the GUI level, but I'm a big fan of
+having heavily customizable tools and tmux appears to have better prospects in this
+regard. It also has this thing called `copy-mode`, where you can do a vi-like visual
+block selection thing to copy text from one window to another without using the mouse.
+The mouse is evil. This is a win.
 
 ## Vim
 
@@ -74,6 +75,7 @@ This is by far my highest recommended tool of this entire article. Vim changed m
 development speed and enjoyment immensely. Editing text used to be a point, click,
 then type a little then point, click, then type a little experience. Now it is a
 type a little, then a little more, then continue typing, then keep typing experience.
+
 Has Vim made me a better developer? No. Your editor can't do that. But it has lowered
 the barriers to my text-editing experience. Additionally, Vim is fun. It just is.
 Wrangling text in Vim is a pleasant experience and there are times where I reach for
