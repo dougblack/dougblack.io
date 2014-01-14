@@ -20,14 +20,13 @@ $fancy-link-hover-color: #333;
     font-weight: 700;
 }
 
-
 @mixin center {
     margin-left: auto;
     margin-right: auto;
 }
 
 body {
-    font-family: Baskerville;
+    font-family: Roboto;
     color: $default-text;
 }
 
@@ -40,6 +39,7 @@ body {
 
 h2 {
     font-family: Montserrat;
+    font-size: 28px;
 }
 
 a {
