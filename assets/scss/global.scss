@@ -1,5 +1,5 @@
 $default-text: #111;
-$article-text: #444;
+$article-text: #373737;
 $link-color: #ccc;
 $link-hover-color: #999;
 $fancy-link-color: #ddd;
@@ -20,26 +20,38 @@ $fancy-link-hover-color: #333;
     font-weight: 700;
 }
 
+@font-face {
+    font-family: "ProximaNova";
+    src: url('../fonts/ProximaNovaRegular.otf');
+}
+
+@font-face {
+    font-family: "ProximaNova-Bold";
+    src: url('../fonts/ProximaNovaBold.otf');
+}
+
 @mixin center {
     margin-left: auto;
     margin-right: auto;
 }
 
 body {
-    font-family: Roboto;
+    font-family: "ProximaNova";
     color: $default-text;
 }
 
 #container {
-    width: 600px;
+    width: 550px;
     margin-top: 80px;
     @include center;
 }
 
 
 h2 {
-    font-family: Montserrat;
-    font-size: 28px;
+    font-family: "ProximaNova-Bold";
+    font-size: 21px;
+    color: #222;
+    margin-top: 30px;
 }
 
 a {
