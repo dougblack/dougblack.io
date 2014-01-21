@@ -104,7 +104,7 @@ used. I spend most of my day in python and bash, where spaces are
 the norm. I like it, since it means my source code looks the same on
 every machine.
 
-##  <a name="ui"></a>UI Config
+## <a name="ui"></a>UI Config
 
 These are options that change random visuals in Vim.
 
@@ -159,7 +159,7 @@ redrawing during these scenarios, leading to faster macros.
 With `showmatch`, when your cursor moves over a parenthesis-like
 character, the matching one will be highlighted as well.
 
-##  <a name="search"></a>Searching
+## <a name="search"></a>Searching
 
 I love Vim's search. I love it even more with the following settings.
 
@@ -177,7 +177,7 @@ a new one or manually stop highlighting the old search with `:nohlsearch`.
 I find myself running this all the time so I've mapped it to `,<space>`.
 
 
-##  <a name="fold"></a>Folding
+## <a name="fold"></a>Folding
 
 Vim folding is a pretty sweet feature that I don't make heavy use of,
 but when I want it, I want it to have reasonable settings.
@@ -218,7 +218,7 @@ for me since I spend my days in Python. Other acceptable values are
 `marker`, `manual`, `expr`, `syntax`, `diff`. Run `:help foldmethod` to
 find out what each of those do.
 
-##  <a name="movement"></a>Movement
+## <a name="movement"></a>Movement
 
 Here we start getting into custom bindings. This group of bindings
 all relate to movement commands.
@@ -251,7 +251,7 @@ the new ones.
 This one is pretty cool. It visually selects the block of characters you
 added last time you were in `INSERT` mode.
 
-##  <a name="leader"></a>Leader Shortcuts
+## <a name="leader"></a>Leader Shortcuts
 
 Here we've reached the meat of my custom keybindings. This section will
 introduce many different plugins and custom functions that I use pretty
@@ -308,7 +308,7 @@ there is a wonderful Vim plugin [ag.vim][ag] which lets you use `ag`
 without leaving Vim *and* pulls the results into a quickfix window for
 easily jumping to the matches. Here I've mapped it to `,a`.
 
-##  <a name="ctrlp"></a>CtrlP
+## <a name="ctrlp"></a>CtrlP
 
 [ctrlp.vim][ctrlp] is my life in Vim. If you've never used a fuzzy file
 searcher this will open your eyes. If you're currently using
@@ -333,7 +333,7 @@ fuzzy matching. The enumerated regex's largely invalidate most "build"
 directories so that CtrlP doesn't waste time matching against useless
 results.
 
-##  <a name="launch"></a>Launch Config
+## <a name="launch"></a>Launch Config
 
 These are options set at launch to configure external tools exactly once.
 
@@ -347,7 +347,7 @@ Vi counterpart. The `pathogen` options extract all of the Vim plugins
 from their location in `~/.vim/bundles` to their respective places
 in the `~/.vim` folder.
 
-##  <a name="tmux"></a>Tmux
+## <a name="tmux"></a>Tmux
 
     :::vim script
     if exists('$TMUX') " allows cursor change in tmux mode
@@ -362,34 +362,31 @@ These lines change the cursor from block cursor mode to vertical bar
 cursor mode when using tmux. Without these lines, tmux always uses
 block cursor mode.
 
-##  <a name="autogroup"></a>Autogroups
+## <a name="autogroup"></a>Autogroups
 
     :::vim script
     augroup configgroup
-        autocmd!
-        autocmd VimEnter * highlight clear SignColumn
-        autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md :call <SID>StripTrailingWhitespaces()
-        autocmd FileType java set noexpandtab
-        autocmd FileType java set list
-        autocmd FileType java set list
-        autocmd FileType java set listchars=tab:+\ ,eol:-
-        autocmd FileType java set formatprg=par\ -w80\ -T4
-        autocmd FileType php set noexpandtab
-        autocmd FileType php set list
-        autocmd FileType php set list
-        autocmd FileType php set listchars=tab:+\ ,eol:-
-        autocmd FileType php set formatprg=par\ -w80\ -T4
-        autocmd FileType ruby set tabstop=2
-        autocmd FileType ruby set shiftwidth=2
-        autocmd FileType ruby set softtabstop=2
-        autocmd FileType ruby set commentstring=#\ %s
-        autocmd FileType python set commentstring=#\ %s
-        autocmd BufEnter *.cls set filetype=java
-        autocmd BufEnter *.zsh-theme set filetype=zsh
-        autocmd BufEnter Makefile set noexpandtab
-        autocmd BufEnter *.sh set tabstop=2
-        autocmd BufEnter *.sh set shiftwidth=2
-        autocmd BufEnter *.sh set softtabstop=2
+        au VimEnter * highlight clear SignColumn
+        au BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md :call <SID>StripTrailingWhitespaces()
+        au FileType java set noexpandtab
+        au FileType java set list
+        au FileType java set listchars=tab:+\ ,eol:¬
+        au FileType java set formatprg=par\ -w80\ -T4
+        au FileType php set noexpandtab
+        au FileType php set list
+        au FileType php set listchars=tab:+\ ,eol:¬
+        au FileType php set formatprg=par\ -w80\ -T4
+        au FileType ruby set tabstop=2
+        au FileType ruby set shiftwidth=2
+        au FileType ruby set softtabstop=2
+        au FileType ruby set commentstring=#\ %s
+        au FileType python set commentstring=#\ %s
+        au BufEnter *.cls set filetype=java
+        au BufEnter *.zsh-theme set filetype=zsh
+        au BufEnter Makefile set noexpandtab
+        au BufEnter *.sh set tabstop=2
+        au BufEnter *.sh set shiftwidth=2
+        au BufEnter *.sh set softtabstop=2
     augroup END
 
 This is a slew of commands that create language-specific settings for
@@ -398,7 +395,7 @@ wrapped in an `augroup` as this ensures the `autocmd`'s are only applied
 once. In addition, the `autocmd!` directive clears all the `autocmd`'s
 for the current group.
 
-##  <a name="backup"></a>Backups
+## <a name="backup"></a>Backups
 
 If you leave a Vim process open in which you've changed file, Vim creates
 a "backup" file. Then, when you open the file from a different Vim
@@ -419,7 +416,7 @@ to move backups to the `/tmp` folder.
 can be, it is much better than losing tons of work in an
 edited-but-not-written file.
 
-#  <a name="functions"></a>Custom Functions
+## <a name="functions"></a>Custom Functions
 
 I've written a small number of custom functions. Here they are with
 comments explaining their purpose.
@@ -456,7 +453,7 @@ comments explaining their purpose.
         call cursor(l, c)
     endfunction
 
-##  <a name="wrap"></a>Wrapping It Up
+## <a name="wrap"></a>Wrapping It Up
 
 I hope this helped you. The reality is that this was a ton of stuff
 and I still stand by this platitude:
