@@ -27,7 +27,22 @@ let me know: [@dougblackio][twitter].
 
 I will break it up into logical sections.
 
-## Colors
+- [Colors][colors]
+- [Spaces And Tabs][spaces]
+- [UI Config][ui]
+- [Searching][search]
+- [Folding][fold]
+- [Custom Movements][movement]
+- [Custom Leader][leader]
+- [CtrlP Settings][ctrlp]
+- [Launch Config][launch]
+- [Tmux Config][tmux]
+- [Autogroups][autogroup]
+- [Backups][backup]
+- [Custom Functions][functions]
+- [Conclusion][wrap]
+
+## <a name="colors"></a>Colors
 
     :::vim script
     colorscheme badwolf         " awesome colorscheme
@@ -56,7 +71,7 @@ Also, many settings in Vim have both a long name and a short name. For
 instance `background` is the same as `bg`. For future readability, I
 strongly recommend using the long name.
 
-## Spaces & Tabs
+## <a name="spaces"></a>Spaces & Tabs
 
 The incantations you must throw into your vimrc to get tabs/spaces
 working the way you want can be pretty confusing, so here's a quick
@@ -89,7 +104,7 @@ used. I spend most of my day in python and bash, where spaces are
 the norm. I like it, since it means my source code looks the same on
 every machine.
 
-## UI Config
+##  <a name="ui"></a>UI Config
 
 These are options that change random visuals in Vim.
 
@@ -144,7 +159,7 @@ redrawing during these scenarios, leading to faster macros.
 With `showmatch`, when your cursor moves over a parenthesis-like
 character, the matching one will be highlighted as well.
 
-## Searching
+##  <a name="search"></a>Searching
 
 I love Vim's search. I love it even more with the following settings.
 
@@ -162,7 +177,7 @@ a new one or manually stop highlighting the old search with `:nohlsearch`.
 I find myself running this all the time so I've mapped it to `,<space>`.
 
 
-## Folding
+##  <a name="fold"></a>Folding
 
 Vim folding is a pretty sweet feature that I don't make heavy use of,
 but when I want it, I want it to have reasonable settings.
@@ -203,7 +218,7 @@ for me since I spend my days in Python. Other acceptable values are
 `marker`, `manual`, `expr`, `syntax`, `diff`. Run `:help foldmethod` to
 find out what each of those do.
 
-## Movement
+##  <a name="movement"></a>Movement
 
 Here we start getting into custom bindings. This group of bindings
 all relate to movement commands.
@@ -236,7 +251,7 @@ the new ones.
 This one is pretty cool. It visually selects the block of characters you
 added last time you were in `INSERT` mode.
 
-## Leader Shortcuts
+##  <a name="leader"></a>Leader Shortcuts
 
 Here we've reached the meat of my custom keybindings. This section will
 introduce many different plugins and custom functions that I use pretty
@@ -293,7 +308,7 @@ there is a wonderful Vimplugin [ag.vim][ag] which lets you use `ag`
 without leaving Vim *and* pulls the results into a quickfix window for
 easily jumping to the matches. Here I've mapped it to `,a`.
 
-## CtrlP
+##  <a name="ctrlp"></a>CtrlP
 
 CtrlP is my life in Vim. If you've never used a fuzzy file searcher this
 will open your eyes. If you're currently using CommandT, you're on the
@@ -319,7 +334,7 @@ fuzzy matching. The enumerated regex's largely invalidate most "build"
 directories so that CtrlP doesn't waste time matching against useless
 results.
 
-## Launch Config
+##  <a name="launch"></a>Launch Config
 
 These are options set at launch to configure external tools exactly once.
 
@@ -333,7 +348,7 @@ Vi counterpart. The `pathogen` options extract all of the Vim plugins
 from their location in `~/.vim/bundles` to their respective places
 in the `~/.vim` folder.
 
-## Tmux
+##  <a name="tmux"></a>Tmux
 
     :::vim script
     if exists('$TMUX') " allows cursor change in tmux mode
@@ -348,7 +363,7 @@ These lines change the cursor from block cursor mode to vertical bar
 cursor mode when using tmux. Without these lines, tmux always uses
 block cursor mode.
 
-## Autogroups
+##  <a name="autogroup"></a>Autogroups
 
     :::vim script
     augroup configgroup
@@ -384,7 +399,7 @@ wrapped in an `augroup` as this ensures the `autocmd`'s are only applied
 once. In addition, the `autocmd!` directive clears all the `autocmd`'s
 for the current group.
 
-## Backups
+##  <a name="backup"></a>Backups
 
 If you leave a Vim process open in which you've changed file, Vim creates
 a "backup" file. Then, when you open the file from a different Vim
@@ -405,7 +420,7 @@ to move backups to the `/tmp` folder.
 can be, it is much better than losing tons of work in an
 edited-but-not-written file.
 
-# Custom Functions
+#  <a name="functions"></a>Custom Functions
 
 I've written a small number of custom functions. Here they are with
 comments explaining their purpose.
@@ -442,7 +457,7 @@ comments explaining their purpose.
         call cursor(l, c)
     endfunction
 
-## Wrapping It Up
+##  <a name="wrap"></a>Wrapping It Up
 
 I hope this helped you. The reality is that this was a ton of stuff
 and I still stand by the platitude:
@@ -456,6 +471,20 @@ friend.
 Thanks for reading! Don't forget to send me your .vimrc tips at
 [@dougblackio][twitter].
 
+[colors]: #colors
+[spaces]: #spaces
+[ui]: #ui
+[search]: #search
+[fold]: #fold
+[movement]: #movement
+[leader]: #leader
+[ctrlp]: #ctrlp
+[launch]: #launch
+[tmux]: #tmux
+[autogroup]: #autogroup
+[backup]: #backup
+[functions]: #functions
+[wrap]: #wrap
 [twitter]: https://twitter.com/dougblackio
 [badwolf]: https://github.com/sjl/badwolf/
 [molokai]: https://github.com/tomasr/molokai.git
