@@ -1,5 +1,5 @@
 # A Good .vimrc
-#### Posted January 20th, 2014
+#### Posted January 21th, 2014
 
 ## How To vimrc
 
@@ -289,17 +289,17 @@ it to `,s`, which I remember by thinking of it as "super save".
 
 [The Silver Searcher][silver searcher] is a *fantastic* command line
 tool to search source code in a project. It's wicked fast. Thankfully
-there is a wonderful Vimplugin [ag.vim][ag] which lets you use `ag`
+there is a wonderful Vim plugin [ag.vim][ag] which lets you use `ag`
 without leaving Vim *and* pulls the results into a quickfix window for
 easily jumping to the matches. Here I've mapped it to `,a`.
 
 ## CtrlP
 
-CtrlP is my life in Vim. If you've never used a fuzzy file searcher this
-will open your eyes. If you're currently using CommandT, you're on the
-right track, but CtrlP is the spiritual successor. It's significantly
-faster and more configurable than CommandT. Anyways here are my settings
-for CtrlP.
+[ctrlp.vim][ctrlp] is my life in Vim. If you've never used a fuzzy file
+searcher this will open your eyes. If you're currently using
+[commandt.vim][commandt], you're on the right track, but CtrlP is the
+spiritual successor. It's significantly faster and more configurable than
+CommandT. Anyways here are my settings for CtrlP.
 
     :::vim script
     let g:ctrlp_match_window = 'bottom,order:ttb'
@@ -463,3 +463,6 @@ Thanks for reading! Don't forget to send me your .vimrc tips at
 [powerline]: https://github.com/Lokaltog/powerline
 [gundo]: https://github.com/sjl/gundo.vim.git
 [silver searcher]: https://github.com/ggreer/the_silver_searcher.git
+[ag]: https://github.com/rking/ag.vim.git
+[ctrlp]: https://github.com/kien/ctrlp.vim.git
+[commandt]: https://github.com/wincent/Command-T.git
