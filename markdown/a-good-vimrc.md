@@ -34,7 +34,7 @@ I will break it up into logical sections.
 - [Folding][fold]
 - [Custom Movements][movement]
 - [Custom Leader][leader]
-- [CtrlP Settings][ctrlp]
+- [CtrlP Settings][ctrlp-section]
 - [Launch Config][launch]
 - [Tmux Config][tmux]
 - [Autogroups][autogroup]
@@ -308,7 +308,7 @@ there is a wonderful Vim plugin [ag.vim][ag] which lets you use `ag`
 without leaving Vim *and* pulls the results into a quickfix window for
 easily jumping to the matches. Here I've mapped it to `,a`.
 
-## <a name="ctrlp"></a>CtrlP
+## <a name="ctrlp-section"></a>CtrlP
 
 [ctrlp.vim][ctrlp] is my life in Vim. If you've never used a fuzzy file
 searcher this will open your eyes. If you're currently using
@@ -474,7 +474,7 @@ Thanks for reading! Don't forget to send me your .vimrc tips at
 [fold]: #fold
 [movement]: #movement
 [leader]: #leader
-[ctrlp]: #ctrlp
+[ctrlp-section]: #ctrlp-section
 [launch]: #launch
 [tmux]: #tmux
 [autogroup]: #autogroup
