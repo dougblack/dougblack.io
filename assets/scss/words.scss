@@ -54,14 +54,15 @@ h4 {
 }
 
 .codehilite pre {
-    padding: 15px 40px 15px 40px;
+    z-index: -1;
+    padding: 15px 500px 15px 500px;
     background: #fafafa;
     border: 1px solid #dedede;
-    border-left: 10px solid #dedede;
-    margin: 20px -30px;
+    //border-left: 10px solid #dedede;
+    margin: 20px -500px 20px -500px;
     font-size: 16px;
     position: relative;
-    overflow: auto;
+    overflow: hidden;
     font-family: Consolas;
     line-height: 1.3;
     color: #333;
@@ -80,14 +81,15 @@ code {
 }
 
 blockquote {
+    z-index: -1;
     margin: reset;
     padding: reset;
-    padding: 10px 40px 10px 40px;
+    padding: 10px 500px 10px 500px;
     background: #fafafa;
     border: 1px solid #dedede;
     border-left: 10px solid #dedede;
-    margin: 20px -30px;
-    font-size: 20px;
+    margin: 20px -500px 20px -500px;
+    font-size: 16px;
     position: relative;
     overflow: auto;
     line-height: 1.3;
