@@ -245,7 +245,7 @@ frequently. Let's get started.
     :::vim script
     let mapleader=","       " leader is comma
 
-`\\` is a little far away for a leader. I've found `,` to be a much
+`\` is a little far away for a leader. I've found `,` to be a much
 better replacement.
 
     :::vim script
@@ -445,7 +445,7 @@ comments explaining their purpose.
 ## Wrapping It Up
 
 I hope this helped you. The reality is that this was a ton of stuff
-and I still stand by the platitude:
+and I still stand by this platitude:
 
 > Don't put anything in your .vimrc you don't understand!
 
