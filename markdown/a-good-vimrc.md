@@ -370,11 +370,11 @@ block cursor mode.
         au BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md :call <SID>StripTrailingWhitespaces()
         au FileType java set noexpandtab
         au FileType java set list
-        au FileType java set listchars=tab:+\ ,eol:¬
+        au FileType java set listchars=tab:+\ ,eol:-
         au FileType java set formatprg=par\ -w80\ -T4
         au FileType php set noexpandtab
         au FileType php set list
-        au FileType php set listchars=tab:+\ ,eol:¬
+        au FileType php set listchars=tab:+\ ,eol:-
         au FileType php set formatprg=par\ -w80\ -T4
         au FileType ruby set tabstop=2
         au FileType ruby set shiftwidth=2
