@@ -309,10 +309,9 @@ CommandT. Anyways here are my settings for CtrlP.
 
 There are a few things happening here. The first is I'm telling CtrlP to
 order matching files top to bottom with `ttb`. Next, we tell CtrlP to
-always open matching files in new buffers with
-`let ctrlp_switch_buffer=0`. Setting `let g:ctrl_working_path=0` lets
-us change the working directory during a Vim session and make CtrlP
-respect that change.
+always open files in new buffers with `let ctrlp_switch_buffer=0`.
+Setting `let g:ctrl_working_path=0` lets us change the working directory
+during a Vim session and make CtrlP respect that change.
 
 Finally, `let g:ctrlp_custom_ignore` lets us ignore certain files when
 fuzzy matching. The enumerated regex's largely invalidate most "build"
@@ -405,7 +404,7 @@ to move backups to the `/tmp` folder.
 can be, it is much better than losing tons of work in an
 edited-but-not-written file.
 
-# Custom Functions
+## Custom Functions
 
 I've written a small number of custom functions. Here they are with
 comments explaining their purpose.
