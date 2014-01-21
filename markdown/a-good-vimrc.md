@@ -1,5 +1,5 @@
 # A Good .vimrc
-#### Posted January 20th, 2014
+#### Posted January 21th, 2014
 
 ## How To vimrc
 
@@ -260,7 +260,7 @@ frequently. Let's get started.
     :::vim script
     let mapleader=","       " leader is comma
 
-`\\` is a little far away for a leader. I've found `,` to be a much
+`\` is a little far away for a leader. I've found `,` to be a much
 better replacement.
 
     :::vim script
@@ -304,17 +304,17 @@ it to `,s`, which I remember by thinking of it as "super save".
 
 [The Silver Searcher][silver searcher] is a *fantastic* command line
 tool to search source code in a project. It's wicked fast. Thankfully
-there is a wonderful Vimplugin [ag.vim][ag] which lets you use `ag`
+there is a wonderful Vim plugin [ag.vim][ag] which lets you use `ag`
 without leaving Vim *and* pulls the results into a quickfix window for
 easily jumping to the matches. Here I've mapped it to `,a`.
 
 ##  <a name="ctrlp"></a>CtrlP
 
-CtrlP is my life in Vim. If you've never used a fuzzy file searcher this
-will open your eyes. If you're currently using CommandT, you're on the
-right track, but CtrlP is the spiritual successor. It's significantly
-faster and more configurable than CommandT. Anyways here are my settings
-for CtrlP.
+[ctrlp.vim][ctrlp] is my life in Vim. If you've never used a fuzzy file
+searcher this will open your eyes. If you're currently using
+[commandt.vim][commandt], you're on the right track, but CtrlP is the
+spiritual successor. It's significantly faster and more configurable than
+CommandT. Anyways here are my settings for CtrlP.
 
     :::vim script
     let g:ctrlp_match_window = 'bottom,order:ttb'
@@ -324,10 +324,9 @@ for CtrlP.
 
 There are a few things happening here. The first is I'm telling CtrlP to
 order matching files top to bottom with `ttb`. Next, we tell CtrlP to
-always open matching files in new buffers with
-`let ctrlp_switch_buffer=0`. Setting `let g:ctrl_working_path=0` lets
-us change the working directory during a Vim session and make CtrlP
-respect that change.
+always open files in new buffers with `let ctrlp_switch_buffer=0`.
+Setting `let g:ctrl_working_path=0` lets us change the working directory
+during a Vim session and make CtrlP respect that change.
 
 Finally, `let g:ctrlp_custom_ignore` lets us ignore certain files when
 fuzzy matching. The enumerated regex's largely invalidate most "build"
@@ -460,7 +459,7 @@ comments explaining their purpose.
 ##  <a name="wrap"></a>Wrapping It Up
 
 I hope this helped you. The reality is that this was a ton of stuff
-and I still stand by the platitude:
+and I still stand by this platitude:
 
 > Don't put anything in your .vimrc you don't understand!
 
@@ -492,3 +491,6 @@ Thanks for reading! Don't forget to send me your .vimrc tips at
 [powerline]: https://github.com/Lokaltog/powerline
 [gundo]: https://github.com/sjl/gundo.vim.git
 [silver searcher]: https://github.com/ggreer/the_silver_searcher.git
+[ag]: https://github.com/rking/ag.vim.git
+[ctrlp]: https://github.com/kien/ctrlp.vim.git
+[commandt]: https://github.com/wincent/Command-T.git
