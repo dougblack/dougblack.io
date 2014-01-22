@@ -294,7 +294,7 @@ it.
     :::vim script
     nnoremap <leader>s :mksession<CR>   " save session
 
-Ever wanted to save a give an assortment of windows so that they're there
+Ever wanted to save a given assortment of windows so that they're there
 next time you open up Vim? `:mksession` does just that! After saving
 a Vim session, you can reopen it with `vim -S`. Here I've mapped
 it to `,s`, which I remember by thinking of it as "super save".
