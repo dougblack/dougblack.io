@@ -39,18 +39,24 @@ body {
     font-family: "ProximaNova";
     color: $default-text;
     font-size: 100%;
+    width: 100%;
+    margin: 0;
 }
 
 #container {
-    width: 34.375em;
     margin-top: 5.000em;
     @include center;
 }
 
+@mixin default-text-width {
+    width: 30.900em;
+}
 
 h2 {
+    @include center;
     font-family: "ProximaNova-Bold";
     font-size: 1.313em;
+    width: 23.534em;
     color: #222;
     margin-top: 1.875em;
 }

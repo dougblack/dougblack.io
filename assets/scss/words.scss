@@ -1,20 +1,23 @@
 @import "global";
 
 h1 {
+    margin-top: 1em;
+    margin-bottom: 0em;
     font-family: "ProximaNova-Bold";
     font-size: 2.250em;
     color: $article-text;
     line-height: 1em;
-    margin: 0;
     @include center;
+    width: 13.733em;
 }
 
 h4 {
+    @include center;
+    margin-top: 0em;
     font-family: "ProximaNova";
     font-size: 0.875em;
+    width: 35.314em;
     color: #bbb;
-    margin: 0;
-    @include center;
 }
 
 #article {
@@ -22,7 +25,6 @@ h4 {
     font-size: 1.125em;
     line-height: 1.5em;
     color: $article-text;
-    @include center;
 }
 
 #article a {
@@ -30,6 +32,8 @@ h4 {
 }
 
 #article p {
+    @include center;
+    @include default-text-width;
     margin-top: 1.375em;
     margin-bottom: 1.375em;
     overflow: hidden;
@@ -45,6 +49,7 @@ h4 {
 }
 
 #more-words {
+    @include center;
     width: 12.500em;
     font-size: 25;
     font-family: Montserrat;
@@ -59,45 +64,49 @@ h4 {
     color: $fancy-link-hover-color;
 }
 
-.codehilite pre {
+.codehilite {
+    font-family: Consolas;
+    color: #333;
     z-index: -1;
-    padding: 0.938em 62.500em 0.938em 62.500em;
     background: #fafafd;
     border: 0.063em solid #dedede;
-    //border-left: 10px solid #dedede;
-    margin: 1.250em -62.500em 1.250em -62.500em;
-    font-size: 0.875em;
-    position: relative;
-    overflow: hidden;
-    font-family: Consolas;
-    line-height: 1.3em;
-    color: #333;
+    border-right: 0em solid #fff;
+    line-height: 1.5em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    left: 0;
+    right: 0;
 }
 
-code {
-    background: #fafafd;
-    border: 0.063em solid #dedede;
-    font-family: Consolas;
+pre {
+    display: block;
+    margin: 0;
     font-size: 0.875em;
+    font-family: Consolas;
     color: #333;
     font-style: bold;
-    padding: 0.063em 0.375em 0em 0.375em;
-    margin-bottom: 0.313em;
-    line-height: 0.5em;
+    line-height: 1.3em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 35.314em;
 }
 
 blockquote {
     z-index: -1;
-    margin: reset;
-    padding: reset;
-    padding: 0.625em 62.500em 0.625em 62.500em;
+    margin: 0;
+    padding: 0;
     background: #fafafd;
     border: 0.063em solid #dedede;
-    //border-left: 10px solid #dedede;
-    margin: 1.250em -62.500em 1.250em -62.500em;
+    border-right: 0em solid #fff;
+    left: 0;
+}
+
+blockquote p {
+    @include center;
+    margin: 0;
     font-size: 0.875em;
-    position: relative;
     overflow: auto;
     line-height: 1.3em;
     color: #888;
+    width: 35.314em !important;
 }

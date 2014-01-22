@@ -1,6 +1,9 @@
+@import "global";
+
 #word-list {
     margin-top: 3.125em;
     width: 37.500em;
+    @include center;
 }
 
 #word-list a {
