@@ -63,10 +63,9 @@ moment.
 Moving on:
 
     :::vim script
-    set t_Co=256            " use 256 colors by default
     syntax enable           " enable syntax processing
 
-The inline comments should be enough to describe these. I'll take this
+The comment should be enough to describe this one. I'll take this
 moment to plug adding comments to most if not every line in your vimrc.
 If you're anything like me that file is going to get pretty long, and
 chances are you won't remember what every line does forever, so adding
