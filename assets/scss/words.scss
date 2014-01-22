@@ -165,4 +165,9 @@ and (max-device-width : 568px) {
     #header {
         position: absolute;
     }
+
+    @font-face {
+        font-family: "ProximaNova-Bold";
+        src: url('../fonts/ProximaNovaRegular.otf');
+    }
 }

@@ -1,7 +1,7 @@
-# A Good .vimrc
+# A Good Vimrc
 #### Posted January 21th, 2014
 
-## How To vimrc
+## How To Vimrc
 
 There is just one rule you must follow when crafting your own .vimrc.
 
