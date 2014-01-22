@@ -466,15 +466,6 @@ comments explaining their purpose.
         endif
     endfunc
 
-    " toggle between number and nonumber
-    function! ToggleNoNumber()
-        if(&number == 1)
-            set nonumber
-        else
-            set number
-        endif
-    endfunc
-
     " strips trailing whitespace at the end of files. this
     " is called on buffer write in the autogroup above.
     function! <SID>StripTrailingWhitespaces()
