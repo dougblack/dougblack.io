@@ -1,6 +1,21 @@
-img {
+@import "global";
+
+h1 {
+    width: 15.5em;
+}
+
+#image-wrapper {
+    @include center;
+    left: 0;
+    right: 0;
+    width: 50em;
+}
+
+#image-wrapper img {
+    display: block;
     margin-top: 3.750em;
     margin-bottom: 3.750em;
-    width: 50.000em;
-    margin-left: -6.250em;
+    width: 40em !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
