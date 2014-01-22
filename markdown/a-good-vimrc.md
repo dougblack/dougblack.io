@@ -27,6 +27,7 @@ let me know: [@dougblackio][twitter].
 
 I will break it up into logical sections.
 
+- [Organization][organization]
 - [Colors][colors]
 - [Spaces And Tabs][spaces]
 - [UI Config][ui]
@@ -40,7 +41,13 @@ I will break it up into logical sections.
 - [Autogroups][autogroup]
 - [Backups][backup]
 - [Custom Functions][functions]
+- [Organization][organization]
 - [Wrapping It Up][wrap]
+
+This article will almost certainly fall out of date with my vimrc in the
+very near future. You can find the most up to date version of it
+[on github][github-vimrc].
+
 
 ## <a name="colors"></a>Colors
 
@@ -195,8 +202,7 @@ If it is set to 0, all folds will be closed. So, setting it to 99 here
 ensures that no folds are closed by default when opening a new buffer.
 
     :::vim script
-    " 10 nested fold max
-    set foldnestmax=10
+    set foldnestmax=10      " 10 nested fold max
 
 Folds can be nested. Setting a max on the number of folds guards against
 too many folds. If you need more than 10 fold levels you must be writing
@@ -331,6 +337,7 @@ more configurable than CommandT (Thanks [Reddit][reddit]!). Anyways here
 are my settings for CtrlP.
 
     :::vim script
+    " CtrlP settings
     let g:ctrlp_match_window = 'bottom,order:ttb'
     let g:ctrlp_switch_buffer = 0
     let g:ctrlp_working_path_mode = 0
@@ -482,6 +489,71 @@ comments explaining their purpose.
         call cursor(l, c)
     endfunction
 
+## <a name="organization"></a>Organization
+
+Once your vimrc starts to fill up, organization becomes an issue. I've grouped
+this article by logical sections. Not surprisingly, it makes sense to group
+my actual vimrc by the exact same logical sections. Even cooler, Vim will
+let us fold all of those sections up by default. So when you open your Vimrc
+you have a high level view like this:
+
+    :::vim script
+    " Doug Black
+    +--  5 lines: " Colors -------------------------------------
+    +--  5 lines: " Misc ---------------------------------------
+    +--  9 lines: " Spaces & Tabs ------------------------------
+    +--  8 lines: " UI Layout ----------------------------------
+    +--  5 lines: " Searching ----------------------------------
+    +--  8 lines: " Folding ------------------------------------
+    +--  9 lines: " Line Shortcuts -----------------------------
+    +-- 21 lines: " Leader Shortcuts ---------------------------
+    +--  7 lines: " Powerline ----------------------------------
+    +--  6 lines: " CtrlP --------------------------------------
+    +--  3 lines: " NERDTree -----------------------------------
+    +--  4 lines: " Syntastic ----------------------------------
+    +--  6 lines: " Launch Config ------------------------------
+    +--  9 lines: " Tmux ---------------------------------------
+    +--  4 lines: " MacVim -------------------------------------
+    +-- 25 lines: " AutoGroups ---------------------------------
+    +--  7 lines: " Backups ------------------------------------
+    +-- 50 lines: " Custom Functions ---------------------------
+
+Here's how we make that happen. First, we tell vim to fold sections
+by *markers*, rather than *indentation*. That looks like this
+
+    :::vim script
+    foldmethod=marker
+
+Then we want it to close every fold by default so that we have this
+high level view when we open our vimrc.
+
+    :::vim script
+    foldlevel=0
+
+Now, this is a file-specific setting, so we can use a `modeline` to
+make Vim only use these settings for *this* file. Modelines are
+special comments somewhere in a file that can can declare certain
+Vim settings to be used only for that file. So we'll turn modelines on.
+
+    :::vim script
+    set modelines=1
+
+Next, we'll add our modeline to the bottom of the file.
+
+    :::vim script
+    " vim:foldmethod=marker:foldlevel=0
+
+Finally, we need to visually wrap each section in the fold marker.
+The fold markers are `{{{` and `}}}`.That looks like this.
+
+    :::vim script
+    " Section Name {{{
+    set number "This will be folded
+    " }}}
+
+That's it. I find this a great way to keep your vimrc highly structured,
+easy to navigate, and incredibly readable.
+
 ## <a name="wrap"></a>Wrapping It Up
 
 I hope this helped you. The reality is that this was a ton of stuff
@@ -509,6 +581,7 @@ Thanks for reading! Don't forget to send me your .vimrc tips at
 [autogroup]: #autogroup
 [backup]: #backup
 [functions]: #functions
+[organization]: #organization
 [wrap]: #wrap
 [twitter]: https://twitter.com/dougblackio
 [badwolf]: https://github.com/sjl/badwolf/
@@ -521,3 +594,4 @@ Thanks for reading! Don't forget to send me your .vimrc tips at
 [ctrlp]: https://github.com/kien/ctrlp.vim.git
 [commandt]: https://github.com/wincent/Command-T.git
 [reddit]: http://www.reddit.com/r/vim/comments/1vt4dg/a_good_vimrc/
+[github-vimrc]: https://github.com/dougblack/dotfiles/blob/master/.vimrc
