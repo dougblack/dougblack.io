@@ -4,6 +4,7 @@ $link-color: #ccc;
 $link-hover-color: #999;
 $fancy-link-color: #ddd;
 $fancy-link-hover-color: #333;
+$default-text-width-em: 29em;
 
 @font-face {
     font-family: "Consolas";
@@ -50,14 +51,14 @@ body {
 }
 
 @mixin default-text-width {
-    width: 30.900em;
+    width: $default-text-width-em;
 }
 
 h2 {
     @include center;
     font-family: "ProximaNova-Bold";
     font-size: 1.313em;
-    width: 23.534em;
+    width: $default-text-width-em / 1.313em * 1em;
     color: #222;
     margin-top: 1.875em;
 }
