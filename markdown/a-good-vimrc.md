@@ -442,7 +442,7 @@ comments explaining their purpose.
     endfunc
 
     " strips trailing whitespace at the end of files. this
-    " is called on buffer wrtie in the autogroup above.
+    " is called on buffer write in the autogroup above.
     function! <SID>StripTrailingWhitespaces()
         " save last search & cursor position
         let _s=@/
