@@ -36,7 +36,12 @@ h4 {
     @include default-text-width;
     margin-top: 1.375em;
     margin-bottom: 1.375em;
-    overflow: hidden;
+    overflow-x: hidden;
+}
+
+ul {
+    @include center;
+    @include default-text-width;
 }
 
 #article a:hover {
@@ -99,6 +104,8 @@ blockquote {
     border: 0.063em solid #dedede;
     border-right: 0em solid #fff;
     left: 0;
+    right: 0;
+    width: 100%;
 }
 
 blockquote p {
@@ -109,4 +116,45 @@ blockquote p {
     line-height: 1.3em;
     color: #888;
     width: 35.314em !important;
+}
+
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) {
+
+    @mixin default-text-width {
+        width: 20em !important;
+    }
+
+    body{
+        font-size: 150% !important;
+        font-family:Helvetica, Arial, Verdana, sans-serif;
+        padding:5px;
+    }
+
+    div {
+        clear:both!important;
+        display:block!important;
+        width:100%!important;
+        float:none!important;
+        margin:0!important;
+        padding:0!important;
+    }
+
+    .codehilite {
+        padding-top: 1.25em !important;
+        padding-bottom: 1.25em !important;
+    }
+
+    pre {
+        overflow: auto;
+    }
+
+    blockquote p {
+        overflow: auto;
+    }
+
+    #header {
+        position: absolute;
+    }
 }

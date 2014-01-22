@@ -41,6 +41,7 @@ body {
     font-size: 100%;
     width: 100%;
     margin: 0;
+    overflow-x: hidden;
 }
 
 #container {
@@ -92,4 +93,3 @@ a:hover {
 #logo:hover {
     color: $fancy-link-hover-color;
 }
-
