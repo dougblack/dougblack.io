@@ -59,7 +59,6 @@ Moving on:
     :::vim script
     set t_Co=256            " use 256 colors by default
     syntax enable           " enable syntax processing
-    set background=dark     " set dark background
 
 The inline comments should be enough to describe these. I'll take this
 moment to plug adding comments to most if not every line in your vimrc.
@@ -170,7 +169,8 @@ I love Vim's search. I love it even more with the following settings.
 These should be pretty self explanatory. They make searching better.
 
     :::vim script
-    nnoremap <leader><space> :nohlsearch<CR> " turn off search highlight
+    " turn off search highlight
+    nnoremap <leader><space> :nohlsearch<CR>
 
 Vim will keep highlighted matches from searches until you either run
 a new one or manually stop highlighting the old search with `:nohlsearch`.
@@ -195,14 +195,16 @@ If it is set to 0, all folds will be closed. So, setting it to 99 here
 ensures that no folds are closed by default when opening a new buffer.
 
     :::vim script
-    set foldnestmax=10      " 10 nested fold max
+    " 10 nested fold max
+    set foldnestmax=10
 
 Folds can be nested. Setting a max on the number of folds guards against
 too many folds. If you need more than 10 fold levels you must be writing
 some Javascript burning in callback-hell and I feel very bad for you.
 
     :::vim script
-    nnoremap <space> za     " space open/closes folds
+    " space open/closes folds
+    nnoremap <space> za
 
 I change the mapping of `<space>` pretty frequently, but this is its
 current command. `za` opens/closes the fold around the current block.
@@ -224,18 +226,22 @@ Here we start getting into custom bindings. This group of bindings
 all relate to movement commands.
 
     :::vim script
-    nnoremap j gj           " move vertically by visual line
-    nnoremap k gk           " move vertically by visual line
+    " move vertically by visual line
+    nnoremap j gj
+    nnoremap k gk
 
 These two allow us to move around lines visually. So if there's a very
 long line that gets visually wrapped to two lines, `j` won't skip over
 the "fake" part of the visual line in favor of the next "real" line.
 
     :::vim script
-    nnoremap B ^            " move to beginning of line
-    nnoremap E $            " move to end of line
-    nnoremap $ <nop>        " $ doesn't do anything
-    nnoremap ^ <nop>        " ^ doesn't do anything
+    " move to beginning/end of line
+    nnoremap B ^
+    nnoremap E $
+
+    " $/^ doesn't do anything
+    nnoremap $ <nop>
+    nnoremap ^ <nop>
 
 These feel like my most controversial bindings, since they overwrite
 existing movement bindings. My thinking was that hitting `^` and `$` to
@@ -246,7 +252,8 @@ purposes.  Next I bound the old way to `<nop>` to train myself to use
 the new ones.
 
     :::vim script
-    nmap gV `[v`]           " highlight last inserted text
+    " highlight last inserted text
+    nmap gV `[v`]
 
 This one is pretty cool. It visually selects the block of characters you
 added last time you were in `INSERT` mode.
@@ -264,7 +271,8 @@ frequently. Let's get started.
 better replacement.
 
     :::vim script
-    inoremap jk <esc>       " jk is escape
+    " jk is escape
+    inoremap jk <esc>
 
 `<ESC>` is *very* far away. `jk` is a much better replacement as it's
 on the home row and I actually never type it when writing text. Except
@@ -274,7 +282,8 @@ keys is to enter the `j`, wait for the leader-check timeout to fade,
 and then enter the `k`.
 
     :::vim script
-    nnoremap <leader>u :GundoToggle<CR>         " toggle gundo
+    " toggle gundo
+    nnoremap <leader>u :GundoToggle<CR>
 
 In one of its cleverest innovations, Vim doesn't model undo as a simple
 stack. In Vim it's a tree. This makes sure you never lose an action in
@@ -284,15 +293,17 @@ Get it and don't look back. Here I've mapped it to `,u`, which I like to
 think of as "super undo".
 
     :::vim script
-    nnoremap <leader>ev :vsp $MYVIMRC<CR>       " edit vimrc
-    nnoremap <leader>ez :vsp ~/.zshrc<CR>       " edit zshrc
-    nnoremap <leader>sv :source $MYVIMRC<CR>    " load vimrc
+    " edit vimrc/zshrc and load vimrc bindings
+    nnoremap <leader>ev :vsp $MYVIMRC<CR>
+    nnoremap <leader>ez :vsp ~/.zshrc<CR>
+    nnoremap <leader>sv :source $MYVIMRC<CR>
 
 These are shortcuts to edit and source my vimrc and my zshrc. That's
 it.
 
     :::vim script
-    nnoremap <leader>s :mksession<CR>   " save session
+    " save session
+    nnoremap <leader>s :mksession<CR>
 
 Ever wanted to save a given assortment of windows so that they're there
 next time you open up Vim? `:mksession` does just that! After saving
@@ -300,27 +311,30 @@ a Vim session, you can reopen it with `vim -S`. Here I've mapped
 it to `,s`, which I remember by thinking of it as "super save".
 
     :::vim script
-    nnoremap <leader>a :Ag      " open ag.vim
+    " open ag.vim
+    nnoremap <leader>a :Ag
 
 [The Silver Searcher][silver searcher] is a *fantastic* command line
-tool to search source code in a project. It's wicked fast. Thankfully
-there is a wonderful Vim plugin [ag.vim][ag] which lets you use `ag`
-without leaving Vim *and* pulls the results into a quickfix window for
-easily jumping to the matches. Here I've mapped it to `,a`.
+tool to search source code in a project. It's wicked fast. The command line
+tool is named `ag` (like the element silver). Thankfully there is a wonderful
+Vim plugin [ag.vim][ag] which lets you use `ag` without leaving Vim *and* pulls
+the results into a quickfix window for easily jumping to the matches. Here I've
+mapped it to `,a`.
 
 ## <a name="ctrlp-section"></a>CtrlP
 
 [ctrlp.vim][ctrlp] is my life in Vim. If you've never used a fuzzy file
 searcher this will open your eyes. If you're currently using
 [commandt.vim][commandt], you're on the right track, but CtrlP is the
-spiritual successor. It's significantly faster and more configurable than
-CommandT. Anyways here are my settings for CtrlP.
+spiritual successor. It's *can be* (see below) significantly faster and
+more configurable than CommandT (Thanks [Reddit][reddit]!). Anyways here
+are my settings for CtrlP.
 
     :::vim script
     let g:ctrlp_match_window = 'bottom,order:ttb'
     let g:ctrlp_switch_buffer = 0
     let g:ctrlp_working_path_mode = 0
-    let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|\.(o|swp|pyc|egg)$'
+    let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
 There are a few things happening here. The first is I'm telling CtrlP to
 order matching files top to bottom with `ttb`. Next, we tell CtrlP to
@@ -328,22 +342,34 @@ always open files in new buffers with `let ctrlp_switch_buffer=0`.
 Setting `let g:ctrl_working_path=0` lets us change the working directory
 during a Vim session and make CtrlP respect that change.
 
-Finally, `let g:ctrlp_custom_ignore` lets us ignore certain files when
-fuzzy matching. The enumerated regex's largely invalidate most "build"
-directories so that CtrlP doesn't waste time matching against useless
-results.
+Now, let's talk about speed. CtrlP is entirely written in Vimscript,
+(which is pretty impressive) but CommandT has parts that are written
+in C. This means CommandT is, by default, faster than CtrlP. However,
+we can tell CtrlP to run an external command to find matching files.
+Now that we have `ag` installed, we can use it with CtrlP to make
+CtrlP wicked fast.. We do that with the following.
+
+    :::vim script
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+If everything works out, you should see a *noticeable* improvement
+in the CtrlP speed. There are two caveats to this. Both
+`g:ctrlp_show_hidden` and `g:ctrlp_custom_ignore` do not work with
+custom user commands. I only care about the lack of support for custom
+ignores. Thankfully, `ag` has it's own convention for ignore files:
+a `.agignore` file that follows the same conventions as `.gitignore`.
+This is actually great! We only need to define our directories to
+ignore when searching in one place.
 
 ## <a name="launch"></a>Launch Config
 
 These are options set at launch to configure external tools exactly once.
 
     :::vim script
-    set nocompatible                            " default to vim
     call pathogen#infect()                      " use pathogen
     call pathogen#runtime_append_all_bundles()  " use pathogen
 
-`nocompatible` sets most options to the Vim defaults, rather than their
-Vi counterpart. The `pathogen` options extract all of the Vim plugins
+The `pathogen` options extract all of the Vim plugins
 from their location in `~/.vim/bundles` to their respective places
 in the `~/.vim` folder.
 
@@ -366,27 +392,29 @@ block cursor mode.
 
     :::vim script
     augroup configgroup
-        au VimEnter * highlight clear SignColumn
-        au BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md :call <SID>StripTrailingWhitespaces()
-        au FileType java set noexpandtab
-        au FileType java set list
-        au FileType java set listchars=tab:+\ ,eol:-
-        au FileType java set formatprg=par\ -w80\ -T4
-        au FileType php set noexpandtab
-        au FileType php set list
-        au FileType php set listchars=tab:+\ ,eol:-
-        au FileType php set formatprg=par\ -w80\ -T4
-        au FileType ruby set tabstop=2
-        au FileType ruby set shiftwidth=2
-        au FileType ruby set softtabstop=2
-        au FileType ruby set commentstring=#\ %s
-        au FileType python set commentstring=#\ %s
-        au BufEnter *.cls set filetype=java
-        au BufEnter *.zsh-theme set filetype=zsh
-        au BufEnter Makefile set noexpandtab
-        au BufEnter *.sh set tabstop=2
-        au BufEnter *.sh set shiftwidth=2
-        au BufEnter *.sh set softtabstop=2
+        autocmd!
+        autocmd VimEnter * highlight clear SignColumn
+        autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
+                    \:call <SID>StripTrailingWhitespaces()
+        autocmd FileType java setlocal noexpandtab
+        autocmd FileType java setlocal list
+        autocmd FileType java setlocal listchars=tab:+\ ,eol:-
+        autocmd FileType java setlocal formatprg=par\ -w80\ -T4
+        autocmd FileType php setlocal expandtab
+        autocmd FileType php setlocal list
+        autocmd FileType php setlocal listchars=tab:+\ ,eol:-
+        autocmd FileType php setlocal formatprg=par\ -w80\ -T4
+        autocmd FileType ruby setlocal tabstop=2
+        autocmd FileType ruby setlocal shiftwidth=2
+        autocmd FileType ruby setlocal softtabstop=2
+        autocmd FileType ruby setlocal commentstring=#\ %s
+        autocmd FileType python setlocal commentstring=#\ %s
+        autocmd BufEnter *.cls setlocal filetype=java
+        autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+        autocmd BufEnter Makefile setlocal noexpandtab
+        autocmd BufEnter *.sh setlocal tabstop=2
+        autocmd BufEnter *.sh setlocal shiftwidth=2
+        autocmd BufEnter *.sh setlocal softtabstop=2
     augroup END
 
 This is a slew of commands that create language-specific settings for
@@ -491,3 +519,4 @@ Thanks for reading! Don't forget to send me your .vimrc tips at
 [ag]: https://github.com/rking/ag.vim.git
 [ctrlp]: https://github.com/kien/ctrlp.vim.git
 [commandt]: https://github.com/wincent/Command-T.git
+[reddit]: http://www.reddit.com/r/vim/comments/1vt4dg/a_good_vimrc/
