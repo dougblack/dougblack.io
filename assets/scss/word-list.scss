@@ -1,6 +1,6 @@
 #word-list {
-    margin-top: 50px;
-    width: 600px;
+    margin-top: 3.125em;
+    width: 37.500em;
 }
 
 #word-list a {
@@ -19,7 +19,7 @@
 }
 
 .post-date {
-    font-size: 20px;
+    font-size: 1.250em;
     font-family: "ProximaNova";
     letter-spacing: -1;
     display: inline;
@@ -28,23 +28,23 @@
 }
 
 #word-title {
-    font-size: 30px;
+    font-size: 1.875em;
     font-family: "ProximaNova";
     text-align: center;
     letter-spacing: -2;
     font-weight: 700;
     color: #444;
-    padding-bottom: 10px;
+    padding-bottom: 0.625em;
 }
 
 .post {
     overflow: hidden;
-    padding: 10 30 10 30;
-    margin-bottom: 40px;
+    padding: 0.625em 1.875em 0.625em 1.875em;
+    margin-bottom: 2.500em;
 }
 
 .post:hover {
     background: #fafafd;
-    outline: 1px solid #dedede;
+    outline: 0.063em solid #dedede;
 }
 

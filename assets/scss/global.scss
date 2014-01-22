@@ -41,17 +41,17 @@ body {
 }
 
 #container {
-    width: 550px;
-    margin-top: 80px;
+    width: 34.375em;
+    margin-top: 5.000em;
     @include center;
 }
 
 
 h2 {
     font-family: "ProximaNova-Bold";
-    font-size: 21px;
+    font-size: 1.313em;
     color: #222;
-    margin-top: 30px;
+    margin-top: 1.875em;
 }
 
 a {
@@ -64,11 +64,11 @@ a:hover {
 }
 
 #header {
-    padding-top: 10px;
+    padding-top: 0.625em;
     /*border-bottom: 3px solid #aaa;*/
     position: fixed;
-    left: 5px;
-    top: 5px;
+    left: 0.313em;
+    top: 0.313em;
 }
 
 #logo {
@@ -79,7 +79,7 @@ a:hover {
     font-weight: 700;
     display: inline;
     //border: 5px solid #ddd;
-    padding: 3px 8px 3px 6px;
+    padding: 0.188em 0.500em 0.188em 0.375em;
 }
 
 #logo:hover {

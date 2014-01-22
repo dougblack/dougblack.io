@@ -1,17 +1,17 @@
 @import "global";
 
 #container {
-    width: 800px;
-    padding-top: 100px;
+    width: 50.000em;
+    padding-top: 6.250em;
     @include center;
 }
 
 #banner-container {
-    padding-top: 100px;
+    padding-top: 6.250em;
 }
 
 #name {
-    font-size: 120;
+    font-size: 7.500em;
     color: #111;
     font-family: "Montserrat";
     text-align: center;
@@ -21,8 +21,8 @@
 
 ul {
     text-align: center;
-    margin-top: -15px;
-    width: 600px;
+    margin-top: 0.938em;
+    width: 37.500em;
     @include center;
 }
 
@@ -31,7 +31,7 @@ li {
     letter-spacing: -1;
     list-style-type: none;
     color: $link-hover-color;
-    font-size: 30;
+    font-size: 1.875em;
     float: left;
     width: 23%;
 }
