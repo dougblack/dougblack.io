@@ -27,7 +27,6 @@ let me know: [@dougblackio][twitter].
 
 I will break it up into logical sections.
 
-- [Organization][organization]
 - [Colors][colors]
 - [Spaces And Tabs][spaces]
 - [UI Config][ui]
