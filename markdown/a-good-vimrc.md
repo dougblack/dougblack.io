@@ -48,7 +48,6 @@ This article will almost certainly fall out of date with my vimrc in the
 very near future. You can find the most up to date version of it
 [on github][github-vimrc].
 
-
 ## <a name="colors"></a>Colors
 
     :::vim script
@@ -182,7 +181,6 @@ These should be pretty self explanatory. They make searching better.
 Vim will keep highlighted matches from searches until you either run
 a new one or manually stop highlighting the old search with `:nohlsearch`.
 I find myself running this all the time so I've mapped it to `,<space>`.
-
 
 ## <a name="fold"></a>Folding
 
@@ -533,7 +531,8 @@ high level view when we open our vimrc.
 Now, this is a file-specific setting, so we can use a `modeline` to
 make Vim only use these settings for *this* file. Modelines are
 special comments somewhere in a file that can can declare certain
-Vim settings to be used only for that file. So we'll turn modelines on.
+Vim settings to be used only for that file. So we'll tell Vim
+to check just the final line of the file for a modeline.
 
     :::vim script
     set modelines=1
