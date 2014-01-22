@@ -40,7 +40,7 @@ I will break it up into logical sections.
 - [Autogroups][autogroup]
 - [Backups][backup]
 - [Custom Functions][functions]
-- [Conclusion][wrap]
+- [Wrapping It Up][wrap]
 
 ## <a name="colors"></a>Colors
 
@@ -204,7 +204,7 @@ some Javascript burning in callback-hell and I feel very bad for you.
     :::vim script
     nnoremap <space> za     " space open/closes folds
 
-I change the mapping of `<space>` pretty frequently, but this is it's
+I change the mapping of `<space>` pretty frequently, but this is its
 current command. `za` opens/closes the fold around the current block.
 As an interesting aside, I've heard the `z` character is used to
 represent folding in Vim because it looks like a folded piece of paper.
@@ -276,7 +276,7 @@ and then enter the `k`.
     :::vim script
     nnoremap <leader>u :GundoToggle<CR>         " toggle gundo
 
-In one of it's cleverest innovations, Vim doesn't model undo as a simple
+In one of its cleverest innovations, Vim doesn't model undo as a simple
 stack. In Vim it's a tree. This makes sure you never lose an action in
 Vim, but also makes it much more difficult to traverse around that tree.
 [gundo.vim][gundo] fixes this by displaying that undo tree in graphical form.
