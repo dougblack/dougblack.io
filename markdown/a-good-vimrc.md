@@ -256,7 +256,7 @@ the new ones.
 
     :::vim script
     " highlight last inserted text
-    nmap gV `[v`]
+    nnoremap gV `[v`]
 
 This one is pretty cool. It visually selects the block of characters you
 added last time you were in `INSERT` mode.
