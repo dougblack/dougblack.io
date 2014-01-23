@@ -196,7 +196,7 @@ Shows all folds.
 `foldlevelstart` is the starting fold level for opening a new buffer.
 If it is set to 0, all folds will be closed. Setting it to 99 would
 guarantee folds are always open. So, setting it to 10 here ensures
-the only very nested blocks of code are folded when opening a buffer.
+that only very nested blocks of code are folded when opening a buffer.
 
     :::vim script
     set foldnestmax=10      " 10 nested fold max
