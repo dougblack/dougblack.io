@@ -55,14 +55,14 @@ ul {
 
 #more-words {
     @include center;
-    width: 12.500em;
-    font-size: 25;
+    width: $default-text-width-em / 1.563em * 1em;
+    font-size: 1.563em;
     font-family: Montserrat;
     color: $fancy-link-color;
     letter-spacing: -2;
     font-weight: 700;
     padding: 0.250em;
-    @include center;
+    text-align: center;
 }
 
 #more-words:hover {
@@ -131,11 +131,15 @@ and (min-device-width : 320px)
 and (max-device-width : 568px) {
 
     @mixin default-text-width {
-        width: 20em !important;
+        width: 15em !important;
+    }
+
+    @viewport {
+        width: device-width;
     }
 
     body{
-        font-size: 150% !important;
+        font-size: 100% !important;
         font-family:Helvetica, Arial, Verdana, sans-serif;
         padding:5px;
     }

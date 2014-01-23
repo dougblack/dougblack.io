@@ -51,3 +51,39 @@
     outline: 0.063em solid #dedede;
 }
 
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px) {
+
+    div {
+        clear:both!important;
+        display:block!important;
+        width:100%!important;
+        float:none!important;
+        margin:0!important;
+        padding:0!important;
+    }
+
+    #word-title {
+        font-size: 600%;
+        font-family: Montserrat;
+        margin-bottom: 1em !important;
+    }
+
+    .post-name {
+        font-size: 600% !important;
+        font-family: Montserrat;
+        width: 90% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .post-date {
+        font-size: 300%;
+        margin-top: 0.8em !important;
+        margin-bottom: 3em !important;
+        margin-left: 55% !important;
+    }
+
+
+}
