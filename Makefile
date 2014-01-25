@@ -10,3 +10,7 @@ render: style
 watch:
 	sass --watch assets/scss:assets/stylesheets
 
+update:
+	git pull origin master
+	rvm use 2.0.0
+	make render
