@@ -330,7 +330,7 @@ But not much more than that. After all, it's supposed to be a
 
 ## <a name="full-code-header"></a>Full Code
 
-Here's the entire 94-line framework. If you're a Go expert,
+Here's the entire 92-line framework. If you're a Go expert,
 please let me know how you would have done this better!
 [@dougblackio][twitter].
 
@@ -381,7 +381,7 @@ please let me know how you would have done this better!
         return 405, ""
     }
 
-    type Api struct{}
+    type API struct{}
 
     func (api *API) Abort(rw http.ResponseWriter, statusCode int) {
         rw.WriteHeader(statusCode)
@@ -414,15 +414,9 @@ please let me know how you would have done this better!
             content, err := json.Marshal(data)
             if err != nil {
                 api.Abort(rw, 500)
-                return
             }
-
-            responseWriter := json.NewEncoder(rw)
             rw.WriteHeader(code)
-            if responseWriter.Encode(data) != nil {
-                api.Abort(rw, 500)
-                return
-            }
+            rw.Write(content)
         }
     }
 
