@@ -16,7 +16,7 @@ ground up. This should be a great opportunity to learn Go.
 
 Let's do it.
 
-Oh, and I've already thought of a name: `sleepy`. Clever, I know.
+Oh, and I've already thought of a super clever name: `sleepy`.
 
 ## Meet `net/http`
 
@@ -316,7 +316,6 @@ But not much more than that. After all, it's supposed to be a
 Here's the entire 96-line framework. If you're a Go expert,
 please let me know how you would have done this better!
 [@dougblackio][twitter].
-
 
     :::go
     package sleepy
