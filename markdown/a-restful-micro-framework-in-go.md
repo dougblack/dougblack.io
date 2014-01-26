@@ -419,8 +419,12 @@ please let me know how you would have done this better!
                 return
             }
 
+            responseWriter := json.NewEncoder(rw)
             rw.WriteHeader(code)
-            rw.Write(content)
+            if responseWriter.Encode(data) != nil {
+                api.Abort(rw, 500)
+                return
+            }
         }
     }
 
