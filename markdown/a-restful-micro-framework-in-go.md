@@ -18,7 +18,20 @@ Let's do it.
 
 Oh, and I've already thought of a name: `sleepy`. Clever, I know.
 
-## Meet `net/http`
+- [Meet net/http][meet-net-header]
+- [Resource][resource-header]
+- [405 Not Supported][405-header]
+- [Api][api-header]
+- [Putting It All Together][together-header]
+- [Meeting encoding/json][json-header]
+- [Construct The Response][response-header]
+- [Finish The Api][finish-header]
+- [Usage][usage-header]
+- [Improvements][improvements-header]
+- [Full Code][full-code-header]
+- [Conclusion][conclusion-header]
+
+## <a name="meet-net-header"></a>Meet `net/http`
 
 Before we start on the RESTful part of our framework, let's get familiar
 with how to use the [`http`][go-http] package to build a simple webserver
@@ -54,7 +67,7 @@ request.
 Great. Now that we know how to build a simple server in Go. Let's make it
 RESTful.
 
-## Resource
+## <a name="resource-header"></a>Resource
 
 Defining types is always a great place to start.
 
@@ -86,7 +99,7 @@ These functions return multiple arguments, an `int`, and an `interface{}`.
 The `int` will be the status code of the response, while the `interface{}`
 will be the data (in any format) the method returns.
 
-## 405 Not Supported
+## <a name="405-header"></a>405 Not Supported
 
 But, not every resource will want to implement all of these methods.
 How can we provide a default implementation of all methods that return
@@ -119,7 +132,7 @@ It's not the sexiest solution, but the only one I could think of while
 still using idiomatic Go (i.e. not using the [`reflect`][go-reflect]
 package).
 
-## Api
+## <a name="api-header"></a>Api
 
 The next type we'll construct is our `Api` type. An API
 *could* contain many internal fields, but let's keep it simple and
@@ -130,7 +143,7 @@ have our API just be a receiver for methods that manage our resources.
 
 So, we make it an empty struct.
 
-## Putting It All Together
+## <a name="together-header"></a>Putting It All Together
 
 Revisiting our simple Go webserver, we quickly encounter a problem. Our
 `Resource` methods are of type:
@@ -190,7 +203,7 @@ wrong perspective. Very cool.
 
 Anyways, back to our API.
 
-## Meet `encoding/json`
+## <a name="json-header"></a>Meet `encoding/json`
 
 After we've received the data (of type `interface{}`) from the
 `Resource` method, we need to turn it into JSON. Conveniently,
@@ -210,7 +223,7 @@ type `interface{}` and spits back JSON.
 
 Pretty straightforward.
 
-## Construct The Response
+## <a name="response-header"></a>Construct The Response
 
 Now that we have a status code and a body, we need to actually
 send the response to the client. Unsurprisingly, this is also
@@ -229,7 +242,7 @@ It's a pretty simple interface.
 
 That's it.
 
-## Finish The Api
+## <a name="finish-header"></a>Finish The Api
 
 We can now take a `Resource` and convert it to a method we can
 give to `http.HandleFunc`. Let's make a convenience method on our
@@ -255,7 +268,7 @@ and finally, the `api.Abort` method we referenced earlier.
         rw.WriteHeader(rw)
     }
 
-## Usage
+## <a name="usage-header"></a>Usage
 
 Whew. That was a lot of code snippets. Let's take a second to reflect on
 what we've built by constructing an actual example. Let's assume
@@ -300,7 +313,7 @@ So, we construct a struct that implements `Resource`, assign it
 to a path and start our `Api`. Pretty simple! We've built a working
 RESTful framework in Go.
 
-## Improvements
+## <a name="improvements-header"></a>Improvements
 
 There are a few things I'd like to add to `sleepy`.
 
@@ -311,7 +324,7 @@ There are a few things I'd like to add to `sleepy`.
 But not much more than that. After all, it's supposed to be a
 *micro*-framework.
 
-## Full Code
+## <a name="full-code-header"></a>Full Code
 
 Here's the entire 96-line framework. If you're a Go expert,
 please let me know how you would have done this better!
@@ -417,7 +430,7 @@ please let me know how you would have done this better!
         http.ListenAndServe(portString, nil)
     }
 
-## Conclusion
+## <a name="conclusion-header"></a>Conclusion
 
 I hope this was informative. I definitely learned a lot about
 the `net` package in Go and got a chance to cut my teeth on
@@ -435,3 +448,15 @@ better, please let me know! [@dougblack][twitter].
 [go-values]: http://golang.org/pkg/net/url/#Values
 [go-reflect]: http://golang.org/pkg/reflect/
 [go-handlefunc]: http://golang.org/pkg/net/http/#HandleFunc
+[meet-net-header]: #meet-net-header
+[resource-header]: #resource-header
+[405-header]: #405-header
+[api-header]: #api-header
+[together-header]: #together-header
+[json-header]: #json-header
+[response-header]: #response-header
+[finish-header]: #finish-header
+[usage-header]: #usage-header
+[improvements-header]: #Improvements-header
+[full-code-header]: #full-code-header
+[conclusion-header]: #conclusion-header
