@@ -330,7 +330,7 @@ But not much more than that. After all, it's supposed to be a
 
 ## <a name="full-code-header"></a>Full Code
 
-Here's the entire 96-line framework. If you're a Go expert,
+Here's the entire 94-line framework. If you're a Go expert,
 please let me know how you would have done this better!
 [@dougblackio][twitter].
 
@@ -387,9 +387,7 @@ please let me know how you would have done this better!
         rw.WriteHeader(statusCode)
     }
 
-    type HandleFunc func(http.ResponseWriter, *http.Request)
-
-    func (api *API) requestHandler(resource Resource) HandleFunc {
+    func (api *API) requestHandler(resource Resource) http.HandlerFunc {
         return func(rw http.ResponseWriter, request *http.Request) {
 
             var data interface{}
