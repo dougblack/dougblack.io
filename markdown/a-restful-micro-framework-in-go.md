@@ -18,12 +18,12 @@ Let's do it.
 
 Oh, and I've already thought of a super clever name: `sleepy`.
 
-- [Meet net/http][meet-net-header]
+- [Meet `net/http`][meet-net-header]
 - [Resource][resource-header]
 - [405 Not Supported][405-header]
 - [Api][api-header]
 - [Putting It All Together][together-header]
-- [Meeting encoding/json][json-header]
+- [Meeting `encoding/json`][json-header]
 - [Construct The Response][response-header]
 - [Finish The Api][finish-header]
 - [Usage][usage-header]
