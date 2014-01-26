@@ -21,11 +21,11 @@ Oh, and I've already thought of a super clever name: `sleepy`.
 - [Meet `net/http`][meet-net-header]
 - [Resource][resource-header]
 - [405 Not Supported][405-header]
-- [Api][api-header]
+- [API][api-header]
 - [Putting It All Together][together-header]
 - [Meeting `encoding/json`][json-header]
 - [Construct The Response][response-header]
-- [Finish The Api][finish-header]
+- [Finish The API][finish-header]
 - [Usage][usage-header]
 - [Improvements][improvements-header]
 - [Full Code][full-code-header]
@@ -80,17 +80,15 @@ following type.
 
     :::go
     type Resource interface {
-        Get(values ...url.Values) (int, interface{})
-        Post(values ...url.Values) (int, interface{})
-        Put(values ...url.Values) (int, interface{})
-        Delete(values ...url.Values) (int, interface{})
+        Get(values url.Values) (int, interface{})
+        Post(values url.Values) (int, interface{})
+        Put(values url.Values) (int, interface{})
+        Delete(values url.Values) (int, interface{})
     }
 
 We've defined a `Resource` interface that defines the four most
-common HTTP methods. The methods are *variadic*, meaning they
-may be invoked with zero or more arguments. In this case, they
-take a list of [`url.Values`][go-values], which is literally defined in `http`
-as follows.
+common HTTP methods. The methods each take a [`url.Values`][go-values]
+argument which is just defined as a simple map in `url`:
 
     :::go
     type url.Values map[string][]string
@@ -114,7 +112,7 @@ I came up with the following solution:
 
     :::go
     type GetNotSupported struct {}
-    func (GetNotSupported) Get(values ...url.Values) (int, interface{}) {
+    func (GetNotSupported) Get(values url.Values) (int, interface{}) {
         return 405, map[string]string{"error": "Not implemented"}
     }
 
@@ -132,14 +130,14 @@ It's not the sexiest solution, but the only one I could think of while
 still using idiomatic Go (i.e. not using the [`reflect`][go-reflect]
 package).
 
-## <a name="api-header"></a>Api
+## <a name="api-header"></a>API
 
-The next type we'll construct is our `Api` type. An API
+The next type we'll construct is our `API` type. An API
 *could* contain many internal fields, but let's keep it simple and
 have our API just be a receiver for methods that manage our resources.
 
     :::go
-    type Api struct {}
+    type API struct {}
 
 So, we make it an empty struct.
 
@@ -149,7 +147,7 @@ Revisiting our simple Go webserver, we quickly encounter a problem. Our
 `Resource` methods are of type:
 
     :::go
-    func(...url.Values) (int, interface{})
+    func(url.Values) (int, interface{})
 
 but [`http.HandleFunc`][go-handlefunc] requires a function of type:
 
@@ -158,7 +156,7 @@ but [`http.HandleFunc`][go-handlefunc] requires a function of type:
 
 We need a way to rectify this discrepancy. Initially, this didn't quite
 feel possible. I couldn't see how to convert a method like
-`Get(values ...url.Values) (int, interface{})` to the type I needed.
+`Get(values url.Values) (int, interface{})` to the type I needed.
 It just didn't match up.
 
 Then I remembered Go has support for first class functions! We can
@@ -167,9 +165,7 @@ and calls one of the `Resource` functions. Here's what that looks like.
 
     :::go
 
-    type HandlerFunc func(http.ResponseWriter, *http.Request)
-
-    func (api *Api) requestHandler(resource Resource) HandlerFunc {
+    func (api *API) requestHandler(resource Resource) http.HandlerFunc {
         return func(rw http.ResponseWriter, request *http.Request) {
 
             method := request.Method // Get HTTP Method (string)
@@ -209,19 +205,27 @@ After we've received the data (of type `interface{}`) from the
 `Resource` method, we need to turn it into JSON. Conveniently,
 Go contains an `encoding/json` package that does just this.
 
-The function we want is [`json.Marshal`][json-marshal]. This function
-takes care of everything relates to JSON parsing for us. It takes
-type `interface{}` and spits back JSON.
+In `json`, there is a function `json.NewEncoder` that looks like
+this.
 
-    ::go
+    :::go
+    func NewEncoder(w io.Writer) *Encoder
+
+The `Encoder` provides an `Encode` method that serializes an
+`interface{}` (remember, this is any type in Go) to JSON.
+(Thanks [twitter][correction]!). You'll notice it takes an
+`io.Writer`&mdash;which our `http.ResponseWriter` implements.
+Here's what this looks like.
+
+    :::go
     code, data = resource.Get(values)
 
-    content, err := json.Marshal(data)
-    if err != nil {
-        content := api.Abort(500)
-    }
+    encoder = json.NewEncoder(rw) // rw is http.ResponseWriter
+    encoder.Encode(data) // calls ResponseWriter.Write()
 
-Pretty straightforward.
+Pretty straightforward. Of course, in the final version, we'll
+need to make sure we check the error code returned from `Encode`,
+but you get the idea.
 
 ## <a name="response-header"></a>Construct The Response
 
@@ -242,21 +246,21 @@ It's a pretty simple interface.
 
 That's it.
 
-## <a name="finish-header"></a>Finish The Api
+## <a name="finish-header"></a>Finish The API
 
 We can now take a `Resource` and convert it to a method we can
 give to `http.HandleFunc`. Let's make a convenience method on our
-`Api` struct that makes this easy.
+`API` struct that makes this easy.
 
     :::go
-    func (api *Api) AddResource(resource Resource, path string) {
+    func (api *API) AddResource(resource Resource, path string) {
         http.HandleFunc(path, api.requestHandler(resource))
     }
 
-and a method that starts our `Api` on a given port.
+and a method that starts our `API` on a given port.
 
     :::go
-    func (api *Api) Start(port int) {
+    func (api *API) Start(port int) {
         portString := fmt.Sprintf(":%d", port)
         http.ListenAndServe(portString, nil)
     }
@@ -264,7 +268,7 @@ and a method that starts our `Api` on a given port.
 and finally, the `api.Abort` method we referenced earlier.
 
     :::go
-    func (api *Api) Abort(rw http.ResponseWriter, statusCode int) {
+    func (api *API) Abort(rw http.ResponseWriter, statusCode int) {
         rw.WriteHeader(rw)
     }
 
@@ -288,7 +292,7 @@ we've saved all of the above code into a `sleepy` module.
         sleepy.DeleteNotSupported
     }
 
-    func (HelloResource) Get(values ...url.Values) (int, interface{}) {
+    func (HelloResource) Get(values url.Values) (int, interface{}) {
         data := map[string]string{"hello": "world"}
         return 200, data
     }
@@ -297,7 +301,7 @@ we've saved all of the above code into a `sleepy` module.
 
         helloResource := new(HelloResource)
 
-        var api = new(sleepy.Api)
+        var api = new(sleepy.API)
         api.AddResource(helloResource, "/hello")
         api.Start(3000)
 
@@ -310,7 +314,7 @@ Now we run the program and hit our new endpoint!
     {"hello": "world"}
 
 So, we construct a struct that implements `Resource`, assign it
-to a path and start our `Api`. Pretty simple! We've built a working
+to a path and start our `API`. Pretty simple! We've built a working
 RESTful framework in Go.
 
 ## <a name="improvements-header"></a>Improvements
@@ -348,10 +352,10 @@ please let me know how you would have done this better!
     )
 
     type Resource interface {
-        Get(values ...url.Values) (int, interface{})
-        Post(values ...url.Values) (int, interface{})
-        Put(values ...url.Values) (int, interface{})
-        Delete(values ...url.Values) (int, interface{})
+        Get(values url.Values) (int, interface{})
+        Post(values url.Values) (int, interface{})
+        Put(values url.Values) (int, interface{})
+        Delete(values url.Values) (int, interface{})
     }
 
     type (
@@ -361,31 +365,31 @@ please let me know how you would have done this better!
         DeleteNotSupported struct{}
     )
 
-    func (GetNotSupported) Get(values ...url.Values) (int, interface{}) {
+    func (GetNotSupported) Get(values url.Values) (int, interface{}) {
         return 405, ""
     }
 
-    func (PostNotSupported) Post(values ...url.Values) (int, interface{}) {
+    func (PostNotSupported) Post(values url.Values) (int, interface{}) {
         return 405, ""
     }
 
-    func (PutNotSupported) Put(values ...url.Values) (int, interface{}) {
+    func (PutNotSupported) Put(values url.Values) (int, interface{}) {
         return 405, ""
     }
 
-    func (DeleteNotSupported) Delete(values ...url.Values) (int, interface{}) {
+    func (DeleteNotSupported) Delete(values url.Values) (int, interface{}) {
         return 405, ""
     }
 
     type Api struct{}
 
-    func (api *Api) Abort(rw http.ResponseWriter, statusCode int) {
+    func (api *API) Abort(rw http.ResponseWriter, statusCode int) {
         rw.WriteHeader(statusCode)
     }
 
     type HandleFunc func(http.ResponseWriter, *http.Request)
 
-    func (api *Api) requestHandler(resource Resource) HandleFunc {
+    func (api *API) requestHandler(resource Resource) HandleFunc {
         return func(rw http.ResponseWriter, request *http.Request) {
 
             var data interface{}
@@ -420,11 +424,11 @@ please let me know how you would have done this better!
         }
     }
 
-    func (api *Api) AddResource(resource Resource, path string) {
+    func (api *API) AddResource(resource Resource, path string) {
         http.HandleFunc(path, api.requestHandler(resource))
     }
 
-    func (api *Api) Start(port int) {
+    func (api *API) Start(port int) {
         portString := fmt.Sprintf(":%d", port)
         http.ListenAndServe(portString, nil)
     }
@@ -459,3 +463,4 @@ better, please let me know! [@dougblack][twitter].
 [improvements-header]: #Improvements-header
 [full-code-header]: #full-code-header
 [conclusion-header]: #conclusion-header
+[correction]: https://twitter.com/peterbourgon/status/427480674644152320
