@@ -214,8 +214,8 @@ this.
 The `Encoder` provides an `Encode` method that serializes an
 `interface{}` (remember, this is any type in Go) to JSON.
 (Thanks [twitter][correction]!). You'll notice it takes an
-`io.Writer`&mdash;which our `http.ResponseWriter` implements.
-Here's what this looks like.
+`io.Writer`&mdash;which is an interface satsified by our `http.ResponseWriter`.
+Perfect. Here's what this looks like.
 
     :::go
     code, data = resource.Get(values)

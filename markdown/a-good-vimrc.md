@@ -343,7 +343,7 @@ are my settings for CtrlP.
 There are a few things happening here. The first is I'm telling CtrlP to
 order matching files top to bottom with `ttb`. Next, we tell CtrlP to
 always open files in new buffers with `let ctrlp_switch_buffer=0`.
-Setting `let g:ctrl_working_path=0` lets us change the working directory
+Setting `let g:ctrlp_working_path=0` lets us change the working directory
 during a Vim session and make CtrlP respect that change.
 
 Now, let's talk about speed. CtrlP is entirely written in Vimscript,
