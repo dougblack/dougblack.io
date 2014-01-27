@@ -26,7 +26,7 @@ RESTful frameworks.
 
 - [Meet `net/http`][meet-net-header]
 - [Resource][resource-header]
-- [405 Not Supported][405-header]
+- [405 Method Not Allowed][405-header]
 - [API][api-header]
 - [Putting It All Together][together-header]
 - [Meeting `encoding/json`][json-header]
@@ -103,11 +103,11 @@ These functions return multiple arguments, an `int`, and an `interface{}`.
 The `int` will be the status code of the response, while the `interface{}`
 will be the data (in any format) the method returns.
 
-## <a name="405-header"></a>405 Not Supported
+## <a name="405-header"></a>405 Not Allowed
 
 But, not every resource will want to implement all of these methods.
 How can we provide a default implementation of all methods that return
-a `405 Method Not Supported` when called? Go doesn't allow interfaces to
+a `405 Method Not Allowed` when called? Go doesn't allow interfaces to
 provide default implementations, so I thought I was blocked. Then I
 found out about *embedding*.
 
@@ -119,7 +119,7 @@ I came up with the following solution:
     :::go
     type GetNotSupported struct {}
     func (GetNotSupported) Get(values url.Values) (int, interface{}) {
-        return 405, map[string]string{"error": "Not implemented"}
+        return 405, ""
     }
 
 The definition of a `Resource` that only supports `Get` looks like
