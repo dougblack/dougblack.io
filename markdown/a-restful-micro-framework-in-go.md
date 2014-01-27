@@ -434,7 +434,7 @@ please let me know how you would have done this better!
 I hope this was informative. I definitely learned a lot about
 the `net` package in Go and got a chance to cut my teeth on
 Go's design. Again, if you see anything you would have done
-better, please let me know! [@dougblack][twitter].
+better, please let me know! [@dougblackio][twitter].
 
 [`sleepy`][sleepy] is on github.
 
