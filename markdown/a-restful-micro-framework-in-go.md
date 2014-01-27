@@ -18,12 +18,6 @@ Let's do it.
 
 Oh, and I've already thought of a super clever name: `sleepy`.
 
-**UPDATE**: [`sleepy`](https://github.com/dougblack/sleepy) is under active
-development and both the code and usage of the library have changed since
-the posting of the article. I'm leaving the content of this article alone,
-though, in hopes that it proves useful to others interested in Go or
-RESTful frameworks.
-
 - [Meet `net/http`][meet-net-header]
 - [Resource][resource-header]
 - [405 Method Not Allowed][405-header]
@@ -324,6 +318,12 @@ to a path and start our `API`. Pretty simple! We've built a working
 RESTful framework in Go.
 
 ## <a name="improvements-header"></a>Improvements
+
+**UPDATE**: [`sleepy`](https://github.com/dougblack/sleepy) is under active
+development and both the code and usage of the library have changed since
+the posting of the article. I'm leaving the content of this article alone,
+though, in hopes that it proves useful to others interested in Go or
+RESTful frameworks.
 
 There are a few things I'd like to add to `sleepy`.
 
