@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+    <title>Doug Black</title>
+    <link>http://dougblack.io</link>
+    <description>Technical articles from Doug Black</description>
+    <item>
+        <title>A RESTful Micro-Framework in Go</title>
+        <link>http://dougblack.io/words/a-restful-micro-framework-in-go.html</link>
+        <guid>http://dougblack.io/words/a-restful-micro-framework-in-go.html</guid>
+        <pubDate>Sat, 25 Jan 2014 12:00:00 GMT</pubDate>
+        <description>A RESTful Micro-Framework in Go</description>
+    </item>
+    <item>
+        <title>A Good Vimrc</title>
+        <link>http://dougblack.io/words/a-good-vimrc.html</link>
+        <guid>http://dougblack.io/words/a-good-vimrc.html</guid>
+        <pubDate>Tue, 21 Jan 2014 12:00:00 GMT</pubDate>
+        <description>A Good Vimrc</description>
+    </item>
+    <item>
+        <title>A Good Terminal Setup</title>
+        <link>http://dougblack.io/words/a-good-terminal-setup.html</link>
+        <guid>http://dougblack.io/words/a-good-terminal-setup.html</guid>
+        <pubDate>Wed, 1 Jan 2014 12:00:00 GMT</pubDate>
+        <description>A Good Terminal Setup</description>
+    </item>
+    <item>
+        <title>Vi Editing Mode in Zsh</title>
+        <link>http://dougblack.io/words/zsh-vi-mode.html</link>
+        <guid>http://dougblack.io/words/zsh-vi-mode.html</guid>
+        <pubDate>Tue, 1 Oct 2013 12:00:00 GMT</pubDate>
+        <description>Vi Editing Mode in Zsh</description>
+    </item>
+    <item>
+        <title>Flask-RESTful 101</title>
+        <link>http://dougblack.io/words/flask-restful-101.html</link>
+        <guid>http://dougblack.io/words/flask-restful-101.html</guid>
+        <pubDate>Sat, 14 Sep 2013 12:00:00 GMT</pubDate>
+        <description>Flask-RESTful 101</description>
+    </item>
+</channel>
+</rss>
