@@ -11,8 +11,7 @@ for file in markdown_files:
     with open("markdown/%s" % file) as f:
         content = f.read()
 
-    title = file[:-3].split('-')
-    title = ' '.join(word.title() for word in title)
+    title = ' '.join(word.title() for word in file[:-3].split('-'))
 
     md = markdown.markdown(content, extensions=['codehilite'])
 
