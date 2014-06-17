@@ -43,7 +43,7 @@ Python classes are actually objects.
 This is a very strange concept if you're coming from a Java background,
 but if you think about it you'll quickly realize this makes sense. If
 you've ever spent time in the Python interpreter you've probably noticed
-you can set attirbutes on just about anything.
+you can set attributes on just about anything.
 
     :::python
     >>> class Foo(object):
