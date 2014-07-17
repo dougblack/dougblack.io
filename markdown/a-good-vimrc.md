@@ -20,7 +20,7 @@ comprehension.
 
 With that said, the rest of this article will be me explaining each and
 every line in my current vimrc in its entirety with the hope that you
-you will find some tricks you haven't seen before. But! My vimrc is far
+will find some tricks you haven't seen before. But! My vimrc is far
 from perfect. I'm always looking for additions that would make my
 environment better so if you think I missed something important please
 let me know: [@dougblackio][twitter].
