@@ -1,5 +1,5 @@
 # A Good Terminal Setup
-#### Posted December 23, 2013
+#### Posted January 1, 2013
 
 ## Terminal?
 
