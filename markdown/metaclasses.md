@@ -1,7 +1,7 @@
 # Metaclasses
 #### Posted on November 1st, 2013
 
-Python is, in general, a well designed and straightforward language. An
+Python is&mdash;in general&mdash;a well designed, straightforward language. An
 enterprising young programmer need only run `import this` in the interpreter
 to be reminded of what it means to be "Pythonic":
 
@@ -12,13 +12,13 @@ to be reminded of what it means to be "Pythonic":
 > Simple is better than complex.
 
 ...and so on. But what is often glossed over when praising Python for all
-of its wonders is how incredibily mutable everything is. I mean *excessively*
-so. You can set a variable on a *function*. You can set a variable on a *class*.
-Hell, you can even set a class on a function! Generally, practices such as these
-are frowned upon in most intro CS courses, and for good reason&mdash;power such as
+of its wonders is how incredibily *mutable* everything is. I mean *excessively*
+so. You can set a variable on a function. You can set a variable on a class.
+Hell, you can even set a class on a function! Practices such as these
+are frowned upon in most intro CS courses, and for good reason: power such as
 this is too easily abused.
 
-But, ignore all that, for today I'm going to
+But ignore all that, for today I'm going to
 take you on a tour of one of the more amazing examples of Python's
 mutability&mdash;metaclasses.
 
