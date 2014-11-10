@@ -22,6 +22,8 @@ But, ignore all that, for today I'm going to
 take you on a tour of one of the more amazing examples of Python's
 mutability&mdash;metaclasses.
 
+*This article is written from the perspective of Python 2.7.*
+
 ## What Is A Class?
 
 Before we delve into the magic of metaclasses, we should revist classes.
@@ -116,7 +118,7 @@ lets us customize the creation of a class?
 
 Enter metaclasses. If you've been following along so far, you should be
 quite comfortable with the following analogy: classes are to objects what
-metaclasses are to classes. Let's jump right into a full-featured example.
+metaclasses are to classes. Let's jump right into a full-fledged example.
 
     :::python
     import types
@@ -150,43 +152,45 @@ set to `True`. If so, it decorates every method on that class with
 
 There are a few things to note here.
 
-1. Our class inherits from `type`! As we've already seen, `type`
+Our class inherits from `type`! As we've already seen, `type`
 is used to create classes, so if we're customizing this class creation
 it only makes sense that we inherit from `type` rather than `object`.
-2. To invoke the metaclass, the `Foo` class declares the
+
+To invoke the metaclass, the `Foo` class declares the
 `__metaclass__` attribute. This is the syntax used in Python 2.7.
 If you're using Python 3+, metaclasses are declared in class bases using
 the `metaclass` keyword.
 
-        :::python
+    :::python
 
-        class Foo(metaclass=MetaClass):
-            ...
+    class Foo(metaclass=MetaClass):
+        pass
 
-3. The metaclass declares the `__new__` method. This method is invoked during
+The metaclass declares the `__new__` method. This method is invoked during
 class creation for every class that declares `MetaClass` as a metaclass.
 It receives four arguments.
-    - `cls`: the class being declared.
-    - `name`: the name of the class being declared.
-    - `bases`: the bases of the class being declared. Here, 'bases' means parent classes.
-    - `attrs`: the attributes of the class being declared.
 
-    We can then modify these arguments at will, provided we remember to pass them to the
-    superclass's `__new__` method.
+- `cls`: the class being declared.
+- `name`: the name of the class being declared.
+- `bases`: the bases of the class being declared. Here, 'bases' means parent classes.
+- `attrs`: the attributes of the class being declared.
+
+We can then modify these arguments at will, provided we remember to pass them to the
+superclass's `__new__` method.
 
 
 ## Runtime
 
 What actually happens at runtime though? Any time Python reaches a class definition
-(blocks that start with `class`), it performs the following four steps toe create the
+(blocks that start with `class`), it performs the following four steps to create the
 class object.
 
 1. Checks for a `__metaclass__` attribute in the currently-executing class declaration.
-2. Checks for a `__metaclass__` attribute in any of that class's parent classes.
-3. Checks for a `__metaclass__` attribute in the currently enclosing module.
-4. If all of the above checks fail, it creates a regular class definition using `type`.
+2. Checks for a `__metaclass__` attribute in the currently enclosing module.
+3. Checks for a `__metaclass__` attribute in any of that class's parent classes.
+4. If all of the above checks fail, Python defaults to the one metaclass to rule them all: `type`.
 
-If at anytime during those four steps, Python finds a `__metaclass__` attribute, is executes
+If at anytime during those four steps, Python finds a `__metaclass__` attribute, it executes
 the code referenced by that attribute in the creation of the class.
 
 So, if we return to our metaclass example from the preceding section and pretend we're
@@ -197,7 +201,36 @@ from that example.
 2. execute the `crazy_decorator` function declaration
 3. execute the `MetaClass` class declaration
 4. begin executing the `Foo` class declaration
-5. evaluate all the regular attirubtes in the class declaration.
-6. discover the `__metaclass__` attribute, pass the appropriate
-attributes to `MetaClass` for the remaining creation of the class
-declaration.
+5. discover the `__metaclass__` attribute, consult `MetaClass` for the remaining
+creation of the class declaration.
+
+Pretty straightforward. If you want to use a metaclass, you need to make sure the
+`__metaclass__` attribute is correctly set somewhere in Python's resolution chain.
+
+## When Should I Use A Metaclass?
+
+Never.
+
+I'm serious. If you really need to use one, you already know you need to use one.
+99% of the time plain old fashioned inheritance can you get you there just fine with
+infinitely lower complexity. While metaclasses are definitely fun to think about and
+play with, they're just not that fun to have to pick apart when entering a new codebase for the
+first time.
+
+When I started at Twilio, we had a pretty important codebase whose design seemed to hinge
+upon the magic of metaclasses. As a result, the core of the project always had a bit of
+a black-box feel to me and the other engineers tasked with working on it. At first, I
+thought it was cool--getting to work on a project that used such an esoteric part of Python
+made me feel smart, clever, and modern. Over time, however, I began to realize that it was doing
+more harm than good to our mental understanding of the project, and started to question if
+it was even necessary.
+
+Eventually, I opened up a pull request that removed the metaclasses entirely. My coworkers
+excitedly +1'd and we merged.
+
+Metaclasses just aren't worth it.
+
+## Questions?
+
+[@dougblack.io](https://twitter.com/dougblackio)
+
