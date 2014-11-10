@@ -1,5 +1,5 @@
 # Metaclasses
-#### Posted on November 1st, 2013
+#### Posted on November --, 2014
 
 Python is, in general, a well designed and straightforward language. An
 enterprising young programmer need only run `import this` in the interpreter
