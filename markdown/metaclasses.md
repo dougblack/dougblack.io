@@ -1,4 +1,4 @@
-# Metaclasses
+# Metaclasses in Python
 #### Posted on November --, 2014
 
 Python is, in general, a well designed and straightforward language. An
