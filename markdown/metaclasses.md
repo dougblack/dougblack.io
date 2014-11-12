@@ -79,7 +79,7 @@ But, what creates classes?
 
 ## Type
 
-Before we answer that question, let's revisit out a particularly important
+Before we answer that question, let's revisit a particularly important
 part of python: `type`. You probably know `type` as the function you
 use to check the type of a variable.
 
