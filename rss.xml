@@ -5,6 +5,13 @@
     <link>http://dougblack.io</link>
     <description>Technical articles from Doug Black</description>
     <item>
+        <title>Metaclasses in Python</title>
+        <link>http://dougblack.io/words/metaclasses.html</link>
+        <guid>http://dougblack.io/words/metaclasses.html</guid>
+        <pubDate>Tue, 11 Nov 2014 12:00:00 GMT</pubDate>
+        <description>Metaclasses in Python</description>
+    </item>
+    <item>
         <title>A RESTful Micro-Framework in Go</title>
         <link>http://dougblack.io/words/a-restful-micro-framework-in-go.html</link>
         <guid>http://dougblack.io/words/a-restful-micro-framework-in-go.html</guid>

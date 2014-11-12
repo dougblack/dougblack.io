@@ -44,6 +44,13 @@ ul {
     @include default-text-width;
 }
 
+ol {
+    @include center;
+    @include default-text-width;
+    list-style-type: decimal;
+    type: "1";
+}
+
 #article a:hover {
     border-bottom: 0.063em solid #e33;
 }
