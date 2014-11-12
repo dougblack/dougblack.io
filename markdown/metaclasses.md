@@ -155,7 +155,7 @@ metaclasses are to classes. Let's jump right into a full-fledged example.
         def bar(self):
             pass
 
-        de baz(self):
+        def baz(self):
             pass
 
 
