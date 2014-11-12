@@ -12,7 +12,7 @@ to be reminded of what it means to be "Pythonic":
 > Simple is better than complex.
 
 ...and so on. But what is often glossed over when praising Python for all
-of its wonders is how incredibily mutable everything is. I mean *excessively*
+of its wonders is how incredibly mutable everything is. I mean *excessively*
 so. You can set a variable on a *function*. You can set a variable on a *class*.
 Hell, you can even set a class on a function! Generally, practices such as these
 are frowned upon in most intro CS courses, and for good reason&mdash;power such as
@@ -26,7 +26,7 @@ mutability&mdash;metaclasses.
 
 ## What Is A Class?
 
-Before we delve into the magic of metaclasses, we should revist classes.
+Before we delve into the magic of metaclasses, we should revisit classes.
 What's a class? A class is used to construct an object. Sounds simple
 enough. In compiled languages like Java, we know that we can define a
 class, that class gets compiled, and then we can create objects using
@@ -36,7 +36,7 @@ definition during runtime.
 
 But what about in interpreted languages?
 
-Interestingly, interpreted langauges don't suffer the same constraint.
+Interestingly, interpreted languages don't suffer the same constraint.
 Since everything happens at runtime, everything is in play! In fact,
 Python classes are actually objects.
 
@@ -135,7 +135,7 @@ metaclasses are to classes. Let's jump right into a full-fledged example.
                     if type(value) is types.MethodType:
                         attrs[name] = crazy_decorator(value)
 
-            return super(MetaClass, cls).__new__(name, bases, atts)
+            return super(MetaClass, cls).__new__(name, bases, attrs)
 
     class Foo(object):
         __metaclass__ = MetaClass
@@ -233,4 +233,3 @@ Metaclasses just aren't worth it.
 ## Questions?
 
 [@dougblack.io](https://twitter.com/dougblackio)
-
