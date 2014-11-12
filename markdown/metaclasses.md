@@ -67,7 +67,7 @@ that it can be used to create objects.
 
     :::python
     >>> Foo
-    <class __main__Foo>
+    <class __main__.Foo>
     >>> f = Foo()
     >>> print(f)
     <__main__.Foo object at 0x10b45f110>
