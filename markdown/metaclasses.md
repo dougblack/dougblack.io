@@ -18,9 +18,8 @@ Hell, you can even set a class on a function! Generally, practices such as these
 are frowned upon in most intro CS courses, and for good reason&mdash;power such as
 this is too easily abused.
 
-But, ignore all that, for today I'm going to
-take you on a tour of one of the more amazing examples of Python's
-mutability&mdash;metaclasses.
+But, ignore all that, for today I'm going to take you on a tour of one of the more
+amazing examples of Python's mutability&mdash;metaclasses.
 
 *This article is written from the perspective of Python 2.7.*
 
@@ -28,17 +27,23 @@ mutability&mdash;metaclasses.
 
 Before we delve into the magic of metaclasses, we should revisit classes.
 What's a class? A class is used to construct an object. Sounds simple
-enough. In compiled languages like Java, we know that we can define a
+enough. In compiled languages like Java, we know that we define a
 class, that class gets compiled, and then we can create objects using
 that class at runtime. Because class definitions are resolved at compile
 time, they are *immutable*. In Java, it's not possible to change a class
-definition during runtime.
+definition during runtime. At least, not without significant black magic.
 
-But what about in interpreted languages?
+But, what about in interpreted languages?
 
 Interestingly, interpreted languages don't suffer the same constraint.
 Since everything happens at runtime, everything is in play! In fact,
 Python classes are actually objects.
+
+I'll repeat that, because it's important.
+
+*Python classes are actually objects.*
+
+(The same is true in Smalltalk, a significant influence on Python.)
 
 ## Classes Are Objects
 
@@ -53,6 +58,8 @@ you can set attributes on just about anything.
     ...
 
     >>> Foo.bar = 10
+    >>> Foo.bar
+    10
 
 We just modified a class! This implies that it's not just a class, it's an
 object in memory. This means we can change it. But it *is* also class, meaning
@@ -72,20 +79,21 @@ But, what creates classes?
 
 ## Type
 
-Before we answer that question, let's check out a particularly important
+Before we answer that question, let's revisit out a particularly important
 part of python: `type`. You probably know `type` as the function you
 use to check the type of a variable.
 
     :::python
-    >>> foo = "bar"
+    >>> foo = 'bar'
     >>> type(foo)
     <type 'str'>
     >>> x = 10
     >>> type(x)
     <type 'int'>
 
-But `type` has another, *way* more important use: it creates classes! The
-syntax is `type(name, bases, attrs)`. In fact,
+But `type` is sneaky. It has another, *way* more important use: it is
+the thing that creates classes! The syntax is `type(name, bases, attrs)`.
+In fact,
 
     :::python
     class Foo(object):
@@ -100,19 +108,24 @@ Check it out:
 
     :::python
     >>> class Foo(object):
-    ...     pass
+    ...     foo = 'bar'
     ...
     >>> Foo
     <class __main__.Foo>
+    >>> Foo.foo
+    'bar'
     >>>
-    >>> type('Bar', (object,), {})
+    >>> type('Bar', (object,), {'foo': 'bar'})
     >>> Bar
     <class __main__.Bar>
+    >>> Bar.foo
+    'bar'
 
-This means that all the class definitions you've ever written end up
-calling `type` to construct the class object. So, if writing a class
-lets us customize the creation of an object, is there something that
-lets us customize the creation of a class?
+This means that all the class definitions you've ever written could be
+rewritten using `type`. So, if writing a class lets us customize the creation
+of an object, is there something that lets us customize the creation of a class?
+
+Great question. It's almost like you read the title of this post. You must be smart.
 
 ## Metaclasses
 
@@ -130,29 +143,30 @@ metaclasses are to classes. Let's jump right into a full-fledged example.
     class MetaClass(type):
         def __new__(cls, name, bases, attrs):
 
-            if attrs.get('decorate', False):
-                for name, value in attrs.items():
-                    if type(value) is types.MethodType:
-                        attrs[name] = crazy_decorator(value)
+            for name, value in attrs.items():
+                if type(value) is types.MethodType:
+                    attrs[name] = crazy_decorator(value)
 
             return super(MetaClass, cls).__new__(name, bases, attrs)
 
     class Foo(object):
         __metaclass__ = MetaClass
-        decorate = True
 
         def bar(self):
             pass
 
+        de baz(self):
+            pass
 
-In this snippet, we create a metaclass named `MetaClass`.
-`MetaClass` checks if the class it's creating has a `decorate` property
-set to `True`. If so, it decorates every method on that class with
-`crazy_decorator`.
+
+In this snippet, we create a metaclass named `MetaClass`. `MetaClass`
+decorates every method the input class, and makes the *class definition*
+of `Foo` automatically have `crazy_decorator` applied to each of its
+methods.
 
 There are a few things to note here.
 
-Our class inherits from `type`! As we've already seen, `type`
+Our metaclass inherits from `type`! As we've already seen, `type`
 is used to create classes, so if we're customizing this class creation
 it only makes sense that we inherit from `type` rather than `object`.
 
@@ -167,7 +181,7 @@ the `metaclass` keyword.
         pass
 
 The metaclass declares the `__new__` method. This method is invoked during
-class creation for every class that declares `MetaClass` as a metaclass.
+class creation for every class that declares `MetaClass` as its metaclass.
 It receives four arguments.
 
 - `cls`: the class being declared.
@@ -211,7 +225,7 @@ Pretty straightforward. If you want to use a metaclass, you need to make sure th
 
 Never.
 
-I'm serious. If you really need to use one, you already know you need to use one.
+I'm serious. If you really need to use one, you likely already know you know it.
 99% of the time plain old fashioned inheritance can you get you there just fine with
 infinitely lower complexity. While metaclasses are definitely fun to think about and
 play with, they're just not that fun to have to pick apart when entering a new codebase for the
@@ -228,7 +242,7 @@ it was even necessary.
 Eventually, I opened up a pull request that removed the metaclasses entirely. My coworkers
 excitedly +1'd and we merged.
 
-Metaclasses just aren't worth it.
+Metaclasses are way cool, but just aren't worth it.
 
 ## Questions?
 
