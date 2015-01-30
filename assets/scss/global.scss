@@ -31,6 +31,8 @@ $default-text-width-em: 29em;
     src: url('../fonts/ProximaNovaBold.otf');
 }
 
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
 @mixin center {
     margin-left: auto;
     margin-right: auto;

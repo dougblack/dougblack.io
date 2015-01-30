@@ -14,17 +14,24 @@
     color: #444;
 }
 
+#container {
+    p {
+        font-family: "Roboto";
+        text-align: center;
+        font-size: 1.3em;
+        color: #111;
+    }
+}
+
 .post-name {
     font-size: 40;
-    font-family: "ProximaNova";
-    letter-spacing: -2;
+    font-family: "Roboto";
     font-weight: 700;
 }
 
 .post-date {
     font-size: 1.250em;
-    font-family: "ProximaNova";
-    letter-spacing: -1;
+    font-family: "Roboto";
     display: inline;
     color: #aaa;
     float: right;
@@ -32,9 +39,8 @@
 
 #word-title {
     font-size: 1.875em;
-    font-family: "ProximaNova";
+    font-family: "Roboto";
     text-align: center;
-    letter-spacing: -2;
     font-weight: 700;
     color: #444;
     padding-bottom: 0.625em;
@@ -42,7 +48,7 @@
 
 .post {
     overflow: hidden;
-    padding: 0.625em 1.875em 0.625em 1.875em;
+    padding: 1.625em 1.875em 1.625em 1.875em;
     margin-bottom: 2.500em;
 }
 
