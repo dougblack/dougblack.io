@@ -445,14 +445,14 @@ better, please let me know! [@dougblackio][twitter].
 [`sleepy`][sleepy] is on github.
 
 [flask-restful]: http://flask-restful.readthedocs.org/en/latest/
-[json-marshal]: http://golang.org/pkg/encoding/json/#Marshal
-[response-writer]: http://golang.org/pkg/net/http/#ResponseWriter
-[sleepy]: http://github.com/dougblack/sleepy
+[json-marshal]: https://golang.org/pkg/encoding/json/#Marshal
+[response-writer]: https://golang.org/pkg/net/http/#ResponseWriter
+[sleepy]: https://github.com/dougblack/sleepy
 [twitter]: https://twitter.com/dougblackio
-[go-http]: http://golang.org/pkg/net/http/
-[go-values]: http://golang.org/pkg/net/url/#Values
-[go-reflect]: http://golang.org/pkg/reflect/
-[go-handlefunc]: http://golang.org/pkg/net/http/#HandleFunc
+[go-http]: https://golang.org/pkg/net/http/
+[go-values]: https://golang.org/pkg/net/url/#Values
+[go-reflect]: https://golang.org/pkg/reflect/
+[go-handlefunc]: https://golang.org/pkg/net/http/#HandleFunc
 [meet-net-header]: #meet-net-header
 [resource-header]: #resource-header
 [405-header]: #405-header

@@ -582,5 +582,5 @@ Thanks for reading! Don't forget to send me your .vimrc tips at
 [ag]: https://github.com/rking/ag.vim.git
 [ctrlp]: https://github.com/kien/ctrlp.vim.git
 [commandt]: https://github.com/wincent/Command-T.git
-[reddit]: http://www.reddit.com/r/vim/comments/1vt4dg/a_good_vimrc/
+[reddit]: https://www.reddit.com/r/vim/comments/1vt4dg/a_good_vimrc/
 [github-vimrc]: https://github.com/dougblack/dotfiles/blob/master/.vimrc
