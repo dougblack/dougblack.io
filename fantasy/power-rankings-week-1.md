@@ -19,7 +19,7 @@ This team showed depth across multiple position groups. WRs Maclin and Crabtree 
 
 ### 5. Doug (BEAUTIFUL DARK TWISTED FANTASY) 7/10
 
-It's not often you would expect a team with Dez Bryant and Demaryius Thomas ends up needing to be carried by its RBs, but after showing up for a measely 8.1 points *combined*, there might be questions if these two WRs will show up this season. On the RB side, Riddick soared and Ezekiel Elliot and T.J. Yeldon turned in solid performances. With Green Bay's offense looking like they've returned to form, Rodgers looks like a solid QB pickup. Assuming this week ends up being an outlier for these typically-good WRs, this team looks strong.
+It's not often you would expect a team with Dez Bryant and Demaryius Thomas ends up needing to be carried by its RBs, but after showing up for a measly 8.1 points *combined*, there might be questions if these two WRs will show up this season. On the RB side, Riddick soared and Ezekiel Elliot and T.J. Yeldon turned in solid performances. With Green Bay's offense looking like they've returned to form, Rodgers looks like a solid QB pickup. Assuming this week ends up being an outlier for these typically-good WRs, this team looks strong.
 
 ### 6. Ryan (ALPHA KENYBODY) 119
 
