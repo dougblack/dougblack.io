@@ -15,9 +15,9 @@ Unfortunately, Winston looked poised, confident, and most of all accurate during
 
 ### 4. Todd (A TEAM HAS NO NAME) 114.6
 
-This team showed depth across multiple position groups. WRs Maclin and Crabtree brough in 13.7 and 14.7 points respectively, while the RB group was dominated by DeAngelo Williams' break out 32.1. I don't expect DeAngelo to bring in nearly that amount over the next three weeks Le'Veon Bell is suspended, but he's shown he can contribute to the Steelers offense on the ground. Gary Barnidge pulled in zero points, but with McCown returning to the helm of the Redskin's offense I expect he'll be alright going forward. A lot to like here, especially seeing Danny Woodhead's 20 points from the bench go completely unaccounted for. With Keenan Allen down he's an attractive start in the WR slots.
+This team showed depth across multiple position groups. WRs Maclin and Crabtree brough in 13.7 and 14.7 points respectively, while the RB group was dominated by DeAngelo Williams' break out 32.1. I don't expect DeAngelo to bring in nearly that amount over the next two weeks Le'Veon Bell is suspended, but he's shown he can contribute to the Steelers offense on the ground. Gary Barnidge pulled in zero points, but with McCown returning to the helm of the Brown's offense I expect he'll be alright going forward. A lot to like here, especially seeing Danny Woodhead's 20 points from the bench go completely unaccounted for. With Keenan Allen down he's an attractive start in the RB slots.
 
-### 5. Doug (BEAUTIFUL DARK TWISTED FANTASY) 7/10
+### 5. Doug (BEAUTIFUL DARK TWISTED FANTASY) 113
 
 It's not often you would expect a team with Dez Bryant and Demaryius Thomas ends up needing to be carried by its RBs, but after showing up for a measly 8.1 points *combined*, there might be questions if these two WRs will show up this season. On the RB side, Riddick soared and Ezekiel Elliot and T.J. Yeldon turned in solid performances. With Green Bay's offense looking like they've returned to form, Rodgers looks like a solid QB pickup. Assuming this week ends up being an outlier for these typically-good WRs, this team looks strong.
 
@@ -31,7 +31,7 @@ Brees put on a show against the Raider's presumed-good defense and blew up for 3
 
 ### 8. Mike S (KNOCK ON EVANS DOOR) 106.8
 
-Cousins could prove a misstep on this roster, as the much-hyped QB only turned in 10 points against the Steelers last night. Was this just the Steel Curtain showing up to put a damper on talks of a long-term Cousins contract? Maybe. Without AJ Green's 30 point domination over Revis Island this team would have been hurting. But there's not a lot of reason to doubt AJ Green's season if he can put up those kind of numbers on Revis. With Keenan Allen down on the first play of the game, Melvin Gordon's going to benefit from increased workload, but outside of Evans, Gordon and Green this team looks a bit thin.
+Cousins could prove a misstep on this roster, as the much-hyped QB only turned in 10 points against the Steelers last night. Was this just the Steel Curtain showing up to put a damper on talks of a long-term Cousins contract? Maybe. Without AJ Green's 30 point domination over Revis Island this team would have been hurting. But there's not a lot of reason to doubt AJ Green's season if he can put up those kind of numbers on Revis. With Keenan Allen on Sunday with a torn jACL, Melvin Gordon's going to benefit from increased workload, but outside of Evans, Gordon and Green this team looks a bit thin.
 
 ### 9. Dave (LARRY LEGEND'S VICTORY LAP) 129.3
 
