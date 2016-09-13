@@ -65,6 +65,15 @@ h2 {
     margin-top: 1.875em;
 }
 
+h3 {
+    @include center;
+    font-family: "ProximaNova-Bold";
+    font-size: 1em;
+    width: $default-text-width-em / 1em * 1em;
+    color: #222;
+    margin-top: 1.875em;
+}
+
 a {
     color: $link-color;
     text-decoration: none;
