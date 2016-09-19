@@ -17,7 +17,7 @@ counts all your keystrokes and happily displays a little report of your counts
 from the last hour, day, week, and total lifetime keystrokes.
 
 It requires some extra accessibility permissions to do its job, but I promise
-it doesn't do anything nefarious with this information.
+it doesn't do anything nefarious with the extra power.
 
 But don't take my word for it, go read the [source][source]. Contributions
 welcome.
