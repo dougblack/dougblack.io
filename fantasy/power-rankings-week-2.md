@@ -54,7 +54,7 @@ First off, pick a damn team name you lazy sack of shit. Secondly, this team is s
 
 It's week 2 now and I can confidently say Ean's team looked exactly what I thought it would look like based upon his draft style. He went hard for big name players early on and broke the bank and ended up having trouble competing for talent in the later stages of the draft to fill out all of his spots. With injured Doug Martin (hamstring) and Charcandrick West being the starting RBs here--and with no relief in sight--this team's RB situation is dire. In any case, he was up against Not-Fat Mike, and that performance was even shittier so he managed to avoid his second loss in a row.
 
-### 13. Alex (DONALD TRUMP'S TINY CAUCUS) `[+1]` `106.9` `(2-0)`
+### 13. Alex (DONALD TRUMP'S TINY CAUCUS) `[+1]` `106.9` `(0-2)`
 
 This looks like a respectable week 2 performance on the surface, but if you go a little deeper you'll see that our last place finisher in the week 1 power rankings has done little to get out of its precarious position. Newton (29.8) and Decker (21.6) constitute this entire team. As I mentioned in my week 1 rankings, (7.5) Gurley looks unlikely to be able to repeat his breakout rookie season while operating in a lackluster Ram offense. I expect this team to have a double digit performance in week 2 as Newton's up against a stifling Vikings D.
 
