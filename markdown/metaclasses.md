@@ -225,22 +225,23 @@ Pretty straightforward. If you want to use a metaclass, you need to make sure th
 
 Never.
 
-I'm serious. If you really need to use one, you likely already know you know it.
-99% of the time plain old fashioned inheritance can you get you there just fine with
-infinitely lower complexity. While metaclasses are definitely fun to think about and
-play with, they're just not that fun to have to pick apart when entering a new codebase for the
-first time.
+I'm serious. If you really need to use one, you likely already know you know
+it.  99% of the time plain old fashioned inheritance can get you there just
+fine with infinitely lower complexity. While metaclasses are definitely fun to
+think about and play with, they're just not that fun to have to pick apart when
+entering a new codebase for the first time.
 
-When I started at Twilio, we had a pretty important codebase whose design seemed to hinge
-upon the magic of metaclasses. As a result, the core of the project always had a bit of
-a black-box feel to me and the other engineers tasked with working on it. At first, I
-thought it was cool--getting to work on a project that used such an esoteric part of Python
-made me feel smart, clever, and modern. Over time, however, I began to realize that it was doing
-more harm than good to our mental understanding of the project, and started to question if
-it was even necessary.
+When I started at Twilio, we had a pretty important codebase whose design
+seemed to hinge upon the magic of metaclasses. As a result, the core of the
+project always had a bit of a black-box feel to me and the other engineers
+tasked with working on it. At first, I thought it was cool--getting to work on
+a project that used such an esoteric part of Python made me feel smart, clever,
+and modern. Over time, however, I began to realize that it was doing more harm
+than good to our mental understanding of the project, and started to question
+if it was even necessary.
 
-Eventually, I opened up a pull request that removed the metaclasses entirely. My coworkers
-excitedly +1'd and we merged.
+Eventually, I opened up a pull request that removed the metaclasses entirely.
+My coworkers excitedly +1'd and we merged.
 
 Metaclasses are way cool, but just aren't worth it.
 
