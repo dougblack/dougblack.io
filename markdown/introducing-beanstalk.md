@@ -30,7 +30,7 @@ with card text inline to automate that process for us, much like
 [Scryfall][scryfall] does for Magic on Discord and Slack and like
 [MTGCardFetcher][mtgcardfetcher] does for the Magic subreddit.
 
-## Beanstalk
+## Discord + Netrunner = Beanstalk
 
 I named it Beanstalk. In the cyperpunk Netrunner universe, the
 [Beanstalk][wiki-beanstalk] is a 70,000km tall space elevator that connects the
