@@ -3,14 +3,14 @@
 
 <a href="../assets/images/beanstalk-screen1.png"><img src="../assets/images/beanstalk-screen1.png" width="500"/></a>
 
-### Discord
+## Discord
 
 A quick update: back in December I wrapped up a wonderful 4.5 years with
 [Twilio][twilio] and joined the awesome team at [Discord][discord] as an
 engineer on the Data Infrastructure team where we're currently focused on
 scaling our data pipeline to keep up with Discord's rapid growth.
 
-### Netrunner
+## Netrunner
 
 I recently started [Android: Netrunner][netrunner], an asymmetric two-player
 tabletop card game. It's a beautiful, complex, high strategy card game that I
@@ -30,7 +30,7 @@ with card text inline to automate that process for us, much like
 [Scryfall][scryfall] does for Magic on Discord and Slack and like
 [MTGCardFetcher][mtgcardfetcher] does for the Magic subreddit.
 
-### Beanstalk
+## Beanstalk
 
 I named it Beanstalk. In the cyperpunk Netrunner universe, the
 [Beanstalk][wiki-beanstalk] is a 70,000km tall space elevator that connects the
@@ -52,7 +52,7 @@ Beanstalk will reply only with a full sized image of the card.
 
 <a href="../assets/images/beanstalk-screen3.png"><img src="../assets/images/beanstalk-screen3.png" width="500"/></a>
 
-### Wrapping Up
+## Wrapping Up
 
 Beanstalk's source is [up on Github][github], feel free to do with it as you
 wish. To add it to your server click [this link][oauth]. Questions or comments?
