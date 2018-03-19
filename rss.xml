@@ -5,6 +5,13 @@
     <link>http://dougblack.io</link>
     <description>Technical articles from Doug Black</description>
     <item>
+        <title>Introducing Beanstalk: A Netrunner Discord Bot</title>
+        <link>http://dougblack.io/words/introducing-beanstalk.html</link>
+        <guid>http://dougblack.io/words/introducing-beanstalk.html</guid>
+        <pubDate>Sun, 18 Mar 2018 12:00:00 GMT</pubDate>
+        <description>Introducing Beanstalk: A Netrunner Discord Bot</description>
+    </item>
+    <item>
         <title>Metaclasses in Python</title>
         <link>http://dougblack.io/words/metaclasses.html</link>
         <guid>http://dougblack.io/words/metaclasses.html</guid>
