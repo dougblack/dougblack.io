@@ -56,8 +56,8 @@ Beanstalk will reply only with a full sized image of the card.
 
 Beanstalk's source is [up on Github][github], feel free to do with it as you
 wish. To add it to your server click [this link][oauth]. Questions or comments?
-Hit me up on Twitter at [@dougblackio][twitter] or join the [Beanstalk Discord
-Server][beanstalk-discord].
+Hit me up on Twitter at [@dougblackio][twitter], on Discord at `doug#0001` or
+join the [Beanstalk Discord Server][beanstalk-discord].
 
 Thanks again to [@alsciende][alsciende], who's great work on NetrunnerDB made
 this simple little Discord bot possible.
