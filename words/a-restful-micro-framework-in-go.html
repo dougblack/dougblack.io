@@ -1,0 +1,421 @@
+<html>
+    <head>
+        <title>A Restful Micro Framework In Go</title>
+        <link rel="stylesheet" href="../assets/stylesheets/global.css">
+        <link rel="stylesheet" href="../assets/stylesheets/words.css">
+        <link rel="stylesheet" href="../assets/stylesheets/monokai.css">
+        <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-44045181-1', 'dougblack.io');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            <a href="../index.html"><div id="logo">DB</div></a>
+        </div>
+        <div id="container">
+            <div id="article">
+                <h1>A RESTful Micro-Framework in Go</h1>
+<h4>Posted January 25th, 2014</h4>
+<h2>Why Go?</h2>
+<p>After reading countless articles about the wonders of Go, I
+wanted to learn more. But, learning a new language&mdash; I
+mean <em>really</em> learning it, not just getting familiar with the general
+capabilities and syntax&mdash;is hard. I'm sure there are tons of books
+that would purport to teach me all about it, but there is no substitute
+for hands-on learning.</p>
+<p>I'm a maintainer on the <a href="http://flask-restful.readthedocs.org/en/latest/">Flask-RESTful</a> framework (which
+is written in Python) but I've never built a RESTful framework from the
+ground up. This should be a great opportunity to learn Go.</p>
+<p>Let's do it.</p>
+<p>Oh, and I've already thought of a super clever name: <code>sleepy</code>.</p>
+<ul>
+<li><a href="#meet-net-header">Meet <code>net/http</code></a></li>
+<li><a href="#resource-header">Resource</a></li>
+<li><a href="#405-header">405 Method Not Allowed</a></li>
+<li><a href="#api-header">API</a></li>
+<li><a href="#together-header">Putting It All Together</a></li>
+<li><a href="#json-header">Meeting <code>encoding/json</code></a></li>
+<li><a href="#response-header">Construct The Response</a></li>
+<li><a href="#finish-header">Finish The API</a></li>
+<li><a href="#usage-header">Usage</a></li>
+<li><a href="#Improvements-header">Improvements</a></li>
+<li><a href="#full-code-header">Full Code</a></li>
+<li><a href="#conclusion-header">Conclusion</a></li>
+</ul>
+<h2><a name="meet-net-header"></a>Meet <code>net/http</code></h2>
+<p>Before we start on the RESTful part of our framework, let's get familiar
+with how to use the <a href="https://golang.org/pkg/net/http/"><code>http</code></a> package to build a simple webserver
+in Go.</p>
+<p>The <code>http</code> package lets us map request paths to functions. It's
+pretty simple, but provides plenty for us to work with.</p>
+<pre class="codehilite"><code class="language-go">package main
+
+import (
+    &quot;net/http&quot;
+)
+
+func response(rw http.ResponseWriter, request *http.Request) {
+    rw.Write([]byte(&quot;Hello world.&quot;))
+}
+
+func main() {
+    http.HandleFunc(&quot;/&quot;, response)
+    http.ListenAndServe(&quot;:3000&quot;, nil)
+}
+</code></pre>
+
+<p>When we <code>go run</code> this program, you'll notice it doesn't terminate. This
+is because it's listening for connections on port 3000! Let's make a
+request.</p>
+<pre class="codehilite"><code class="language-bash">$ curl localhost:3000
+Hello world.
+</code></pre>
+
+<p>Great. Now that we know how to build a simple server in Go. Let's make it
+RESTful.</p>
+<h2><a name="resource-header"></a>Resource</h2>
+<p>Defining types is always a great place to start.</p>
+<p>REST is all about resouces, so let's start with a <code>Resource</code> type. In
+REST, we interact with a resource using HTTP methods. An HTTP method will
+change or query the resource's state, and the resource will respond with
+a status code and a potential body. The type of the body could be
+anything. I think we've defined enough about a resource to create the
+following type.</p>
+<pre class="codehilite"><code class="language-go">type Resource interface {
+    Get(values url.Values) (int, interface{})
+    Post(values url.Values) (int, interface{})
+    Put(values url.Values) (int, interface{})
+    Delete(values url.Values) (int, interface{})
+}
+</code></pre>
+
+<p>We've defined a <code>Resource</code> interface that defines the four most
+common HTTP methods. The methods each take a <a href="https://golang.org/pkg/net/url/#Values"><code>url.Values</code></a>
+argument which is just defined as a simple map in <code>url</code>:</p>
+<pre class="codehilite"><code class="language-go">type url.Values map[string][]string
+</code></pre>
+
+<p>These functions return multiple arguments, an <code>int</code>, and an <code>interface{}</code>.
+The <code>int</code> will be the status code of the response, while the <code>interface{}</code>
+will be the data (in any format) the method returns.</p>
+<h2><a name="405-header"></a>405 Not Allowed</h2>
+<p>But, not every resource will want to implement all of these methods.
+How can we provide a default implementation of all methods that return
+a <code>405 Method Not Allowed</code> when called? Go doesn't allow interfaces to
+provide default implementations, so I thought I was blocked. Then I
+found out about <em>embedding</em>.</p>
+<p>Basically, if you declare a struct <code>A</code> in the definition of another
+struct <code>B</code>, <code>B</code> gets all of the methods of <code>A</code>, with the caveat that
+the receiver of all of the embedded methods will be <code>A</code>. Using this,
+I came up with the following solution:</p>
+<pre class="codehilite"><code class="language-go">type GetNotSupported struct {}
+func (GetNotSupported) Get(values url.Values) (int, interface{}) {
+    return 405, &quot;&quot;
+}
+</code></pre>
+
+<p>The definition of a <code>Resource</code> that only supports <code>Get</code> looks like
+this.</p>
+<pre class="codehilite"><code class="language-go">type MyResource struct {
+    PostNotSupported
+    PutNotSupported
+    DeleteNotSupported
+}
+</code></pre>
+
+<p>It's not the sexiest solution, but the only one I could think of while
+still using idiomatic Go (i.e. not using the <a href="https://golang.org/pkg/reflect/"><code>reflect</code></a>
+package).</p>
+<h2><a name="api-header"></a>API</h2>
+<p>The next type we'll construct is our <code>API</code> type. An API
+<em>could</em> contain many internal fields, but let's keep it simple and
+have our API just be a receiver for methods that manage our resources.</p>
+<pre class="codehilite"><code class="language-go">type API struct {}
+</code></pre>
+
+<p>So, we make it an empty struct.</p>
+<h2><a name="together-header"></a>Putting It All Together</h2>
+<p>Revisiting our simple Go webserver, we quickly encounter a problem. Our
+<code>Resource</code> methods are of type:</p>
+<pre class="codehilite"><code class="language-go">func(url.Values) (int, interface{})
+</code></pre>
+
+<p>but <a href="https://golang.org/pkg/net/http/#HandleFunc"><code>http.HandleFunc</code></a> requires a function of type:</p>
+<pre class="codehilite"><code class="language-go">func(http.ResponseWriter, *http.Request)
+</code></pre>
+
+<p>We need a way to rectify this discrepancy. Initially, this didn't quite
+feel possible. I couldn't see how to convert a method like
+<code>Get(values url.Values) (int, interface{})</code> to the type I needed.
+It just didn't match up.</p>
+<p>Then I remembered Go has support for first class functions! We can
+pass <code>http.HandleFunc</code> a function of the correct type that turns around
+and calls one of the <code>Resource</code> functions. Here's what that looks like.</p>
+<pre class="codehilite"><code class="language-go">func (api *API) requestHandler(resource Resource) http.HandlerFunc {
+    return func(rw http.ResponseWriter, request *http.Request) {
+
+        method := request.Method // Get HTTP Method (string)
+        request.ParseForm()      // Populates request.Form
+        values := request.Form
+
+        switch method {
+        case &quot;GET&quot;:
+            code, data = resource.Get(values)
+        case &quot;POST&quot;:
+            code, data = resource.Post(values)
+        case &quot;PUT&quot;:
+            code, data = resource.Put(values)
+        case &quot;DELETE&quot;:
+            code, data = resource.Delete(values)
+        }
+
+        // TODO: write response
+    }
+}
+</code></pre>
+
+<p>So <code>requestHandler</code> returns a function of the correct type for
+<code>HandleFunc</code>. That function dispatches to the correct <code>Resource</code>
+method!</p>
+<p>Solving this problem made me pretty happy. At first, I was stuck
+because I was trying to solve this using object-oriented design. It was
+a lot of fun to be initially frustrated by a perceived hole in Go's
+design and then realize I was approaching the problem from the
+wrong perspective. Very cool.</p>
+<p>Anyways, back to our API.</p>
+<h2><a name="json-header"></a>Meet <code>encoding/json</code></h2>
+<p>After we've received the data (of type <code>interface{}</code>) from the
+<code>Resource</code> method, we need to turn it into JSON. Conveniently,
+Go contains an <code>encoding/json</code> package that does just this.</p>
+<p>In <code>json</code>, there is a function <code>json.NewEncoder</code> that looks like
+this.</p>
+<pre class="codehilite"><code class="language-go">func NewEncoder(w io.Writer) *Encoder
+</code></pre>
+
+<p>The <code>Encoder</code> provides an <code>Encode</code> method that serializes an
+<code>interface{}</code> (remember, this is any type in Go) to JSON.
+(Thanks <a href="https://twitter.com/peterbourgon/status/427480674644152320">twitter</a>!). You'll notice it takes an
+<code>io.Writer</code>&mdash;which is an interface satsified by our <code>http.ResponseWriter</code>.
+Perfect. Here's what this looks like.</p>
+<pre class="codehilite"><code class="language-go">code, data = resource.Get(values)
+
+encoder = json.NewEncoder(rw) // rw is http.ResponseWriter
+encoder.Encode(data) // calls ResponseWriter.Write()
+</code></pre>
+
+<p>Pretty straightforward. Of course, in the final version, we'll
+need to make sure we check the error code returned from <code>Encode</code>,
+but you get the idea.</p>
+<h2><a name="response-header"></a>Construct The Response</h2>
+<p>Now that we have a status code and a body, we need to actually
+send the response to the client. Unsurprisingly, this is also
+pretty easy with the Go standard library. We just use the
+<a href="https://golang.org/pkg/net/http/#ResponseWriter"><code>http.ResponseWriter</code></a> interface. You'll notice
+it's already an input parameter to our anonymous function:</p>
+<pre class="codehilite"><code class="language-go">func(http.ResponseWriter, *http.Request)
+</code></pre>
+
+<p>It's a pretty simple interface.</p>
+<pre class="codehilite"><code class="language-go">rw.WriteHeader(code)
+rw.Write(content)
+</code></pre>
+
+<p>That's it.</p>
+<h2><a name="finish-header"></a>Finish The API</h2>
+<p>We can now take a <code>Resource</code> and convert it to a method we can
+give to <code>http.HandleFunc</code>. Let's make a convenience method on our
+<code>API</code> struct that makes this easy.</p>
+<pre class="codehilite"><code class="language-go">func (api *API) AddResource(resource Resource, path string) {
+    http.HandleFunc(path, api.requestHandler(resource))
+}
+</code></pre>
+
+<p>and a method that starts our <code>API</code> on a given port.</p>
+<pre class="codehilite"><code class="language-go">func (api *API) Start(port int) {
+    portString := fmt.Sprintf(&quot;:%d&quot;, port)
+    http.ListenAndServe(portString, nil)
+}
+</code></pre>
+
+<p>and finally, the <code>api.Abort</code> method we referenced earlier.</p>
+<pre class="codehilite"><code class="language-go">func (api *API) Abort(rw http.ResponseWriter, statusCode int) {
+    rw.WriteHeader(rw)
+}
+</code></pre>
+
+<h2><a name="usage-header"></a>Usage</h2>
+<p>Whew. That was a lot of code snippets. Let's take a second to reflect on
+what we've built by constructing an actual example. Let's assume
+we've saved all of the above code into a <code>sleepy</code> module.</p>
+<pre class="codehilite"><code class="language-go">package main
+
+import (
+    &quot;net/url&quot;
+    &quot;sleepy&quot;
+)
+
+type HelloResource struct {
+    sleepy.PostNotSupported
+    sleepy.PutNotSupported
+    sleepy.DeleteNotSupported
+}
+
+func (HelloResource) Get(values url.Values) (int, interface{}) {
+    data := map[string]string{&quot;hello&quot;: &quot;world&quot;}
+    return 200, data
+}
+
+func main() {
+
+    helloResource := new(HelloResource)
+
+    var api = new(sleepy.API)
+    api.AddResource(helloResource, &quot;/hello&quot;)
+    api.Start(3000)
+
+}
+</code></pre>
+
+<p>Now we run the program and hit our new endpoint!</p>
+<pre class="codehilite"><code class="language-bash">curl localhost:3000/hello
+{&quot;hello&quot;: &quot;world&quot;}
+</code></pre>
+
+<p>So, we construct a struct that implements <code>Resource</code>, assign it
+to a path and start our <code>API</code>. Pretty simple! We've built a working
+RESTful framework in Go.</p>
+<h2><a name="improvements-header"></a>Improvements</h2>
+<p><strong>UPDATE</strong>: <a href="https://github.com/dougblack/sleepy"><code>sleepy</code></a> is under active
+development and both the code and usage of the library have changed since
+the posting of the article. I'm leaving the content of this article alone,
+though, in hopes that it proves useful to others interested in Go or
+RESTful frameworks.</p>
+<p>There are a few things I'd like to add to <code>sleepy</code>.</p>
+<ul>
+<li>Parsing values out of the URL.</li>
+<li>Parameter type validation</li>
+<li>Support for responding with custom headers.</li>
+</ul>
+<p>But not much more than that. After all, it's supposed to be a
+<em>micro</em>-framework.</p>
+<h2><a name="full-code-header"></a>Full Code</h2>
+<p>Here's the entire 92-line framework. If you're a Go expert,
+please let me know how you would have done this better!
+<a href="https://twitter.com/dougblackio">@dougblackio</a>.</p>
+<pre class="codehilite"><code class="language-go">package sleepy
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+    &quot;net/http&quot;
+    &quot;net/url&quot;
+)
+
+const (
+    GET    = &quot;GET&quot;
+    POST   = &quot;POST&quot;
+    PUT    = &quot;PUT&quot;
+    DELETE = &quot;DELETE&quot;
+)
+
+type Resource interface {
+    Get(values url.Values) (int, interface{})
+    Post(values url.Values) (int, interface{})
+    Put(values url.Values) (int, interface{})
+    Delete(values url.Values) (int, interface{})
+}
+
+type (
+    GetNotSupported    struct{}
+    PostNotSupported   struct{}
+    PutNotSupported    struct{}
+    DeleteNotSupported struct{}
+)
+
+func (GetNotSupported) Get(values url.Values) (int, interface{}) {
+    return 405, &quot;&quot;
+}
+
+func (PostNotSupported) Post(values url.Values) (int, interface{}) {
+    return 405, &quot;&quot;
+}
+
+func (PutNotSupported) Put(values url.Values) (int, interface{}) {
+    return 405, &quot;&quot;
+}
+
+func (DeleteNotSupported) Delete(values url.Values) (int, interface{}) {
+    return 405, &quot;&quot;
+}
+
+type API struct{}
+
+func (api *API) Abort(rw http.ResponseWriter, statusCode int) {
+    rw.WriteHeader(statusCode)
+}
+
+func (api *API) requestHandler(resource Resource) http.HandlerFunc {
+    return func(rw http.ResponseWriter, request *http.Request) {
+
+        var data interface{}
+        var code int
+
+        request.ParseForm()
+        method := request.Method
+        values := request.Form
+
+        switch method {
+        case GET:
+            code, data = resource.Get(values)
+        case POST:
+            code, data = resource.Post(values)
+        case PUT:
+            code, data = resource.Put(values)
+        case DELETE:
+            code, data = resource.Delete(values)
+        default:
+            api.Abort(rw, 405)
+            return
+        }
+
+        content, err := json.Marshal(data)
+        if err != nil {
+            api.Abort(rw, 500)
+        }
+        rw.WriteHeader(code)
+        rw.Write(content)
+    }
+}
+
+func (api *API) AddResource(resource Resource, path string) {
+    http.HandleFunc(path, api.requestHandler(resource))
+}
+
+func (api *API) Start(port int) {
+    portString := fmt.Sprintf(&quot;:%d&quot;, port)
+    http.ListenAndServe(portString, nil)
+}
+</code></pre>
+
+<h2><a name="conclusion-header"></a>Conclusion</h2>
+<p>I hope this was informative. I definitely learned a lot about
+the <code>net</code> package in Go and got a chance to cut my teeth on
+Go's design. Again, if you see anything you would have done
+better, please let me know! <a href="https://twitter.com/dougblackio">@dougblackio</a>.</p>
+<p><a href="https://github.com/dougblack/sleepy"><code>sleepy</code></a> is on github.</p>
+            </div>
+            <div id="footer">
+                <a href="../words.html"><div id="more-words">MORE WORDS</div></a>
+            </div>
+        </div>
+    </body>
+</html>

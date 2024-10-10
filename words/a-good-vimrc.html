@@ -1,0 +1,513 @@
+<html>
+    <head>
+        <title>A Good Vimrc</title>
+        <link rel="stylesheet" href="../assets/stylesheets/global.css">
+        <link rel="stylesheet" href="../assets/stylesheets/words.css">
+        <link rel="stylesheet" href="../assets/stylesheets/monokai.css">
+        <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-44045181-1', 'dougblack.io');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            <a href="../index.html"><div id="logo">DB</div></a>
+        </div>
+        <div id="container">
+            <div id="article">
+                <h1>A Good Vimrc</h1>
+<h4>Posted January 21th, 2014</h4>
+<h2>How To Vimrc</h2>
+<p>There is just one rule you must follow when crafting your own .vimrc.</p>
+<blockquote>
+<p>Don't put any lines in your vimrc that you don't understand.</p>
+</blockquote>
+<p>There are tons of tutorials such as this one on the internet
+that contain all kinds of awesome hacks to make your Vim better, but
+the absolute worst way to make your environment better is to just copy
+it wholesale from others.</p>
+<p>Spending the time to actually learn what's going into the construction
+of your editor is invaluable. In the same way that copying notes off a
+projector by hand often leads to increased information retention,
+adding features one by one to your vimrc aids in overall Vim
+comprehension.</p>
+<p>With that said, the rest of this article will be me explaining each and
+every line in my current vimrc in its entirety with the hope that you
+will find some tricks you haven't seen before. But! My vimrc is far
+from perfect. I'm always looking for additions that would make my
+environment better so if you think I missed something important please
+let me know: <a href="https://twitter.com/dougblackio">@dougblackio</a>.</p>
+<p>I will break it up into logical sections.</p>
+<ul>
+<li><a href="#colors">Colors</a></li>
+<li><a href="#spaces">Spaces And Tabs</a></li>
+<li><a href="#ui">UI Config</a></li>
+<li><a href="#search">Searching</a></li>
+<li><a href="#fold">Folding</a></li>
+<li><a href="#movement">Custom Movements</a></li>
+<li><a href="#leader">Custom Leader</a></li>
+<li><a href="#ctrlp-section">CtrlP Settings</a></li>
+<li><a href="#launch">Launch Config</a></li>
+<li><a href="#tmux">Tmux Config</a></li>
+<li><a href="#autogroup">Autogroups</a></li>
+<li><a href="#backup">Backups</a></li>
+<li><a href="#functions">Custom Functions</a></li>
+<li><a href="#organization">Organization</a></li>
+<li><a href="#wrap">Wrapping It Up</a></li>
+</ul>
+<p>This article will almost certainly fall out of date with my vimrc in the
+very near future. You can find the most up to date version of it
+<a href="https://github.com/dougblack/dotfiles/blob/master/.vimrc">on github</a>.</p>
+<h2><a name="colors"></a>Colors</h2>
+<pre class="codehilite"><code class="language-vim">colorscheme badwolf         &quot; awesome colorscheme
+</code></pre>
+
+<p>Colors! Colorschemes are subjective, but I've currently settled on
+<a href="https://github.com/sjl/badwolf/">badwolf by Steve Losh</a>. I found <a href="https://github.com/altercation/Vim-colors-solarized.git">solarized</a>
+incredibly complete, but a little too bland for my taste. I enjoy colors
+that pop. I also spend a good deal of time with <a href="https://github.com/tomasr/molokai.git">molokai</a>
+and still think it's a great scheme, but simply prefer badwolf at the
+moment.</p>
+<p>Moving on:</p>
+<pre class="codehilite"><code class="language-vim">syntax enable           &quot; enable syntax processing
+</code></pre>
+
+<p>The comment should be enough to describe this one. I'll take this
+moment to plug adding comments to most if not every line in your vimrc.
+If you're anything like me that file is going to get pretty long, and
+chances are you won't remember what every line does forever, so adding
+comments will help Future You know what the hell is going on in there.</p>
+<p>Also, many settings in Vim have both a long name and a short name. For
+instance <code>background</code> is the same as <code>bg</code>. For future readability, I
+strongly recommend using the long name.</p>
+<h2><a name="spaces"></a>Spaces &amp; Tabs</h2>
+<p>The incantations you must throw into your vimrc to get tabs/spaces
+working the way you want can be pretty confusing, so here's a quick
+refresher.</p>
+<pre class="codehilite"><code class="language-vim">set tabstop=4       &quot; number of visual spaces per TAB
+</code></pre>
+
+<p><code>tabstop</code> is the number of spaces a tab counts for. So, when Vim opens
+a file and reads a <code>&lt;TAB&gt;</code> character, it uses that many spaces to visually
+show the <code>&lt;TAB&gt;</code>.</p>
+<pre class="codehilite"><code class="language-vim">set softtabstop=4   &quot; number of spaces in tab when editing
+</code></pre>
+
+<p><code>softabstop</code> is the number of spaces a tab counts for <em>when editing</em>. So
+this value is the number of spaces that is <em>inserted</em> when you hit
+<code>&lt;TAB&gt;</code> and also the number of spaces that <em>are removed</em> when you
+backspace.</p>
+<pre class="codehilite"><code class="language-vim">set expandtab       &quot; tabs are spaces
+</code></pre>
+
+<p><code>expandtab</code> turns <code>&lt;TAB&gt;s</code> into spaces. That's it. So <code>&lt;TAB&gt;</code> just
+becomes a shortcut for "insert four spaces".</p>
+<p>Taken together, these are great options for editing files in languages
+that prefer spaces over tabs, since this ensures no <code>&lt;TAB&gt;s</code> are actually
+used. I spend most of my day in python and bash, where spaces are
+the norm. I like it, since it means my source code looks the same on
+every machine.</p>
+<h2><a name="ui"></a>UI Config</h2>
+<p>These are options that change random visuals in Vim.</p>
+<pre class="codehilite"><code class="language-vim">set number              &quot; show line numbers
+</code></pre>
+
+<p>Showing line numbers should need no justification.</p>
+<pre class="codehilite"><code class="language-vim">set showcmd             &quot; show command in bottom bar
+</code></pre>
+
+<p><code>showcmd</code> shows the last command entered in the very bottom
+right of Vim. I have it set here but it's actually not shown
+in my Vim since I use <a href="https://github.com/Lokaltog/powerline">powerline</a> plugin (which
+we will get to later).</p>
+<pre class="codehilite"><code class="language-vim">set cursorline          &quot; highlight current line
+</code></pre>
+
+<p><code>cursorline</code> draws a horizontal highlight (or underline, depending on
+your colorscheme) on the line your cursor is currently on. I've found
+that this makes it easier to follow exactly what line you left off on
+when you're switching back to a Vim session or switching between windows
+in Vim.</p>
+<pre class="codehilite"><code class="language-vim">filetype indent on      &quot; load filetype-specific indent files
+</code></pre>
+
+<p>This both turns on filetype detection and allows loading of language
+specific indentation files based on that detection. For me, this
+means the python indentation file that lives at
+<code>~/.vim/indent/python.vim</code> gets loaded every time I open a <code>*.py</code> file.</p>
+<pre class="codehilite"><code class="language-vim">set wildmenu            &quot; visual autocomplete for command menu
+</code></pre>
+
+<p>This is a pretty cool feature I didn't know Vim had. You know how Vim
+automatically autocompletes things like filenames when you, for instance,
+run <code>:e ~/.vim&lt;TAB&gt;</code>? Well it will provide a graphical menu of all the
+matches you can cycle through if you turn on <code>wildmenu</code>.</p>
+<pre class="codehilite"><code class="language-vim">set lazyredraw          &quot; redraw only when we need to.
+</code></pre>
+
+<p>Vim loves to redraw the screen during things it probably doesn't need
+to&mdash;like in the middle of macros. This tells Vim not to bother
+redrawing during these scenarios, leading to faster macros.</p>
+<pre class="codehilite"><code class="language-vim">set showmatch           &quot; highlight matching [{()}]
+</code></pre>
+
+<p>With <code>showmatch</code>, when your cursor moves over a parenthesis-like
+character, the matching one will be highlighted as well.</p>
+<h2><a name="search"></a>Searching</h2>
+<p>I love Vim's search. I love it even more with the following settings.</p>
+<pre class="codehilite"><code class="language-vim">set incsearch           &quot; search as characters are entered
+set hlsearch            &quot; highlight matches
+</code></pre>
+
+<p>These should be pretty self explanatory. They make searching better.</p>
+<pre class="codehilite"><code class="language-vim">&quot; turn off search highlight
+nnoremap &lt;leader&gt;&lt;space&gt; :nohlsearch&lt;CR&gt;
+</code></pre>
+
+<p>Vim will keep highlighted matches from searches until you either run
+a new one or manually stop highlighting the old search with <code>:nohlsearch</code>.
+I find myself running this all the time so I've mapped it to <code>,&lt;space&gt;</code>.</p>
+<h2><a name="fold"></a>Folding</h2>
+<p>Vim folding is a pretty sweet feature that I don't make heavy use of,
+but when I want it, I want it to have reasonable settings.</p>
+<pre class="codehilite"><code class="language-vim">set foldenable          &quot; enable folding
+</code></pre>
+
+<p>Shows all folds.</p>
+<pre class="codehilite"><code class="language-vim">set foldlevelstart=10   &quot; open most folds by default
+</code></pre>
+
+<p><code>foldlevelstart</code> is the starting fold level for opening a new buffer.
+If it is set to 0, all folds will be closed. Setting it to 99 would
+guarantee folds are always open. So, setting it to 10 here ensures
+that only very nested blocks of code are folded when opening a buffer.</p>
+<pre class="codehilite"><code class="language-vim">set foldnestmax=10      &quot; 10 nested fold max
+</code></pre>
+
+<p>Folds can be nested. Setting a max on the number of folds guards against
+too many folds. If you need more than 10 fold levels you must be writing
+some Javascript burning in callback-hell and I feel very bad for you.</p>
+<pre class="codehilite"><code class="language-vim">&quot; space open/closes folds
+nnoremap &lt;space&gt; za
+</code></pre>
+
+<p>I change the mapping of <code>&lt;space&gt;</code> pretty frequently, but this is its
+current command. <code>za</code> opens/closes the fold around the current block.
+As an interesting aside, I've heard the <code>z</code> character is used to
+represent folding in Vim because it looks like a folded piece of paper.
+Probably not, but it makes a nice story. :)</p>
+<pre class="codehilite"><code class="language-vim">set foldmethod=indent   &quot; fold based on indent level
+</code></pre>
+
+<p>This tells Vim to fold based on indentation. This is especially useful
+for me since I spend my days in Python. Other acceptable values are
+<code>marker</code>, <code>manual</code>, <code>expr</code>, <code>syntax</code>, <code>diff</code>. Run <code>:help foldmethod</code> to
+find out what each of those do.</p>
+<h2><a name="movement"></a>Movement</h2>
+<p>Here we start getting into custom bindings. This group of bindings
+all relate to movement commands.</p>
+<pre class="codehilite"><code class="language-vim">&quot; move vertically by visual line
+nnoremap j gj
+nnoremap k gk
+</code></pre>
+
+<p>These two allow us to move around lines visually. So if there's a very
+long line that gets visually wrapped to two lines, <code>j</code> won't skip over
+the "fake" part of the visual line in favor of the next "real" line.</p>
+<pre class="codehilite"><code class="language-vim">&quot; move to beginning/end of line
+nnoremap B ^
+nnoremap E $
+
+&quot; $/^ doesn't do anything
+nnoremap $ &lt;nop&gt;
+nnoremap ^ &lt;nop&gt;
+</code></pre>
+
+<p>These feel like my most controversial bindings, since they overwrite
+existing movement bindings. My thinking was that hitting <code>^</code> and <code>$</code> to
+jump to the beginning and  end of a line was a little too uncomfortable
+for such an oft-used movement. So I rebound <code>E</code> and <code>B</code>, which are
+typically used to move forwards and backwards over visual words to these
+purposes.  Next I bound the old way to <code>&lt;nop&gt;</code> to train myself to use
+the new ones.</p>
+<pre class="codehilite"><code class="language-vim">&quot; highlight last inserted text
+nnoremap gV `[v`]
+</code></pre>
+
+<p>This one is pretty cool. It visually selects the block of characters you
+added last time you were in <code>INSERT</code> mode.</p>
+<h2><a name="leader"></a>Leader Shortcuts</h2>
+<p>Here we've reached the meat of my custom keybindings. This section will
+introduce many different plugins and custom functions that I use pretty
+frequently. Let's get started.</p>
+<pre class="codehilite"><code class="language-vim">let mapleader=&quot;,&quot;       &quot; leader is comma
+</code></pre>
+
+<p><code>\</code> is a little far away for a leader. I've found <code>,</code> to be a much
+better replacement.</p>
+<pre class="codehilite"><code class="language-vim">&quot; jk is escape
+inoremap jk &lt;esc&gt;
+</code></pre>
+
+<p><code>&lt;ESC&gt;</code> is <em>very</em> far away. <code>jk</code> is a much better replacement as it's
+on the home row and I actually never type it when writing text. Except
+right now when I wrote this section of this post. Which I'm writing in
+Vim. The workaround if you ever need to enter this rare sequence of
+keys is to enter the <code>j</code>, wait for the leader-check timeout to fade,
+and then enter the <code>k</code>.</p>
+<pre class="codehilite"><code class="language-vim">&quot; toggle gundo
+nnoremap &lt;leader&gt;u :GundoToggle&lt;CR&gt;
+</code></pre>
+
+<p>In one of its cleverest innovations, Vim doesn't model undo as a simple
+stack. In Vim it's a tree. This makes sure you never lose an action in
+Vim, but also makes it much more difficult to traverse around that tree.
+<a href="https://github.com/sjl/gundo.vim.git">gundo.vim</a> fixes this by displaying that undo tree in graphical form.
+Get it and don't look back. Here I've mapped it to <code>,u</code>, which I like to
+think of as "super undo".</p>
+<pre class="codehilite"><code class="language-vim">&quot; edit vimrc/zshrc and load vimrc bindings
+nnoremap &lt;leader&gt;ev :vsp $MYVIMRC&lt;CR&gt;
+nnoremap &lt;leader&gt;ez :vsp ~/.zshrc&lt;CR&gt;
+nnoremap &lt;leader&gt;sv :source $MYVIMRC&lt;CR&gt;
+</code></pre>
+
+<p>These are shortcuts to edit and source my vimrc and my zshrc. That's
+it.</p>
+<pre class="codehilite"><code class="language-vim">&quot; save session
+nnoremap &lt;leader&gt;s :mksession&lt;CR&gt;
+</code></pre>
+
+<p>Ever wanted to save a given assortment of windows so that they're there
+next time you open up Vim? <code>:mksession</code> does just that! After saving
+a Vim session, you can reopen it with <code>vim -S</code>. Here I've mapped
+it to <code>,s</code>, which I remember by thinking of it as "super save".</p>
+<pre class="codehilite"><code class="language-vim">&quot; open ag.vim
+nnoremap &lt;leader&gt;a :Ag
+</code></pre>
+
+<p><a href="https://github.com/ggreer/the_silver_searcher.git">The Silver Searcher</a> is a <em>fantastic</em> command line
+tool to search source code in a project. It's wicked fast. The command line
+tool is named <code>ag</code> (like the element silver). Thankfully there is a wonderful
+Vim plugin <a href="https://github.com/rking/ag.vim.git">ag.vim</a> which lets you use <code>ag</code> without leaving Vim <em>and</em> pulls
+the results into a quickfix window for easily jumping to the matches. Here I've
+mapped it to <code>,a</code>.</p>
+<h2><a name="ctrlp-section"></a>CtrlP</h2>
+<p><a href="https://github.com/kien/ctrlp.vim.git">ctrlp.vim</a> is my life in Vim. If you've never used a fuzzy file
+searcher this will open your eyes. If you're currently using
+<a href="https://github.com/wincent/Command-T.git">commandt.vim</a>, you're on the right track, but CtrlP is the
+spiritual successor. It's <em>can be</em> (see below) significantly faster and
+more configurable than CommandT (Thanks <a href="https://www.reddit.com/r/vim/comments/1vt4dg/a_good_vimrc/">Reddit</a>!). Anyways here
+are my settings for CtrlP.</p>
+<pre class="codehilite"><code class="language-vim">&quot; CtrlP settings
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g &quot;&quot;'
+</code></pre>
+
+<p>There are a few things happening here. The first is I'm telling CtrlP to
+order matching files top to bottom with <code>ttb</code>. Next, we tell CtrlP to
+always open files in new buffers with <code>let ctrlp_switch_buffer=0</code>.
+Setting <code>let g:ctrlp_working_path=0</code> lets us change the working directory
+during a Vim session and make CtrlP respect that change.</p>
+<p>Now, let's talk about speed. CtrlP is entirely written in Vimscript,
+(which is pretty impressive) but CommandT has parts that are written
+in C. This means CommandT is, by default, faster than CtrlP. However,
+we can tell CtrlP to run an external command to find matching files.
+Now that we have <code>ag</code> installed, we can use it with CtrlP to make
+CtrlP wicked fast.. We do that with the following.</p>
+<pre class="codehilite"><code class="language-vim">let g:ctrlp_user_command = 'ag %s -l --nocolor -g &quot;&quot;'
+</code></pre>
+
+<p>If everything works out, you should see a <em>noticeable</em> improvement
+in the CtrlP speed. There are two caveats to this. Both
+<code>g:ctrlp_show_hidden</code> and <code>g:ctrlp_custom_ignore</code> do not work with
+custom user commands. I only care about the lack of support for custom
+ignores. Thankfully, <code>ag</code> has it's own convention for ignore files:
+a <code>.agignore</code> file that follows the same conventions as <code>.gitignore</code>.
+This is actually great! We only need to define our directories to
+ignore when searching in one place.</p>
+<h2><a name="launch"></a>Launch Config</h2>
+<p>These are options set at launch to configure external tools exactly once.</p>
+<pre class="codehilite"><code class="language-vim">call pathogen#infect()                      &quot; use pathogen
+call pathogen#runtime_append_all_bundles()  &quot; use pathogen
+</code></pre>
+
+<p>The <code>pathogen</code> options extract all of the Vim plugins
+from their location in <code>~/.vim/bundles</code> to their respective places
+in the <code>~/.vim</code> folder.</p>
+<h2><a name="tmux"></a>Tmux</h2>
+<pre class="codehilite"><code class="language-vim">&quot; allows cursor change in tmux mode
+if exists('$TMUX')
+    let &amp;t_SI = &quot;\&lt;Esc&gt;Ptmux;\&lt;Esc&gt;\&lt;Esc&gt;]50;CursorShape=1\x7\&lt;Esc&gt;\\&quot;
+    let &amp;t_EI = &quot;\&lt;Esc&gt;Ptmux;\&lt;Esc&gt;\&lt;Esc&gt;]50;CursorShape=0\x7\&lt;Esc&gt;\\&quot;
+else
+    let &amp;t_SI = &quot;\&lt;Esc&gt;]50;CursorShape=1\x7&quot;
+    let &amp;t_EI = &quot;\&lt;Esc&gt;]50;CursorShape=0\x7&quot;
+endif
+</code></pre>
+
+<p>These lines change the cursor from block cursor mode to vertical bar
+cursor mode when using tmux. Without these lines, tmux always uses
+block cursor mode.</p>
+<h2><a name="autogroup"></a>Autogroups</h2>
+<pre class="codehilite"><code class="language-vim">augroup configgroup
+    autocmd!
+    autocmd VimEnter * highlight clear SignColumn
+    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
+                \:call &lt;SID&gt;StripTrailingWhitespaces()
+    autocmd FileType java setlocal noexpandtab
+    autocmd FileType java setlocal list
+    autocmd FileType java setlocal listchars=tab:+\ ,eol:-
+    autocmd FileType java setlocal formatprg=par\ -w80\ -T4
+    autocmd FileType php setlocal expandtab
+    autocmd FileType php setlocal list
+    autocmd FileType php setlocal listchars=tab:+\ ,eol:-
+    autocmd FileType php setlocal formatprg=par\ -w80\ -T4
+    autocmd FileType ruby setlocal tabstop=2
+    autocmd FileType ruby setlocal shiftwidth=2
+    autocmd FileType ruby setlocal softtabstop=2
+    autocmd FileType ruby setlocal commentstring=#\ %s
+    autocmd FileType python setlocal commentstring=#\ %s
+    autocmd BufEnter *.cls setlocal filetype=java
+    autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+    autocmd BufEnter Makefile setlocal noexpandtab
+    autocmd BufEnter *.sh setlocal tabstop=2
+    autocmd BufEnter *.sh setlocal shiftwidth=2
+    autocmd BufEnter *.sh setlocal softtabstop=2
+augroup END
+</code></pre>
+
+<p>This is a slew of commands that create language-specific settings for
+certain filetypes/file extensions. It is important to note they are
+wrapped in an <code>augroup</code> as this ensures the <code>autocmd</code>'s are only applied
+once. In addition, the <code>autocmd!</code> directive clears all the <code>autocmd</code>'s
+for the current group.</p>
+<h2><a name="backup"></a>Backups</h2>
+<p>If you leave a Vim process open in which you've changed file, Vim creates
+a "backup" file. Then, when you open the file from a different Vim
+session, Vim knows to complain at you for trying to edit a file that is
+already being edited. The "backup" file is created by appending a <code>~</code> to
+the end of the file in the current directory. This can get quite annoying
+when browsing around a directory, so I applied the following settings
+to move backups to the <code>/tmp</code> folder.</p>
+<pre class="codehilite"><code class="language-vim">set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupskip=/tmp/*,/private/tmp/*
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set writebackup
+</code></pre>
+
+<p><code>backup</code> and <code>writebackup</code> enable backup support. As annoying as this
+can be, it is much better than losing tons of work in an
+edited-but-not-written file.</p>
+<h2><a name="functions"></a>Custom Functions</h2>
+<p>I've written a small number of custom functions. Here they are with
+comments explaining their purpose.</p>
+<pre class="codehilite"><code class="language-vim">&quot; toggle between number and relativenumber
+function! ToggleNumber()
+    if(&amp;relativenumber == 1)
+        set norelativenumber
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+
+&quot; strips trailing whitespace at the end of files. this
+&quot; is called on buffer write in the autogroup above.
+function! &lt;SID&gt;StripTrailingWhitespaces()
+    &quot; save last search &amp; cursor position
+    let _s=@/
+    let l = line(&quot;.&quot;)
+    let c = col(&quot;.&quot;)
+    %s/\s\+$//e
+    let @/=_s
+    call cursor(l, c)
+endfunction
+</code></pre>
+
+<h2><a name="organization"></a>Organization</h2>
+<p>Once your vimrc starts to fill up, organization becomes an issue. I've grouped
+this article by logical sections. Not surprisingly, it makes sense to group
+my actual vimrc by the exact same logical sections. Even cooler, Vim will
+let us fold all of those sections up by default. So when you open your Vimrc
+you have a high level view like this:</p>
+<pre class="codehilite"><code class="language-vim">&quot; Doug Black
++--  5 lines: &quot; Colors -------------------------------------
++--  5 lines: &quot; Misc ---------------------------------------
++--  9 lines: &quot; Spaces &amp; Tabs ------------------------------
++--  8 lines: &quot; UI Layout ----------------------------------
++--  5 lines: &quot; Searching ----------------------------------
++--  8 lines: &quot; Folding ------------------------------------
++--  9 lines: &quot; Line Shortcuts -----------------------------
++-- 21 lines: &quot; Leader Shortcuts ---------------------------
++--  7 lines: &quot; Powerline ----------------------------------
++--  6 lines: &quot; CtrlP --------------------------------------
++--  3 lines: &quot; NERDTree -----------------------------------
++--  4 lines: &quot; Syntastic ----------------------------------
++--  6 lines: &quot; Launch Config ------------------------------
++--  9 lines: &quot; Tmux ---------------------------------------
++--  4 lines: &quot; MacVim -------------------------------------
++-- 25 lines: &quot; AutoGroups ---------------------------------
++--  7 lines: &quot; Backups ------------------------------------
++-- 50 lines: &quot; Custom Functions ---------------------------
+</code></pre>
+
+<p>Here's how we make that happen. First, we tell vim to fold sections
+by <em>markers</em>, rather than <em>indentation</em>. That looks like this</p>
+<pre class="codehilite"><code class="language-vim">foldmethod=marker
+</code></pre>
+
+<p>Then we want it to close every fold by default so that we have this
+high level view when we open our vimrc.</p>
+<pre class="codehilite"><code class="language-vim">foldlevel=0
+</code></pre>
+
+<p>Now, this is a file-specific setting, so we can use a <code>modeline</code> to
+make Vim only use these settings for <em>this</em> file. Modelines are
+special comments somewhere in a file that can can declare certain
+Vim settings to be used only for that file. So we'll tell Vim
+to check just the final line of the file for a modeline.</p>
+<pre class="codehilite"><code class="language-vim">set modelines=1
+</code></pre>
+
+<p>Next, we'll add our modeline to the bottom of the file.</p>
+<pre class="codehilite"><code class="language-vim">&quot; vim:foldmethod=marker:foldlevel=0
+</code></pre>
+
+<p>Finally, we need to visually wrap each section in the fold marker.
+The fold markers are <code>{{{</code> and <code>}}}</code>.That looks like this.</p>
+<pre class="codehilite"><code class="language-vim">&quot; Section Name {{{
+set number &quot;This will be folded
+&quot; }}}
+</code></pre>
+
+<p>That's it. I find this a great way to keep your vimrc highly structured,
+easy to navigate, and incredibly readable.</p>
+<h2><a name="wrap"></a>Wrapping It Up</h2>
+<p>I hope this helped you. The reality is that this was a ton of stuff
+and I still stand by this platitude:</p>
+<blockquote>
+<p>Don't put anything in your .vimrc you don't understand!</p>
+</blockquote>
+<p>So, if you grab lines from this, make sure you add comments explaining
+exactly what is going on. If you can't, <code>:help [setting]</code> is your best
+friend.</p>
+<p>Thanks for reading! Don't forget to send me your .vimrc tips at
+<a href="https://twitter.com/dougblackio">@dougblackio</a>.</p>
+            </div>
+            <div id="footer">
+                <a href="../words.html"><div id="more-words">MORE WORDS</div></a>
+            </div>
+        </div>
+    </body>
+</html>

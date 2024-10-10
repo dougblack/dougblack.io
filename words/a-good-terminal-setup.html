@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>A Good Terminal Setup</title>
+        <link rel="stylesheet" href="../assets/stylesheets/global.css">
+        <link rel="stylesheet" href="../assets/stylesheets/words.css">
+        <link rel="stylesheet" href="../assets/stylesheets/monokai.css">
+        <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-44045181-1', 'dougblack.io');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            <a href="../index.html"><div id="logo">DB</div></a>
+        </div>
+        <div id="container">
+            <div id="article">
+                <h1>A Good Terminal Setup</h1>
+<h4>Posted January 1, 2013</h4>
+<h2>Terminal?</h2>
+<p>Terminal. Even in the modern age of indisputably fantastic IDE's and other GUI
+development tools, developing from the terminal provides some benefits that
+standard desktop development still fails to match. Arguing those benefits is
+not the point of this article though!</p>
+<p>Here I'll cover what I believe is a very solid terminal development setup. Is it
+the best? Most definitely not. With every additional month in my software development
+career my development environment continues to improve. I've no doubt
+my environment a year from now will be significantly better than it is now. I've just
+reached a point where I'm fairly comfortable saying I've arrived at a pretty
+productive, lightweight, and above all fun environment for my day to day development.</p>
+<p>Disclaimer: I spend most of my day writing python, bash, and ruby. If you're writing
+mostly Java or C++, you're likely spending a lot of your day in an IDE, and the
+terminal becomes distinctly less attractive.</p>
+<h2>Hardware/OS</h2>
+<p>This is a guide on terminal setup, but you'll need a UNIX-like environment to follow
+along. I do most of my development on a Macbook Air. OS X is a great environment
+for my style of development.</p>
+<h2>iTerm2, not Terminal.app</h2>
+<p>If you're coming from Windows, Terminal.app likely looks pretty sweet. Don't be
+fooled&mdash;grab <a href="http://www.iterm2.com/">iterm2</a> right away and don't look
+back. The colors are better, the fonts look better, the settings are better. It
+is better.</p>
+<h2>Brew</h2>
+<p>Brew is an OS X package manager and it is fantastic. Get it.</p>
+<h2>Autojump</h2>
+<p>Are you still <code>cd</code>ing around everywhere? Welcome to the 21st century, grab yourself
+an <code>autojump</code> and take a seat. Autojump basically just manages a database of folders
+you've visited and lets you jump between them by just specifying part of the path.</p>
+<p>So, instead of:</p>
+<pre class="codehilite"><code class="language-bash">[~/]: cd path/to/my/project
+[~/path/to/my/project]:
+</code></pre>
+
+<p>you can do</p>
+<pre class="codehilite"><code class="language-bash">[~/]: j project
+[~/path/to/my/project]:
+</code></pre>
+
+<p>Much faster.</p>
+<h2>Tmux</h2>
+<p>This is the latest addition to my environment. Tmux is a Terminal MUltipleXer.
+It's basically a window manager for you terminal, where each window/pane is its
+own shell session. So you can split your terminal in half and have a file open in
+one split and an ssh session to your serve in the other half.</p>
+<p>iTerm2 provides this same functionality at the GUI level, but I'm a big fan of
+having heavily customizable tools and tmux appears to have better prospects in this
+regard. It also has this thing called <code>copy-mode</code>, where you can do a vi-like visual
+block selection thing to copy text from one window to another without using the mouse.
+The mouse is evil. This is a win.</p>
+<h2>Vim</h2>
+<p>This is by far my highest recommended tool of this entire article. Vim changed my
+development speed and enjoyment immensely. Editing text used to be a point, click,
+then type a little then point, click, then type a little experience. Now it is a
+type a little, then a little more, then continue typing, then keep typing experience.</p>
+<p>Has Vim made me a better developer? No. Your editor can't do that. But it has lowered
+the barriers to my text-editing experience. Additionally, Vim is fun. It just is.
+Wrangling text in Vim is a pleasant experience and there are times where I reach for
+an open side-project just because I feel like spending some time in vim. Vim really
+lowered the barrier from my brain to code on a screen.</p>
+<p>Check out my <a href="https://github.com/dougblack/dotfiles/blob/master/.vimrc">vimrc</a>.</p>
+<h2>Zsh</h2>
+<p>Time to talk shells. <code>bash</code> is great, but I've found <code>zsh</code> to be better. It has sexier
+prompts, better autocompletion, and awesome goodies like command syntax coloring.</p>
+<p>Seriously, the tab completion alone elevates it far above bash.  Add to that the ability
+to define wonderful prompts (with the help of <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>),
+and <a href="./zsh-vi-mode.html">vi-mode</a>, and you're already well on your way to having a kickass command line experience.</p>
+            </div>
+            <div id="footer">
+                <a href="../words.html"><div id="more-words">MORE WORDS</div></a>
+            </div>
+        </div>
+    </body>
+</html>

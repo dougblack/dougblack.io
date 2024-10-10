@@ -8,7 +8,7 @@ TEMPLATE_FILE = "word.html"
 markdown_files = os.listdir('markdown')
 
 for file in markdown_files:
-    with open("markdown/%s" % file) as f:
+    with open(f'markdown/{file}') as f:
         content = f.read()
 
     title = ' '.join(word.title() for word in file[:-3].split('-'))
@@ -21,5 +21,5 @@ for file in markdown_files:
     output = template.render(title=title, content=md)
 
     html_filename = splitext(file)[0] + '.html'
-    with open('words/%s' % html_filename, 'w+') as f:
+    with open(f'words/{html_filename}', 'w+') as f:
         f.write(output)
