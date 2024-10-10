@@ -1,0 +1,154 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@font-face {
+  font-family: "Consolas";
+  src: url("../fonts/Consolas.ttf"); }
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-Regular.otf"); }
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-Bold.otf");
+  font-weight: 700; }
+@font-face {
+  font-family: "ProximaNova";
+  src: url("../fonts/ProximaNovaRegular.otf"); }
+@font-face {
+  font-family: "ProximaNova-Bold";
+  src: url("../fonts/ProximaNovaBold.otf"); }
+body {
+  font-family: "ProximaNova";
+  color: #111;
+  font-size: 100%;
+  width: 100%;
+  margin: 0;
+  overflow-x: hidden; }
+
+#container {
+  margin-top: 5.000em;
+  margin-left: auto;
+  margin-right: auto; }
+
+h2 {
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "ProximaNova-Bold";
+  font-size: 1.313em;
+  width: 22.086824067em;
+  color: #222;
+  margin-top: 1.875em; }
+
+h3 {
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "ProximaNova-Bold";
+  font-size: 1em;
+  width: 29em;
+  color: #222;
+  margin-top: 1.875em; }
+
+a {
+  color: #ccc;
+  text-decoration: none; }
+
+a:hover {
+  color: #999; }
+
+#header {
+  padding-top: 0.625em;
+  position: absolute;
+  left: 0.313em;
+  top: 0.313em; }
+
+#logo {
+  font-family: "Montserrat";
+  font-size: 1.563em;
+  letter-spacing: -2;
+  color: #ddd;
+  font-weight: 700;
+  display: inline;
+  padding: 0.188em 0.500em 0.188em 0.375em; }
+
+#logo:hover {
+  color: #333; }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  #logo {
+    font-size: 60; }
+
+  #header {
+    position: relative !important; } }
+#word-list {
+  margin-top: 3.125em;
+  width: 37.500em;
+  margin-left: auto;
+  margin-right: auto; }
+
+#word-list a {
+  color: #444; }
+
+#word-list a:hover {
+  color: #444; }
+
+#container p {
+  font-family: "Roboto";
+  text-align: center;
+  font-size: 1.3em;
+  color: #111; }
+
+.post-name {
+  font-size: 40;
+  font-family: "Roboto";
+  font-weight: 700; }
+
+.post-date {
+  font-size: 1.250em;
+  font-family: "Roboto";
+  display: inline;
+  color: #aaa;
+  float: right; }
+
+#word-title {
+  font-size: 1.875em;
+  font-family: "Roboto";
+  text-align: center;
+  font-weight: 700;
+  color: #444;
+  padding-bottom: 0.625em; }
+
+.post {
+  overflow: hidden;
+  padding: 1.625em 1.875em 1.625em 1.875em;
+  margin-bottom: 2.500em; }
+
+.post:hover {
+  background: #fafafd;
+  outline: 0.063em solid #dedede; }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  div {
+    clear: both !important;
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 !important; }
+
+  #word-title {
+    font-size: 600%;
+    font-family: Montserrat;
+    margin-bottom: 1em !important; }
+
+  .post-name {
+    font-size: 600% !important;
+    font-family: Montserrat;
+    width: 90% !important;
+    margin-left: auto !important;
+    margin-right: auto !important; }
+
+  .post-date {
+    font-size: 300%;
+    margin-top: 0.8em !important;
+    margin-bottom: 3em !important;
+    margin-left: 55% !important; } }
+
+/*# sourceMappingURL=word-list.css.map */

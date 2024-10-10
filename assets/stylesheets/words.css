@@ -1,0 +1,246 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@font-face {
+  font-family: "Consolas";
+  src: url("../fonts/Consolas.ttf"); }
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-Regular.otf"); }
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-Bold.otf");
+  font-weight: 700; }
+@font-face {
+  font-family: "ProximaNova";
+  src: url("../fonts/ProximaNovaRegular.otf"); }
+@font-face {
+  font-family: "ProximaNova-Bold";
+  src: url("../fonts/ProximaNovaBold.otf"); }
+body {
+  font-family: "ProximaNova";
+  color: #111;
+  font-size: 100%;
+  width: 100%;
+  margin: 0;
+  overflow-x: hidden; }
+
+#container {
+  margin-top: 5.000em;
+  margin-left: auto;
+  margin-right: auto; }
+
+h2 {
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "ProximaNova-Bold";
+  font-size: 1.313em;
+  width: 22.086824067em;
+  color: #222;
+  margin-top: 1.875em; }
+
+h3 {
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "ProximaNova-Bold";
+  font-size: 1em;
+  width: 29em;
+  color: #222;
+  margin-top: 1.875em; }
+
+a {
+  color: #ccc;
+  text-decoration: none; }
+
+a:hover {
+  color: #999; }
+
+#header {
+  padding-top: 0.625em;
+  position: absolute;
+  left: 0.313em;
+  top: 0.313em; }
+
+#logo {
+  font-family: "Montserrat";
+  font-size: 1.563em;
+  letter-spacing: -2;
+  color: #ddd;
+  font-weight: 700;
+  display: inline;
+  padding: 0.188em 0.500em 0.188em 0.375em; }
+
+#logo:hover {
+  color: #333; }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  #logo {
+    font-size: 60; }
+
+  #header {
+    position: relative !important; } }
+h1 {
+  margin-top: 1em;
+  margin-bottom: 0em;
+  font-family: "ProximaNova-Bold";
+  font-size: 2.250em;
+  color: #373737;
+  line-height: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 12.8888888889em; }
+
+h4 {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0em;
+  font-family: "ProximaNova";
+  font-size: 0.875em;
+  width: 33.1428571429em;
+  color: #bbb; }
+
+#article {
+  font-family: "ProximaNova";
+  font-size: 1.125em;
+  line-height: 1.5em;
+  color: #373737; }
+
+#article a {
+  color: #e33; }
+
+#article p {
+  margin-left: auto;
+  margin-right: auto;
+  width: 29em;
+  margin-top: 1.375em;
+  margin-bottom: 1.375em;
+  overflow-x: hidden; }
+
+ul {
+  margin-left: auto;
+  margin-right: auto;
+  width: 29em; }
+
+ol {
+  margin-left: auto;
+  margin-right: auto;
+  width: 29em;
+  list-style-type: decimal;
+  type: "1"; }
+
+#article a:hover {
+  border-bottom: 0.063em solid #e33; }
+
+#footer {
+  margin-top: 3.125em;
+  margin: 3.125em auto 6.250em auto; }
+
+#more-words {
+  margin-left: auto;
+  margin-right: auto;
+  width: 18.5540626999em;
+  font-size: 1.563em;
+  font-family: Montserrat;
+  color: #ddd;
+  letter-spacing: -2;
+  font-weight: 700;
+  padding: 0.250em;
+  text-align: center; }
+
+#more-words:hover {
+  color: #333; }
+
+.codehilite {
+  font-family: Consolas;
+  color: #333;
+  z-index: -1;
+  background: #fafafd;
+  border: 0.063em solid #dedede;
+  border-right: 0em solid #fff;
+  line-height: 1.5em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  left: 0;
+  right: 0; }
+
+pre {
+  display: block;
+  margin: 0;
+  font-size: 0.875em;
+  font-family: Consolas;
+  color: #333;
+  line-height: 1.3em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 33.1428571429em; }
+
+code {
+  background: #fafafd;
+  font-family: Consolas;
+  padding: 0.063em;
+  border: 0.063em solid #dedede; }
+
+p code {
+  font-size: 0.9em; }
+
+li a code {
+  font-size: 0.865em; }
+
+blockquote {
+  z-index: -1;
+  margin: 0;
+  padding: 0;
+  background: #fafafd;
+  border: 0.063em solid #dedede;
+  border-right: 0em solid #fff;
+  left: 0;
+  right: 0;
+  width: 100%; }
+
+blockquote p {
+  margin-left: auto;
+  margin-right: auto;
+  margin: 0;
+  font-size: 1em;
+  overflow: auto;
+  line-height: 1.3em;
+  color: #888;
+  width: 29em !important; }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  @viewport {
+    width: device-width; }
+  body {
+    font-size: 100% !important;
+    font-family: Helvetica, Arial, Verdana, sans-serif;
+    padding: 5px; }
+
+  div {
+    clear: both !important;
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 !important; }
+
+  .codehilite {
+    padding-top: 1.25em !important;
+    padding-bottom: 1.25em !important; }
+
+  pre {
+    overflow: auto; }
+
+  blockquote p {
+    overflow: auto; }
+
+  #header {
+    position: absolute; }
+
+  @font-face {
+    font-family: "ProximaNova-Bold";
+    src: url("../fonts/ProximaNovaRegular.otf"); } }
+img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border: 4px solid #555; }
+
+/*# sourceMappingURL=words.css.map */
