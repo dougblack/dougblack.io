@@ -1,0 +1,48 @@
+# Site Configuration
+site:
+  title: "Doug Black"
+  url: "https://dougblack.io"
+  author: "Doug Black"
+  description: "Personal blog and website"
+
+# Paths
+paths:
+  markdown: "markdown"
+  output: "words"
+  templates: "templates"
+  assets: "assets"
+
+# Build settings
+build:
+  # Markdown extensions
+  markdown_extensions:
+    - codehilite
+    - fenced_code
+    - tables
+    - footnotes
+    - toc
+    - attr_list
+    - def_list
+    - abbr
+
+  # Code highlighting
+  codehilite:
+    guess_lang: false
+
+# Feed settings
+feed:
+  enabled: true
+  output: "rss.xml"
+  title: "Doug Black's Blog"
+  description: "Thoughts on software development"
+
+# Sitemap settings
+sitemap:
+  enabled: true
+  output: "sitemap.xml"
+
+# Development server
+dev:
+  host: "localhost"
+  port: 8000
+  live_reload: true

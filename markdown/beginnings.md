@@ -1,3 +1,10 @@
+---
+title: Beginnings
+date: 2013-09-13
+description: Starting my journey as a technical writer and blogger
+tags: [meta, personal]
+---
+
 # Beginnings
 #### Posted on September 13th, 2013
 

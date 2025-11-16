@@ -1,0 +1,116 @@
+/* CSS Custom Properties (Variables) */
+:root {
+  --default-text: #111;
+  --article-text: #373737;
+  --link-color: #ccc;
+  --link-hover-color: #999;
+  --fancy-link-color: #ddd;
+  --fancy-link-hover-color: #333;
+  --default-text-width-em: 29em;
+}
+
+/* Font Faces */
+@font-face {
+  font-family: "Consolas";
+  src: url('../fonts/Consolas.ttf');
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url('../fonts/Montserrat-Regular.otf');
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url('../fonts/Montserrat-Bold.otf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "ProximaNova";
+  src: url('../fonts/ProximaNovaRegular.otf');
+}
+
+@font-face {
+  font-family: "ProximaNova-Bold";
+  src: url('../fonts/ProximaNovaBold.otf');
+}
+
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+/* Base Styles */
+body {
+  font-family: "ProximaNova";
+  color: var(--default-text);
+  font-size: 100%;
+  width: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+#container {
+  margin-top: 5.000em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h2 {
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "ProximaNova-Bold";
+  font-size: 1.313em;
+  width: calc(var(--default-text-width-em) / 1.313);
+  color: #222;
+  margin-top: 1.875em;
+}
+
+h3 {
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "ProximaNova-Bold";
+  font-size: 1em;
+  width: var(--default-text-width-em);
+  color: #222;
+  margin-top: 1.875em;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--link-hover-color);
+  }
+}
+
+#header {
+  padding-top: 0.625em;
+  position: absolute;
+  left: 0.313em;
+  top: 0.313em;
+}
+
+#logo {
+  font-family: "Montserrat";
+  font-size: 1.563em;
+  letter-spacing: -2;
+  color: var(--fancy-link-color);
+  font-weight: 700;
+  display: inline;
+  padding: 0.188em 0.500em 0.188em 0.375em;
+
+  &:hover {
+    color: var(--fancy-link-hover-color);
+  }
+}
+
+/* Mobile Styles */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  #logo {
+    font-size: 60;
+  }
+
+  #header {
+    position: relative !important;
+  }
+}

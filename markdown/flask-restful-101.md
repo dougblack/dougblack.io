@@ -1,3 +1,10 @@
+---
+title: Flask-RESTful 101
+date: 2013-09-14
+description: An introduction to building RESTful APIs with Flask-RESTful, my favorite Python framework
+tags: [python, flask, rest, api, web]
+---
+
 # Flask-RESTful 101
 #### Posted on September 14th, 2013
 

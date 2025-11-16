@@ -1,9 +1,9 @@
 <html>
     <head>
         <title>A Restful Micro Framework In Go</title>
-        <link rel="stylesheet" href="../assets/stylesheets/global.css">
-        <link rel="stylesheet" href="../assets/stylesheets/words.css">
-        <link rel="stylesheet" href="../assets/stylesheets/monokai.css">
+        <link rel="stylesheet" href="../assets/css/global.css">
+        <link rel="stylesheet" href="../assets/css/words.css">
+        <link rel="stylesheet" href="../assets/css/monokai.css">
         <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
         <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
         <script>
@@ -23,9 +23,9 @@
         </div>
         <div id="container">
             <div id="article">
-                <h1>A RESTful Micro-Framework in Go</h1>
-<h4>Posted January 25th, 2014</h4>
-<h2>Why Go?</h2>
+                <h1 id="a-restful-micro-framework-in-go">A RESTful Micro-Framework in Go</h1>
+<h4 id="posted-january-25th-2014">Posted January 25th, 2014</h4>
+<h2 id="why-go">Why Go?</h2>
 <p>After reading countless articles about the wonders of Go, I
 wanted to learn more. But, learning a new language&mdash; I
 mean <em>really</em> learning it, not just getting familiar with the general
@@ -51,38 +51,38 @@ ground up. This should be a great opportunity to learn Go.</p>
 <li><a href="#full-code-header">Full Code</a></li>
 <li><a href="#conclusion-header">Conclusion</a></li>
 </ul>
-<h2><a name="meet-net-header"></a>Meet <code>net/http</code></h2>
+<h2 id="meet-nethttp"><a name="meet-net-header"></a>Meet <code>net/http</code></h2>
 <p>Before we start on the RESTful part of our framework, let's get familiar
 with how to use the <a href="https://golang.org/pkg/net/http/"><code>http</code></a> package to build a simple webserver
 in Go.</p>
 <p>The <code>http</code> package lets us map request paths to functions. It's
 pretty simple, but provides plenty for us to work with.</p>
-<pre class="codehilite"><code class="language-go">package main
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-import (
-    &quot;net/http&quot;
-)
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;net/http&quot;</span>
+<span class="p">)</span>
 
-func response(rw http.ResponseWriter, request *http.Request) {
-    rw.Write([]byte(&quot;Hello world.&quot;))
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">response</span><span class="p">(</span><span class="nx">rw</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">rw</span><span class="p">.</span><span class="nx">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&quot;Hello world.&quot;</span><span class="p">))</span>
+<span class="p">}</span>
 
-func main() {
-    http.HandleFunc(&quot;/&quot;, response)
-    http.ListenAndServe(&quot;:3000&quot;, nil)
-}
-</code></pre>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:3000&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>When we <code>go run</code> this program, you'll notice it doesn't terminate. This
 is because it's listening for connections on port 3000! Let's make a
 request.</p>
-<pre class="codehilite"><code class="language-bash">$ curl localhost:3000
-Hello world.
-</code></pre>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>localhost:3000
+Hello<span class="w"> </span>world.
+</code></pre></div>
 
 <p>Great. Now that we know how to build a simple server in Go. Let's make it
 RESTful.</p>
-<h2><a name="resource-header"></a>Resource</h2>
+<h2 id="resource"><a name="resource-header"></a>Resource</h2>
 <p>Defining types is always a great place to start.</p>
 <p>REST is all about resouces, so let's start with a <code>Resource</code> type. In
 REST, we interact with a resource using HTTP methods. An HTTP method will
@@ -90,24 +90,24 @@ change or query the resource's state, and the resource will respond with
 a status code and a potential body. The type of the body could be
 anything. I think we've defined enough about a resource to create the
 following type.</p>
-<pre class="codehilite"><code class="language-go">type Resource interface {
-    Get(values url.Values) (int, interface{})
-    Post(values url.Values) (int, interface{})
-    Put(values url.Values) (int, interface{})
-    Delete(values url.Values) (int, interface{})
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Resource</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Get</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span>
+<span class="w">    </span><span class="nx">Post</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span>
+<span class="w">    </span><span class="nx">Put</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span>
+<span class="w">    </span><span class="nx">Delete</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>We've defined a <code>Resource</code> interface that defines the four most
 common HTTP methods. The methods each take a <a href="https://golang.org/pkg/net/url/#Values"><code>url.Values</code></a>
 argument which is just defined as a simple map in <code>url</code>:</p>
-<pre class="codehilite"><code class="language-go">type url.Values map[string][]string
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">string</span>
+</code></pre></div>
 
 <p>These functions return multiple arguments, an <code>int</code>, and an <code>interface{}</code>.
 The <code>int</code> will be the status code of the response, while the <code>interface{}</code>
 will be the data (in any format) the method returns.</p>
-<h2><a name="405-header"></a>405 Not Allowed</h2>
+<h2 id="405-not-allowed"><a name="405-header"></a>405 Not Allowed</h2>
 <p>But, not every resource will want to implement all of these methods.
 How can we provide a default implementation of all methods that return
 a <code>405 Method Not Allowed</code> when called? Go doesn't allow interfaces to
@@ -117,41 +117,41 @@ found out about <em>embedding</em>.</p>
 struct <code>B</code>, <code>B</code> gets all of the methods of <code>A</code>, with the caveat that
 the receiver of all of the embedded methods will be <code>A</code>. Using this,
 I came up with the following solution:</p>
-<pre class="codehilite"><code class="language-go">type GetNotSupported struct {}
-func (GetNotSupported) Get(values url.Values) (int, interface{}) {
-    return 405, &quot;&quot;
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">GetNotSupported</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{}</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">GetNotSupported</span><span class="p">)</span><span class="w"> </span><span class="nx">Get</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">405</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>The definition of a <code>Resource</code> that only supports <code>Get</code> looks like
 this.</p>
-<pre class="codehilite"><code class="language-go">type MyResource struct {
-    PostNotSupported
-    PutNotSupported
-    DeleteNotSupported
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">MyResource</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">PostNotSupported</span>
+<span class="w">    </span><span class="nx">PutNotSupported</span>
+<span class="w">    </span><span class="nx">DeleteNotSupported</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>It's not the sexiest solution, but the only one I could think of while
 still using idiomatic Go (i.e. not using the <a href="https://golang.org/pkg/reflect/"><code>reflect</code></a>
 package).</p>
-<h2><a name="api-header"></a>API</h2>
+<h2 id="api"><a name="api-header"></a>API</h2>
 <p>The next type we'll construct is our <code>API</code> type. An API
 <em>could</em> contain many internal fields, but let's keep it simple and
 have our API just be a receiver for methods that manage our resources.</p>
-<pre class="codehilite"><code class="language-go">type API struct {}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">API</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
 
 <p>So, we make it an empty struct.</p>
-<h2><a name="together-header"></a>Putting It All Together</h2>
+<h2 id="putting-it-all-together"><a name="together-header"></a>Putting It All Together</h2>
 <p>Revisiting our simple Go webserver, we quickly encounter a problem. Our
 <code>Resource</code> methods are of type:</p>
-<pre class="codehilite"><code class="language-go">func(url.Values) (int, interface{})
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kd">func</span><span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span>
+</code></pre></div>
 
 <p>but <a href="https://golang.org/pkg/net/http/#HandleFunc"><code>http.HandleFunc</code></a> requires a function of type:</p>
-<pre class="codehilite"><code class="language-go">func(http.ResponseWriter, *http.Request)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
+</code></pre></div>
 
 <p>We need a way to rectify this discrepancy. Initially, this didn't quite
 feel possible. I couldn't see how to convert a method like
@@ -160,28 +160,28 @@ It just didn't match up.</p>
 <p>Then I remembered Go has support for first class functions! We can
 pass <code>http.HandleFunc</code> a function of the correct type that turns around
 and calls one of the <code>Resource</code> functions. Here's what that looks like.</p>
-<pre class="codehilite"><code class="language-go">func (api *API) requestHandler(resource Resource) http.HandlerFunc {
-    return func(rw http.ResponseWriter, request *http.Request) {
+<div class="codehilite"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">api</span><span class="w"> </span><span class="o">*</span><span class="nx">API</span><span class="p">)</span><span class="w"> </span><span class="nx">requestHandler</span><span class="p">(</span><span class="nx">resource</span><span class="w"> </span><span class="nx">Resource</span><span class="p">)</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">rw</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
-        method := request.Method // Get HTTP Method (string)
-        request.ParseForm()      // Populates request.Form
-        values := request.Form
+<span class="w">        </span><span class="nx">method</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">Method</span><span class="w"> </span><span class="c1">// Get HTTP Method (string)</span>
+<span class="w">        </span><span class="nx">request</span><span class="p">.</span><span class="nx">ParseForm</span><span class="p">()</span><span class="w">      </span><span class="c1">// Populates request.Form</span>
+<span class="w">        </span><span class="nx">values</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">Form</span>
 
-        switch method {
-        case &quot;GET&quot;:
-            code, data = resource.Get(values)
-        case &quot;POST&quot;:
-            code, data = resource.Post(values)
-        case &quot;PUT&quot;:
-            code, data = resource.Put(values)
-        case &quot;DELETE&quot;:
-            code, data = resource.Delete(values)
-        }
+<span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="nx">method</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;GET&quot;</span><span class="p">:</span>
+<span class="w">            </span><span class="nx">code</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;POST&quot;</span><span class="p">:</span>
+<span class="w">            </span><span class="nx">code</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">Post</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;PUT&quot;</span><span class="p">:</span>
+<span class="w">            </span><span class="nx">code</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">Put</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;DELETE&quot;</span><span class="p">:</span>
+<span class="w">            </span><span class="nx">code</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">Delete</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
 
-        // TODO: write response
-    }
-}
-</code></pre>
+<span class="w">        </span><span class="c1">// TODO: write response</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>So <code>requestHandler</code> returns a function of the correct type for
 <code>HandleFunc</code>. That function dispatches to the correct <code>Resource</code>
@@ -192,108 +192,108 @@ a lot of fun to be initially frustrated by a perceived hole in Go's
 design and then realize I was approaching the problem from the
 wrong perspective. Very cool.</p>
 <p>Anyways, back to our API.</p>
-<h2><a name="json-header"></a>Meet <code>encoding/json</code></h2>
+<h2 id="meet-encodingjson"><a name="json-header"></a>Meet <code>encoding/json</code></h2>
 <p>After we've received the data (of type <code>interface{}</code>) from the
 <code>Resource</code> method, we need to turn it into JSON. Conveniently,
 Go contains an <code>encoding/json</code> package that does just this.</p>
 <p>In <code>json</code>, there is a function <code>json.NewEncoder</code> that looks like
 this.</p>
-<pre class="codehilite"><code class="language-go">func NewEncoder(w io.Writer) *Encoder
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">NewEncoder</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">Encoder</span>
+</code></pre></div>
 
 <p>The <code>Encoder</code> provides an <code>Encode</code> method that serializes an
 <code>interface{}</code> (remember, this is any type in Go) to JSON.
 (Thanks <a href="https://twitter.com/peterbourgon/status/427480674644152320">twitter</a>!). You'll notice it takes an
 <code>io.Writer</code>&mdash;which is an interface satsified by our <code>http.ResponseWriter</code>.
 Perfect. Here's what this looks like.</p>
-<pre class="codehilite"><code class="language-go">code, data = resource.Get(values)
+<div class="codehilite"><pre><span></span><code><span class="nx">code</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span>
 
-encoder = json.NewEncoder(rw) // rw is http.ResponseWriter
-encoder.Encode(data) // calls ResponseWriter.Write()
-</code></pre>
+<span class="nx">encoder</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewEncoder</span><span class="p">(</span><span class="nx">rw</span><span class="p">)</span><span class="w"> </span><span class="c1">// rw is http.ResponseWriter</span>
+<span class="nx">encoder</span><span class="p">.</span><span class="nx">Encode</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="w"> </span><span class="c1">// calls ResponseWriter.Write()</span>
+</code></pre></div>
 
 <p>Pretty straightforward. Of course, in the final version, we'll
 need to make sure we check the error code returned from <code>Encode</code>,
 but you get the idea.</p>
-<h2><a name="response-header"></a>Construct The Response</h2>
+<h2 id="construct-the-response"><a name="response-header"></a>Construct The Response</h2>
 <p>Now that we have a status code and a body, we need to actually
 send the response to the client. Unsurprisingly, this is also
 pretty easy with the Go standard library. We just use the
 <a href="https://golang.org/pkg/net/http/#ResponseWriter"><code>http.ResponseWriter</code></a> interface. You'll notice
 it's already an input parameter to our anonymous function:</p>
-<pre class="codehilite"><code class="language-go">func(http.ResponseWriter, *http.Request)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
+</code></pre></div>
 
 <p>It's a pretty simple interface.</p>
-<pre class="codehilite"><code class="language-go">rw.WriteHeader(code)
-rw.Write(content)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="nx">rw</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span>
+<span class="nx">rw</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span>
+</code></pre></div>
 
 <p>That's it.</p>
-<h2><a name="finish-header"></a>Finish The API</h2>
+<h2 id="finish-the-api"><a name="finish-header"></a>Finish The API</h2>
 <p>We can now take a <code>Resource</code> and convert it to a method we can
 give to <code>http.HandleFunc</code>. Let's make a convenience method on our
 <code>API</code> struct that makes this easy.</p>
-<pre class="codehilite"><code class="language-go">func (api *API) AddResource(resource Resource, path string) {
-    http.HandleFunc(path, api.requestHandler(resource))
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">api</span><span class="w"> </span><span class="o">*</span><span class="nx">API</span><span class="p">)</span><span class="w"> </span><span class="nx">AddResource</span><span class="p">(</span><span class="nx">resource</span><span class="w"> </span><span class="nx">Resource</span><span class="p">,</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span><span class="w"> </span><span class="nx">api</span><span class="p">.</span><span class="nx">requestHandler</span><span class="p">(</span><span class="nx">resource</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>and a method that starts our <code>API</code> on a given port.</p>
-<pre class="codehilite"><code class="language-go">func (api *API) Start(port int) {
-    portString := fmt.Sprintf(&quot;:%d&quot;, port)
-    http.ListenAndServe(portString, nil)
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">api</span><span class="w"> </span><span class="o">*</span><span class="nx">API</span><span class="p">)</span><span class="w"> </span><span class="nx">Start</span><span class="p">(</span><span class="nx">port</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">portString</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;:%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">port</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="nx">portString</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>and finally, the <code>api.Abort</code> method we referenced earlier.</p>
-<pre class="codehilite"><code class="language-go">func (api *API) Abort(rw http.ResponseWriter, statusCode int) {
-    rw.WriteHeader(rw)
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">api</span><span class="w"> </span><span class="o">*</span><span class="nx">API</span><span class="p">)</span><span class="w"> </span><span class="nx">Abort</span><span class="p">(</span><span class="nx">rw</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">statusCode</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">rw</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="nx">rw</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
-<h2><a name="usage-header"></a>Usage</h2>
+<h2 id="usage"><a name="usage-header"></a>Usage</h2>
 <p>Whew. That was a lot of code snippets. Let's take a second to reflect on
 what we've built by constructing an actual example. Let's assume
 we've saved all of the above code into a <code>sleepy</code> module.</p>
-<pre class="codehilite"><code class="language-go">package main
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-import (
-    &quot;net/url&quot;
-    &quot;sleepy&quot;
-)
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;net/url&quot;</span>
+<span class="w">    </span><span class="s">&quot;sleepy&quot;</span>
+<span class="p">)</span>
 
-type HelloResource struct {
-    sleepy.PostNotSupported
-    sleepy.PutNotSupported
-    sleepy.DeleteNotSupported
-}
+<span class="kd">type</span><span class="w"> </span><span class="nx">HelloResource</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">sleepy</span><span class="p">.</span><span class="nx">PostNotSupported</span>
+<span class="w">    </span><span class="nx">sleepy</span><span class="p">.</span><span class="nx">PutNotSupported</span>
+<span class="w">    </span><span class="nx">sleepy</span><span class="p">.</span><span class="nx">DeleteNotSupported</span>
+<span class="p">}</span>
 
-func (HelloResource) Get(values url.Values) (int, interface{}) {
-    data := map[string]string{&quot;hello&quot;: &quot;world&quot;}
-    return 200, data
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">HelloResource</span><span class="p">)</span><span class="w"> </span><span class="nx">Get</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">data</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span>
+<span class="p">}</span>
 
-func main() {
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 
-    helloResource := new(HelloResource)
+<span class="w">    </span><span class="nx">helloResource</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">new</span><span class="p">(</span><span class="nx">HelloResource</span><span class="p">)</span>
 
-    var api = new(sleepy.API)
-    api.AddResource(helloResource, &quot;/hello&quot;)
-    api.Start(3000)
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">api</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">new</span><span class="p">(</span><span class="nx">sleepy</span><span class="p">.</span><span class="nx">API</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">api</span><span class="p">.</span><span class="nx">AddResource</span><span class="p">(</span><span class="nx">helloResource</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/hello&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">api</span><span class="p">.</span><span class="nx">Start</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span>
 
-}
-</code></pre>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>Now we run the program and hit our new endpoint!</p>
-<pre class="codehilite"><code class="language-bash">curl localhost:3000/hello
-{&quot;hello&quot;: &quot;world&quot;}
-</code></pre>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>localhost:3000/hello
+<span class="o">{</span><span class="s2">&quot;hello&quot;</span>:<span class="w"> </span><span class="s2">&quot;world&quot;</span><span class="o">}</span>
+</code></pre></div>
 
 <p>So, we construct a struct that implements <code>Resource</code>, assign it
 to a path and start our <code>API</code>. Pretty simple! We've built a working
 RESTful framework in Go.</p>
-<h2><a name="improvements-header"></a>Improvements</h2>
+<h2 id="improvements"><a name="improvements-header"></a>Improvements</h2>
 <p><strong>UPDATE</strong>: <a href="https://github.com/dougblack/sleepy"><code>sleepy</code></a> is under active
 development and both the code and usage of the library have changed since
 the posting of the article. I'm leaving the content of this article alone,
@@ -307,106 +307,106 @@ RESTful frameworks.</p>
 </ul>
 <p>But not much more than that. After all, it's supposed to be a
 <em>micro</em>-framework.</p>
-<h2><a name="full-code-header"></a>Full Code</h2>
+<h2 id="full-code"><a name="full-code-header"></a>Full Code</h2>
 <p>Here's the entire 92-line framework. If you're a Go expert,
 please let me know how you would have done this better!
 <a href="https://twitter.com/dougblackio">@dougblackio</a>.</p>
-<pre class="codehilite"><code class="language-go">package sleepy
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">sleepy</span>
 
-import (
-    &quot;encoding/json&quot;
-    &quot;fmt&quot;
-    &quot;net/http&quot;
-    &quot;net/url&quot;
-)
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;encoding/json&quot;</span>
+<span class="w">    </span><span class="s">&quot;fmt&quot;</span>
+<span class="w">    </span><span class="s">&quot;net/http&quot;</span>
+<span class="w">    </span><span class="s">&quot;net/url&quot;</span>
+<span class="p">)</span>
 
-const (
-    GET    = &quot;GET&quot;
-    POST   = &quot;POST&quot;
-    PUT    = &quot;PUT&quot;
-    DELETE = &quot;DELETE&quot;
-)
+<span class="kd">const</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">GET</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;GET&quot;</span>
+<span class="w">    </span><span class="nx">POST</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;POST&quot;</span>
+<span class="w">    </span><span class="nx">PUT</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;PUT&quot;</span>
+<span class="w">    </span><span class="nx">DELETE</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;DELETE&quot;</span>
+<span class="p">)</span>
 
-type Resource interface {
-    Get(values url.Values) (int, interface{})
-    Post(values url.Values) (int, interface{})
-    Put(values url.Values) (int, interface{})
-    Delete(values url.Values) (int, interface{})
-}
+<span class="kd">type</span><span class="w"> </span><span class="nx">Resource</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Get</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span>
+<span class="w">    </span><span class="nx">Post</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span>
+<span class="w">    </span><span class="nx">Put</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span>
+<span class="w">    </span><span class="nx">Delete</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span>
+<span class="p">}</span>
 
-type (
-    GetNotSupported    struct{}
-    PostNotSupported   struct{}
-    PutNotSupported    struct{}
-    DeleteNotSupported struct{}
-)
+<span class="kd">type</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">GetNotSupported</span><span class="w">    </span><span class="kd">struct</span><span class="p">{}</span>
+<span class="w">    </span><span class="nx">PostNotSupported</span><span class="w">   </span><span class="kd">struct</span><span class="p">{}</span>
+<span class="w">    </span><span class="nx">PutNotSupported</span><span class="w">    </span><span class="kd">struct</span><span class="p">{}</span>
+<span class="w">    </span><span class="nx">DeleteNotSupported</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}</span>
+<span class="p">)</span>
 
-func (GetNotSupported) Get(values url.Values) (int, interface{}) {
-    return 405, &quot;&quot;
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">GetNotSupported</span><span class="p">)</span><span class="w"> </span><span class="nx">Get</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">405</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="p">}</span>
 
-func (PostNotSupported) Post(values url.Values) (int, interface{}) {
-    return 405, &quot;&quot;
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">PostNotSupported</span><span class="p">)</span><span class="w"> </span><span class="nx">Post</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">405</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="p">}</span>
 
-func (PutNotSupported) Put(values url.Values) (int, interface{}) {
-    return 405, &quot;&quot;
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">PutNotSupported</span><span class="p">)</span><span class="w"> </span><span class="nx">Put</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">405</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="p">}</span>
 
-func (DeleteNotSupported) Delete(values url.Values) (int, interface{}) {
-    return 405, &quot;&quot;
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">DeleteNotSupported</span><span class="p">)</span><span class="w"> </span><span class="nx">Delete</span><span class="p">(</span><span class="nx">values</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">405</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="p">}</span>
 
-type API struct{}
+<span class="kd">type</span><span class="w"> </span><span class="nx">API</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}</span>
 
-func (api *API) Abort(rw http.ResponseWriter, statusCode int) {
-    rw.WriteHeader(statusCode)
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">api</span><span class="w"> </span><span class="o">*</span><span class="nx">API</span><span class="p">)</span><span class="w"> </span><span class="nx">Abort</span><span class="p">(</span><span class="nx">rw</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">statusCode</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">rw</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="nx">statusCode</span><span class="p">)</span>
+<span class="p">}</span>
 
-func (api *API) requestHandler(resource Resource) http.HandlerFunc {
-    return func(rw http.ResponseWriter, request *http.Request) {
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">api</span><span class="w"> </span><span class="o">*</span><span class="nx">API</span><span class="p">)</span><span class="w"> </span><span class="nx">requestHandler</span><span class="p">(</span><span class="nx">resource</span><span class="w"> </span><span class="nx">Resource</span><span class="p">)</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">rw</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
-        var data interface{}
-        var code int
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">code</span><span class="w"> </span><span class="kt">int</span>
 
-        request.ParseForm()
-        method := request.Method
-        values := request.Form
+<span class="w">        </span><span class="nx">request</span><span class="p">.</span><span class="nx">ParseForm</span><span class="p">()</span>
+<span class="w">        </span><span class="nx">method</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">Method</span>
+<span class="w">        </span><span class="nx">values</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">Form</span>
 
-        switch method {
-        case GET:
-            code, data = resource.Get(values)
-        case POST:
-            code, data = resource.Post(values)
-        case PUT:
-            code, data = resource.Put(values)
-        case DELETE:
-            code, data = resource.Delete(values)
-        default:
-            api.Abort(rw, 405)
-            return
-        }
+<span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="nx">method</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nx">GET</span><span class="p">:</span>
+<span class="w">            </span><span class="nx">code</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nx">POST</span><span class="p">:</span>
+<span class="w">            </span><span class="nx">code</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">Post</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nx">PUT</span><span class="p">:</span>
+<span class="w">            </span><span class="nx">code</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">Put</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nx">DELETE</span><span class="p">:</span>
+<span class="w">            </span><span class="nx">code</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">Delete</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span>
+<span class="w">        </span><span class="k">default</span><span class="p">:</span>
+<span class="w">            </span><span class="nx">api</span><span class="p">.</span><span class="nx">Abort</span><span class="p">(</span><span class="nx">rw</span><span class="p">,</span><span class="w"> </span><span class="mi">405</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span>
+<span class="w">        </span><span class="p">}</span>
 
-        content, err := json.Marshal(data)
-        if err != nil {
-            api.Abort(rw, 500)
-        }
-        rw.WriteHeader(code)
-        rw.Write(content)
-    }
-}
+<span class="w">        </span><span class="nx">content</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">api</span><span class="p">.</span><span class="nx">Abort</span><span class="p">(</span><span class="nx">rw</span><span class="p">,</span><span class="w"> </span><span class="mi">500</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="nx">rw</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">rw</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-func (api *API) AddResource(resource Resource, path string) {
-    http.HandleFunc(path, api.requestHandler(resource))
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">api</span><span class="w"> </span><span class="o">*</span><span class="nx">API</span><span class="p">)</span><span class="w"> </span><span class="nx">AddResource</span><span class="p">(</span><span class="nx">resource</span><span class="w"> </span><span class="nx">Resource</span><span class="p">,</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span><span class="w"> </span><span class="nx">api</span><span class="p">.</span><span class="nx">requestHandler</span><span class="p">(</span><span class="nx">resource</span><span class="p">))</span>
+<span class="p">}</span>
 
-func (api *API) Start(port int) {
-    portString := fmt.Sprintf(&quot;:%d&quot;, port)
-    http.ListenAndServe(portString, nil)
-}
-</code></pre>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">api</span><span class="w"> </span><span class="o">*</span><span class="nx">API</span><span class="p">)</span><span class="w"> </span><span class="nx">Start</span><span class="p">(</span><span class="nx">port</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">portString</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;:%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">port</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="nx">portString</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
-<h2><a name="conclusion-header"></a>Conclusion</h2>
+<h2 id="conclusion"><a name="conclusion-header"></a>Conclusion</h2>
 <p>I hope this was informative. I definitely learned a lot about
 the <code>net</code> package in Go and got a chance to cut my teeth on
 Go's design. Again, if you see anything you would have done

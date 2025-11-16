@@ -1,25 +1,44 @@
-# Generate stylesheets.
-all: render
+# Modern static site generator for dougblack.io
+# No SCSS compilation needed - using modern CSS!
 
-style:
-	sass --update assets/scss:assets/stylesheets
+.PHONY: all build serve install clean help
 
-render: style
-	source venv/bin/activate; python scripts/render.py
+# Default target
+all: build
 
-watch:
-	sass --watch assets/scss:assets/stylesheets
+# Build the site
+build:
+	@source venv/bin/activate && python scripts/render.py build
 
-update:
-	git pull origin master
-	rvm use 2.0.0
-	make render
+# Alias for build (backwards compatibility)
+render: build
 
+# Development server with live reload
+serve:
+	@source venv/bin/activate && python scripts/render.py serve
+
+# Create virtual environment and install dependencies
 venv:
-	virtualenv venv
+	python3 -m venv venv
 
 install: venv
-	source venv/bin/activate; pip install -r requirements.txt
+	source venv/bin/activate && pip install -r requirements.txt
 
+# Update and rebuild (for deployment)
+update:
+	git pull origin master
+	make build
+
+# Clean up
 clean:
 	rm -rf venv
+
+# Show help
+help:
+	@echo "Available targets:"
+	@echo "  make          - Build the site (default)"
+	@echo "  make build    - Build the site"
+	@echo "  make serve    - Run dev server with live reload"
+	@echo "  make install  - Set up virtual environment and install dependencies"
+	@echo "  make update   - Pull latest changes and rebuild"
+	@echo "  make clean    - Remove virtual environment"

@@ -1,9 +1,9 @@
 <html>
     <head>
         <title>A Good Terminal Setup</title>
-        <link rel="stylesheet" href="../assets/stylesheets/global.css">
-        <link rel="stylesheet" href="../assets/stylesheets/words.css">
-        <link rel="stylesheet" href="../assets/stylesheets/monokai.css">
+        <link rel="stylesheet" href="../assets/css/global.css">
+        <link rel="stylesheet" href="../assets/css/words.css">
+        <link rel="stylesheet" href="../assets/css/monokai.css">
         <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
         <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
         <script>
@@ -23,9 +23,9 @@
         </div>
         <div id="container">
             <div id="article">
-                <h1>A Good Terminal Setup</h1>
-<h4>Posted January 1, 2013</h4>
-<h2>Terminal?</h2>
+                <h1 id="a-good-terminal-setup">A Good Terminal Setup</h1>
+<h4 id="posted-january-1-2013">Posted January 1, 2013</h4>
+<h2 id="terminal">Terminal?</h2>
 <p>Terminal. Even in the modern age of indisputably fantastic IDE's and other GUI
 development tools, developing from the terminal provides some benefits that
 standard desktop development still fails to match. Arguing those benefits is
@@ -39,33 +39,33 @@ productive, lightweight, and above all fun environment for my day to day develop
 <p>Disclaimer: I spend most of my day writing python, bash, and ruby. If you're writing
 mostly Java or C++, you're likely spending a lot of your day in an IDE, and the
 terminal becomes distinctly less attractive.</p>
-<h2>Hardware/OS</h2>
+<h2 id="hardwareos">Hardware/OS</h2>
 <p>This is a guide on terminal setup, but you'll need a UNIX-like environment to follow
 along. I do most of my development on a Macbook Air. OS X is a great environment
 for my style of development.</p>
-<h2>iTerm2, not Terminal.app</h2>
+<h2 id="iterm2-not-terminalapp">iTerm2, not Terminal.app</h2>
 <p>If you're coming from Windows, Terminal.app likely looks pretty sweet. Don't be
 fooled&mdash;grab <a href="http://www.iterm2.com/">iterm2</a> right away and don't look
 back. The colors are better, the fonts look better, the settings are better. It
 is better.</p>
-<h2>Brew</h2>
+<h2 id="brew">Brew</h2>
 <p>Brew is an OS X package manager and it is fantastic. Get it.</p>
-<h2>Autojump</h2>
+<h2 id="autojump">Autojump</h2>
 <p>Are you still <code>cd</code>ing around everywhere? Welcome to the 21st century, grab yourself
 an <code>autojump</code> and take a seat. Autojump basically just manages a database of folders
 you've visited and lets you jump between them by just specifying part of the path.</p>
 <p>So, instead of:</p>
-<pre class="codehilite"><code class="language-bash">[~/]: cd path/to/my/project
-[~/path/to/my/project]:
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>~/<span class="o">]</span>:<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>path/to/my/project
+<span class="o">[</span>~/path/to/my/project<span class="o">]</span>:
+</code></pre></div>
 
 <p>you can do</p>
-<pre class="codehilite"><code class="language-bash">[~/]: j project
-[~/path/to/my/project]:
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>~/<span class="o">]</span>:<span class="w"> </span>j<span class="w"> </span>project
+<span class="o">[</span>~/path/to/my/project<span class="o">]</span>:
+</code></pre></div>
 
 <p>Much faster.</p>
-<h2>Tmux</h2>
+<h2 id="tmux">Tmux</h2>
 <p>This is the latest addition to my environment. Tmux is a Terminal MUltipleXer.
 It's basically a window manager for you terminal, where each window/pane is its
 own shell session. So you can split your terminal in half and have a file open in
@@ -75,7 +75,7 @@ having heavily customizable tools and tmux appears to have better prospects in t
 regard. It also has this thing called <code>copy-mode</code>, where you can do a vi-like visual
 block selection thing to copy text from one window to another without using the mouse.
 The mouse is evil. This is a win.</p>
-<h2>Vim</h2>
+<h2 id="vim">Vim</h2>
 <p>This is by far my highest recommended tool of this entire article. Vim changed my
 development speed and enjoyment immensely. Editing text used to be a point, click,
 then type a little then point, click, then type a little experience. Now it is a
@@ -86,7 +86,7 @@ Wrangling text in Vim is a pleasant experience and there are times where I reach
 an open side-project just because I feel like spending some time in vim. Vim really
 lowered the barrier from my brain to code on a screen.</p>
 <p>Check out my <a href="https://github.com/dougblack/dotfiles/blob/master/.vimrc">vimrc</a>.</p>
-<h2>Zsh</h2>
+<h2 id="zsh">Zsh</h2>
 <p>Time to talk shells. <code>bash</code> is great, but I've found <code>zsh</code> to be better. It has sexier
 prompts, better autocompletion, and awesome goodies like command syntax coloring.</p>
 <p>Seriously, the tab completion alone elevates it far above bash.  Add to that the ability

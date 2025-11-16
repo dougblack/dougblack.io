@@ -1,2 +1,15 @@
+# Core dependencies
 Jinja2==3.1.4
 Markdown==3.7
+PyYAML==6.0.2
+python-frontmatter==1.1.0
+Pygments==2.18.0  # Required for syntax highlighting
+
+# Feed generation
+feedgen==1.0.0
+
+# File watching for dev server
+watchdog==4.0.2
+
+# Optional: for better date parsing
+python-dateutil==2.9.0

@@ -1,0 +1,23 @@
+/* Import global styles */
+@import url('global.css');
+
+h1 {
+  width: 14.5em;
+}
+
+#image-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  width: 50em;
+
+  & img {
+    display: block;
+    margin-top: 3.750em;
+    margin-bottom: 3.750em;
+    width: 40em !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
