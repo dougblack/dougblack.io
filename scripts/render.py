@@ -4,12 +4,12 @@ Modern static site generator for dougblack.io
 Supports front matter, RSS/sitemap generation, and live reload dev server
 """
 
-import os
 import sys
 import argparse
+import time
 from pathlib import Path
 from datetime import datetime, timezone
-from typing import List, Dict, Optional
+from typing import List
 import yaml
 import frontmatter
 import markdown
@@ -17,7 +17,6 @@ import jinja2
 from feedgen.feed import FeedGenerator
 import http.server
 import socketserver
-import threading
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
@@ -123,7 +122,7 @@ class SiteGenerator:
         self.posts.sort(key=lambda p: p.date, reverse=True)
         return self.posts
 
-    def render_posts(self):
+    def render_posts(self) -> None:
         """Render all posts to HTML"""
         template = self.jinja_env.get_template('word.html')
         output_dir = Path(self.config['paths']['output'])
@@ -141,7 +140,7 @@ class SiteGenerator:
 
             print(f"Rendered: {post.slug}")
 
-    def generate_rss(self):
+    def generate_rss(self) -> None:
         """Generate RSS feed"""
         if not self.config['feed'].get('enabled', False):
             return
@@ -168,7 +167,7 @@ class SiteGenerator:
         fg.rss_file(output_path, pretty=True)
         print(f"Generated RSS feed: {output_path}")
 
-    def generate_sitemap(self):
+    def generate_sitemap(self) -> None:
         """Generate XML sitemap"""
         if not self.config['sitemap'].get('enabled', False):
             return
@@ -201,7 +200,7 @@ class SiteGenerator:
 
         print(f"Generated sitemap: {output_path}")
 
-    def build(self):
+    def build(self) -> None:
         """Full build: load posts, render HTML, generate feeds"""
         print("Building site...")
         self.load_posts()
@@ -215,16 +214,15 @@ class SiteGenerator:
 class LiveReloadHandler(FileSystemEventHandler):
     """Watch for file changes and trigger rebuild"""
 
-    def __init__(self, generator: SiteGenerator):
+    def __init__(self, generator: SiteGenerator) -> None:
         self.generator = generator
         self.last_build = 0
 
-    def on_modified(self, event):
+    def on_modified(self, event) -> None:
         if event.is_directory:
             return
 
         # Debounce: only rebuild once per second
-        import time
         now = time.time()
         if now - self.last_build < 1:
             return
@@ -240,7 +238,7 @@ class LiveReloadHandler(FileSystemEventHandler):
                 print(f"Build error: {e}", file=sys.stderr)
 
 
-def serve(generator: SiteGenerator, port: int = 8000):
+def serve(generator: SiteGenerator, port: int = 8000) -> None:
     """Run development server with live reload"""
     # Start file watcher
     observer = Observer()
@@ -273,7 +271,7 @@ def serve(generator: SiteGenerator, port: int = 8000):
     observer.join()
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description='Static site generator for dougblack.io')
     parser.add_argument('command', nargs='?', default='build',
                        choices=['build', 'serve'],
