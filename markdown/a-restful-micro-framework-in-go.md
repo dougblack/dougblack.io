@@ -1,3 +1,8 @@
+---
+title: A RESTful Micro-Framework in Go
+date: 2014-01-25
+---
+
 # A RESTful Micro-Framework in Go
 #### Posted January 25th, 2014
 

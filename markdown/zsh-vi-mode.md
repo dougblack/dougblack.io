@@ -1,3 +1,8 @@
+---
+title: Vi Editing Mode In Zsh
+date: 2013-10-01
+---
+
 # Adding Vi To Your Zsh
 #### Posted October 1st, 2013
 

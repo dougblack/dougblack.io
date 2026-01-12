@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Doug Black{% endblock %}</title>
+    <link rel="stylesheet" href="{{ root_path }}assets/css/main.css">
+    {% block extra_css %}{% endblock %}
+    <link rel="shortcut icon" href="{{ root_path }}assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ root_path }}assets/images/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ root_path }}rss.xml">
+    <script src="{{ root_path }}assets/js/theme.js"></script>
+</head>
+<body>
+    {% block header %}
+    <div id="header">
+        <a href="{{ root_path }}index.html"><div id="logo">DB</div></a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">&#9790;</button>
+    </div>
+    {% endblock %}
+
+    {% block body %}{% endblock %}
+</body>
+</html>

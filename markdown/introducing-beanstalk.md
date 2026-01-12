@@ -1,3 +1,8 @@
+---
+title: "Introducing Beanstalk: A Netrunner Discord Bot"
+date: 2018-03-18
+---
+
 # Introducing Beanstalk: A Netrunner Discord Bot
 #### Posted March 18, 2018
 

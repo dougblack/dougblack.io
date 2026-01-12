@@ -1,3 +1,8 @@
+---
+title: A Good Vimrc
+date: 2014-01-21
+---
+
 # A Good Vimrc
 #### Posted January 21th, 2014
 

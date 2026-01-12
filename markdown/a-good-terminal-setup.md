@@ -1,5 +1,10 @@
+---
+title: A Good Terminal Setup
+date: 2014-01-01
+---
+
 # A Good Terminal Setup
-#### Posted January 1, 2013
+#### Posted January 1, 2014
 
 ## Terminal?
 

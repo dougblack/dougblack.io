@@ -1,3 +1,8 @@
+---
+title: Metaclasses in Python
+date: 2014-11-11
+---
+
 # Metaclasses in Python
 #### Posted on November 11, 2014
 

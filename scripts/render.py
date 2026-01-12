@@ -8,7 +8,7 @@ import sys
 import argparse
 import time
 from pathlib import Path
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date
 from typing import List
 import yaml
 import frontmatter
@@ -55,6 +55,9 @@ class Post:
                 if date_val.tzinfo is None:
                     return date_val.replace(tzinfo=timezone.utc)
                 return date_val
+            if isinstance(date_val, date):
+                # Convert date to datetime
+                return datetime.combine(date_val, datetime.min.time(), tzinfo=timezone.utc)
             if isinstance(date_val, str):
                 try:
                     dt = datetime.strptime(date_val, '%Y-%m-%d')
@@ -132,13 +135,28 @@ class SiteGenerator:
             output_html = template.render(
                 title=post.title,
                 content=post.content,
-                post=post
+                post=post,
+                root_path='../'
             )
 
             with open(post.output_path, 'w', encoding='utf-8') as f:
                 f.write(output_html)
 
             print(f"Rendered: {post.slug}")
+
+    def render_static_pages(self) -> None:
+        """Render static pages (index and words listing)"""
+        # Render index
+        index_template = self.jinja_env.get_template('index.html')
+        with open('index.html', 'w', encoding='utf-8') as f:
+            f.write(index_template.render(root_path=''))
+        print("Rendered: index.html")
+
+        # Render words listing
+        words_template = self.jinja_env.get_template('words.html')
+        with open('words.html', 'w', encoding='utf-8') as f:
+            f.write(words_template.render(posts=self.posts, root_path=''))
+        print("Rendered: words.html")
 
     def generate_rss(self) -> None:
         """Generate RSS feed"""
@@ -206,6 +224,7 @@ class SiteGenerator:
         self.load_posts()
         print(f"Found {len(self.posts)} posts")
         self.render_posts()
+        self.render_static_pages()
         self.generate_rss()
         self.generate_sitemap()
         print("Build complete!")

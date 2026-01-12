@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Words{% endblock %}
+
+{% block body %}
+<div id="container">
+    <div id="word-title">words / learnings / musings</div>
+    <div id="word-list">
+        {% for post in posts %}
+        <a href="words/{{ post.slug }}.html">
+            <div class="post">
+                <div class="post-name">{{ post.title }}</div>
+                <div class="post-date">{{ post.date.strftime('%B %d, %Y') }}</div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
