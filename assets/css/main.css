@@ -1,8 +1,3 @@
-/* ==========================================================================
-   Doug Black - Personal Site
-   Typography-driven design with terminal personality
-   ========================================================================== */
-
 /* --------------------------------------------------------------------------
    CSS Custom Properties (Light Mode - Default)
    -------------------------------------------------------------------------- */
@@ -79,10 +74,10 @@
   --color-text-muted: #888888;
   --color-text-light: #666666;
 
-  /* Accent - Deep Teal */
-  --color-accent: #2dd4bf;
-  --color-accent-hover: #5eead4;
-  --color-accent-light: rgba(45, 212, 191, 0.08);
+  /* Accent - Rust Red (same as light mode) */
+  --color-accent: #c44;
+  --color-accent-hover: #a33;
+  --color-accent-light: rgba(204, 68, 68, 0.08);
 
   --color-border: #2a2a2a;
   --color-border-dark: #666666;
@@ -255,8 +250,21 @@ img {
    Homepage
    -------------------------------------------------------------------------- */
 
+body:has(#banner-container) {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body:has(#banner-container) #container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
+}
+
 #banner-container {
-  padding-top: 12em;
   text-align: center;
 }
 
@@ -282,7 +290,7 @@ img {
 .home-nav {
   list-style: none;
   text-align: center;
-  margin: 0 auto;
+  margin: 2.5rem auto 0;
   padding: 0;
   display: flex;
   justify-content: center;
@@ -299,6 +307,7 @@ img {
   color: var(--color-text-muted);
   position: relative;
   padding-bottom: 0.25em;
+  display: inline-block;
 }
 
 .home-nav a::after {
@@ -696,16 +705,8 @@ blockquote p {
   }
 
   /* Homepage */
-  #banner-container {
-    padding-top: 6em;
-  }
-
   #name {
     font-size: var(--text-hero);
-  }
-
-  .tagline {
-    margin-bottom: 2rem;
   }
 
   .home-nav {
