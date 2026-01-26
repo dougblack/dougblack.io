@@ -247,88 +247,118 @@ img {
 }
 
 /* --------------------------------------------------------------------------
-   Homepage
+   Homepage - Grid Design
    -------------------------------------------------------------------------- */
 
-body:has(#banner-container) {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-body:has(#banner-container) #container {
-  flex: 1;
+#grid-home {
+  position: fixed;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 0;
+  overflow: hidden;
 }
 
-#banner-container {
-  text-align: center;
+/* Grid lines */
+.grid-line {
+  position: absolute;
+  background: var(--color-border);
+  pointer-events: none;
 }
 
-/* Name */
-#name {
+.grid-line-v {
+  width: 1px;
+  height: 100vh;
+  right: 25%;
+}
+
+.grid-line-h {
+  height: 1px;
+  width: 100vw;
+  top: 45%;
+}
+
+/* Intersection marker */
+.grid-marker {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  right: calc(25% - 4px);
+  top: calc(45% - 4px);
+}
+
+/* Content positioning */
+.grid-content {
+  position: relative;
+  margin-right: 30%;
+  margin-top: -5%;
+}
+
+.name-block {
+  position: relative;
+}
+
+.grid-name {
   font-family: var(--font-heading);
-  font-size: var(--text-hero);
+  font-size: 4.5rem;
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: 0.02em;
   line-height: 1;
+  margin: 0;
+  width: auto;
 }
 
-/* Accent Rule */
-.accent-rule {
-  width: 3em;
-  height: 2px;
-  background: var(--color-accent);
-  margin: 1.75rem auto 3rem;
-}
-
-/* Navigation Links */
-.home-nav {
-  list-style: none;
-  text-align: center;
-  margin: 2.5rem auto 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  gap: 2.5rem;
-}
-
-.home-nav li {
-  font-family: var(--font-sans);
-  font-size: var(--text-xl);
-  font-weight: 500;
-}
-
-.home-nav a {
-  color: var(--color-text-muted);
-  position: relative;
-  padding-bottom: 0.25em;
-  display: inline-block;
-}
-
-.home-nav a::after {
-  content: '';
+/* Coordinates */
+.coord {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-light);
+  letter-spacing: 0.05em;
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: var(--color-accent);
-  transform: translateX(-50%);
-  transition: width 0.3s ease;
-  pointer-events: none;
+  right: 0;
 }
 
-.home-nav a:hover {
+.coord-top {
+  top: -1.5em;
+}
+
+.coord-bottom {
+  bottom: -1.5em;
+}
+
+/* Navigation */
+.grid-nav {
+  margin-top: 3rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.grid-nav a {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color var(--transition);
+}
+
+.grid-nav a:hover {
   color: var(--color-accent);
 }
 
-.home-nav a:hover::after {
-  width: 100%;
+/* Connection line from name to intersection */
+.name-block::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: calc(30vw - 25%);
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-border) 0%, transparent 100%);
+  margin-left: 1.5rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -704,19 +734,37 @@ blockquote p {
     padding: 0 1.25em;
   }
 
-  /* Homepage */
-  #name {
-    font-size: var(--text-hero);
+  /* Homepage - Grid */
+  .grid-content {
+    margin-right: 0;
+    margin-top: 0;
+    text-align: center;
   }
 
-  .home-nav {
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
+  .grid-name {
+    font-size: 2.5rem;
   }
 
-  .home-nav li {
-    font-size: var(--text-lg);
+  .grid-line-v {
+    right: 10%;
+  }
+
+  .grid-marker {
+    right: calc(10% - 4px);
+  }
+
+  .name-block::after {
+    display: none;
+  }
+
+  .coord {
+    position: static;
+    display: block;
+    margin: 0.75em 0;
+  }
+
+  .grid-nav {
+    justify-content: center;
   }
 
   /* Articles */
@@ -789,8 +837,14 @@ blockquote p {
     --text-hero: 2.5rem;
   }
 
-  .home-nav li {
-    font-size: var(--text-base);
+  .grid-name {
+    font-size: 2rem;
+  }
+
+  .grid-nav {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
   }
 
   #article h1 {
