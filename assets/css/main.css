@@ -1,15 +1,15 @@
 /* --------------------------------------------------------------------------
-   CSS Custom Properties (Light Mode - Default)
+   CSS Custom Properties (Dark Theme)
    -------------------------------------------------------------------------- */
 
 :root {
   /* Colors - Base */
-  --color-bg: #fafafa;
-  --color-bg-secondary: #f0f0f0;
-  --color-text: #1a1a1a;
-  --color-text-secondary: #333333;
-  --color-text-muted: #666666;
-  --color-text-light: #999999;
+  --color-bg: #0f0f0f;
+  --color-bg-secondary: #1a1a1a;
+  --color-text: #f0f0f0;
+  --color-text-secondary: #d0d0d0;
+  --color-text-muted: #888888;
+  --color-text-light: #666666;
 
   /* Colors - Accent (Rust Red) */
   --color-accent: #c44;
@@ -17,25 +17,25 @@
   --color-accent-light: rgba(204, 68, 68, 0.08);
 
   /* Colors - UI */
-  --color-border: #e0e0e0;
-  --color-border-dark: #555555;
+  --color-border: #2a2a2a;
+  --color-border-dark: #666666;
   --color-link: var(--color-text-muted);
   --color-link-hover: var(--color-accent);
 
   /* Colors - Code */
-  --color-code-bg: #f5f5f5;
-  --color-code-border: #e0e0e0;
-  --color-code-text: #333333;
+  --color-code-bg: #1a1a1a;
+  --color-code-border: #333333;
+  --color-code-text: #e0e0e0;
 
-  /* Syntax Highlighting - Light */
-  --syn-comment: #6a737d;
-  --syn-keyword: #d73a49;
-  --syn-string: #032f62;
-  --syn-number: #005cc5;
-  --syn-function: #6f42c1;
-  --syn-operator: #d73a49;
-  --syn-tag: #22863a;
-  --syn-escape: #005cc5;
+  /* Syntax Highlighting */
+  --syn-comment: #8b949e;
+  --syn-keyword: #ff7b72;
+  --syn-string: #a5d6ff;
+  --syn-number: #79c0ff;
+  --syn-function: #d2a8ff;
+  --syn-operator: #ff7b72;
+  --syn-tag: #7ee787;
+  --syn-escape: #79c0ff;
 
   /* Typography */
   --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -60,43 +60,6 @@
 
   /* Transitions */
   --transition: 200ms ease;
-}
-
-/* --------------------------------------------------------------------------
-   Dark Mode
-   -------------------------------------------------------------------------- */
-
-[data-theme="dark"] {
-  --color-bg: #0f0f0f;
-  --color-bg-secondary: #1a1a1a;
-  --color-text: #f0f0f0;
-  --color-text-secondary: #d0d0d0;
-  --color-text-muted: #888888;
-  --color-text-light: #666666;
-
-  /* Accent - Rust Red (same as light mode) */
-  --color-accent: #c44;
-  --color-accent-hover: #a33;
-  --color-accent-light: rgba(204, 68, 68, 0.08);
-
-  --color-border: #2a2a2a;
-  --color-border-dark: #666666;
-  --color-link: var(--color-text-muted);
-  --color-link-hover: var(--color-accent);
-
-  --color-code-bg: #1a1a1a;
-  --color-code-border: #333333;
-  --color-code-text: #e0e0e0;
-
-  /* Syntax Highlighting - Dark */
-  --syn-comment: #8b949e;
-  --syn-keyword: #ff7b72;
-  --syn-string: #a5d6ff;
-  --syn-number: #79c0ff;
-  --syn-function: #d2a8ff;
-  --syn-operator: #ff7b72;
-  --syn-tag: #7ee787;
-  --syn-escape: #79c0ff;
 }
 
 /* --------------------------------------------------------------------------
@@ -230,22 +193,6 @@ img {
   color: var(--color-accent);
 }
 
-/* Theme Toggle */
-.theme-toggle {
-  background: none;
-  border: none;
-  font-size: var(--text-xl);
-  cursor: pointer;
-  padding: 0.25em;
-  color: var(--color-text-muted);
-  transition: color var(--transition);
-  line-height: 1;
-}
-
-.theme-toggle:hover {
-  color: var(--color-accent);
-}
-
 /* --------------------------------------------------------------------------
    Homepage - Grid Design
    -------------------------------------------------------------------------- */
@@ -333,20 +280,22 @@ img {
 .grid-nav {
   margin-top: 3rem;
   display: flex;
+  justify-content: flex-end;
   gap: 2rem;
 }
 
 .grid-nav a {
   font-family: var(--font-mono);
-  font-size: var(--text-sm);
+  font-size: var(--text-lg);
   color: var(--color-text-muted);
   text-decoration: none;
   letter-spacing: 0.02em;
-  transition: color var(--transition);
+  transition: color var(--transition), text-shadow var(--transition);
 }
 
 .grid-nav a:hover {
   color: var(--color-accent);
+  text-shadow: 0 0 1px currentColor, 0 0 1px currentColor;
 }
 
 /* Connection line from name to intersection */
