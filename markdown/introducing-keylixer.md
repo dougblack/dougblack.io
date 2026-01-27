@@ -1,5 +1,5 @@
 ---
-title: Introducing Keylixer
+title: Keylixer
 date: 2016-09-19
 ---
 

@@ -23,19 +23,17 @@
   --color-link-hover: var(--color-accent);
 
   /* Colors - Code */
-  --color-code-bg: #1a1a1a;
-  --color-code-border: #333333;
-  --color-code-text: #e0e0e0;
+  --color-code-bg: transparent;
+  --color-code-text: #b0b0b0;
 
-  /* Syntax Highlighting */
-  --syn-comment: #8b949e;
-  --syn-keyword: #ff7b72;
-  --syn-string: #a5d6ff;
-  --syn-number: #79c0ff;
-  --syn-function: #d2a8ff;
-  --syn-operator: #ff7b72;
-  --syn-tag: #7ee787;
-  --syn-escape: #79c0ff;
+  /* Syntax Highlighting - subtle but colorful */
+  --syn-comment: #6a737d;
+  --syn-keyword: #c792ea;
+  --syn-string: #c3e88d;
+  --syn-number: #f78c6c;
+  --syn-function: #82aaff;
+  --syn-operator: #89ddff;
+  --syn-variable: #f07178;
 
   /* Typography */
   --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -287,15 +285,14 @@ img {
 .grid-nav a {
   font-family: var(--font-mono);
   font-size: var(--text-lg);
-  color: var(--color-text-muted);
+  color: var(--color-accent);
   text-decoration: none;
   letter-spacing: 0.02em;
-  transition: color var(--transition), text-shadow var(--transition);
+  transition: text-decoration var(--transition);
 }
 
 .grid-nav a:hover {
-  color: var(--color-accent);
-  text-shadow: 0 0 1px currentColor, 0 0 1px currentColor;
+  text-decoration: underline;
 }
 
 /* Connection line from name to intersection */
@@ -319,6 +316,9 @@ img {
   font-size: var(--text-lg);
   line-height: 1.75;
   color: var(--color-text-secondary);
+  max-width: var(--content-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #article h1 {
@@ -326,7 +326,7 @@ img {
   font-size: var(--text-4xl);
   font-weight: 600;
   color: var(--color-text);
-  margin: 0 auto 0.25em;
+  margin: 0 0 0.25em;
   line-height: 1.15;
 }
 
@@ -335,7 +335,7 @@ img {
   font-size: var(--text-3xl);
   font-weight: 600;
   color: var(--color-text);
-  margin: 2.5em auto 0.75em;
+  margin: 2.5em 0 0.75em;
   padding-top: 0.75em;
   position: relative;
 }
@@ -357,7 +357,7 @@ img {
   font-size: var(--text-2xl);
   font-weight: 600;
   color: var(--color-text);
-  margin: 2em auto 0.5em;
+  margin: 2em 0 0.5em;
 }
 
 #article h4 {
@@ -367,12 +367,11 @@ img {
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin: 0 auto 2.5em;
+  margin: 0 0 2.5em;
 }
 
 #article p {
-  width: var(--content-width);
-  margin: 1.5em auto;
+  margin: 1.5em 0;
 }
 
 #article a {
@@ -387,8 +386,7 @@ img {
 
 #article ul,
 #article ol {
-  width: var(--content-width);
-  margin: 1.5em auto;
+  margin: 1.5em 0;
   padding-left: 1.5em;
 }
 
@@ -523,110 +521,99 @@ img {
 
 code {
   font-family: var(--font-mono);
-  font-size: 0.875em;
-  background: var(--color-code-bg);
-  border: 1px solid var(--color-code-border);
-  padding: 0.15em 0.4em;
-  border-radius: 4px;
-  transition: background-color var(--transition), border-color var(--transition);
+  font-size: 0.85em;
+  color: var(--color-text-muted);
 }
 
 pre {
   display: block;
-  margin: 0 auto;
+  margin: 0;
   font-family: var(--font-mono);
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   color: var(--color-code-text);
-  line-height: 1.5;
-  width: var(--content-width);
+  line-height: 1.6;
 }
 
 pre code {
-  background: none;
-  border: none;
-  padding: 0;
+  color: inherit;
 }
 
 .codehilite {
   font-family: var(--font-mono);
   color: var(--color-code-text);
-  background: var(--color-code-bg);
-  border: 1px solid var(--color-code-border);
-  border-radius: 4px;
-  line-height: 1.5;
-  padding: 1.25em 0;
-  margin: 2em 0;
-  transition: background-color var(--transition), border-color var(--transition);
+  line-height: 1.6;
+  margin: 1.5em 0;
+  padding-left: 1.5em;
+  border-left: 2px solid var(--color-border);
 }
 
-p code {
-  font-size: 0.875em;
+.codehilite pre {
+  margin: 0;
+  overflow-x: auto;
 }
 
-li a code {
-  font-size: 0.85em;
+p code,
+li code {
+  color: var(--color-text-muted);
 }
 
-/* Syntax highlighting colors */
-.codehilite .hll { background-color: var(--color-accent-light); }
+/* Syntax highlighting */
 .codehilite .c,
 .codehilite .cm,
 .codehilite .cp,
 .codehilite .c1,
 .codehilite .cs { color: var(--syn-comment); font-style: italic; }
+
 .codehilite .k,
 .codehilite .kc,
 .codehilite .kd,
+.codehilite .kn,
 .codehilite .kp,
 .codehilite .kr,
-.codehilite .kt,
-.codehilite .no { color: var(--syn-keyword); }
-.codehilite .kn,
-.codehilite .nt,
-.codehilite .o,
-.codehilite .ow { color: var(--syn-operator); }
-.codehilite .l,
+.codehilite .kt { color: var(--syn-keyword); }
+
+.codehilite .s,
+.codehilite .sb,
+.codehilite .sc,
+.codehilite .sd,
+.codehilite .s2,
+.codehilite .se,
+.codehilite .sh,
+.codehilite .si,
+.codehilite .sx,
+.codehilite .sr,
+.codehilite .s1,
+.codehilite .ss { color: var(--syn-string); }
+
 .codehilite .m,
 .codehilite .mf,
 .codehilite .mh,
 .codehilite .mi,
 .codehilite .mo,
 .codehilite .il { color: var(--syn-number); }
-.codehilite .s,
-.codehilite .sb,
-.codehilite .sc,
-.codehilite .sd,
-.codehilite .s2,
-.codehilite .sh,
-.codehilite .si,
-.codehilite .sx,
-.codehilite .sr,
-.codehilite .s1,
-.codehilite .ss,
-.codehilite .ld { color: var(--syn-string); }
-.codehilite .se { color: var(--syn-escape); }
+
 .codehilite .na,
 .codehilite .nc,
 .codehilite .nd,
 .codehilite .ne,
-.codehilite .nf { color: var(--syn-function); }
+.codehilite .nf,
+.codehilite .ni { color: var(--syn-function); }
+
+.codehilite .o,
+.codehilite .ow { color: var(--syn-operator); }
+
 .codehilite .n,
-.codehilite .nb,
-.codehilite .ni,
-.codehilite .nl,
-.codehilite .nn,
-.codehilite .nx,
-.codehilite .py,
 .codehilite .nv,
-.codehilite .bp,
 .codehilite .vc,
 .codehilite .vg,
-.codehilite .vi,
-.codehilite .p,
-.codehilite .w { color: var(--color-code-text); }
+.codehilite .vi { color: var(--syn-variable); }
+
+.codehilite .nt { color: var(--syn-keyword); }
+.codehilite .nb { color: var(--syn-function); }
+.codehilite .bp { color: var(--syn-variable); }
+
 .codehilite .ge { font-style: italic; }
 .codehilite .gs { font-weight: bold; }
-.codehilite .err { color: var(--syn-operator); }
 
 /* --------------------------------------------------------------------------
    Blockquotes
@@ -646,9 +633,8 @@ blockquote p {
   font-size: var(--text-lg);
   color: var(--color-text-muted);
   padding-left: 1.5em;
-  margin: 0 auto;
+  margin: 0;
   line-height: 1.6;
-  width: var(--content-width) !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -737,19 +723,12 @@ blockquote p {
     width: 100%;
   }
 
-  #article p,
-  #article ul,
-  #article ol {
-    width: 100%;
-  }
 
   pre {
-    width: 100%;
     overflow-x: auto;
   }
 
   blockquote p {
-    width: 100% !important;
     padding-left: 1em;
   }
 

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask-RESTful 101</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    
+    <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+</head>
+<body>
+    
+    <div id="header">
+        <a href="../index.html"><div id="logo">DB</div></a>
+    </div>
+    
+
+    
+<div id="container">
+    <div id="article">
+        <h1 id="flask-restful-101">Flask-RESTful 101</h1>
+<h4 id="posted-on-september-14th-2013">Posted on September 14th, 2013</h4>
+<p>There are tons of great frameworks to help you build restful APIs. Today we're going to look at my favorite python framework: <a href="http://flask-restful.readthedocs.org/en/latest/index.html">Flask-RESTful</a>. I'm also completely and totally biased towards it, since it was built by Twilio and I'm currently a maintainer of the <a href="https://github.com/twilio/flask-restful">project</a>. That being said, let's get started.</p>
+<h2 id="flask">Flask</h2>
+<p>Flask-RESTful is an extension of <a href="http://flask.pocoo.org/docs/">Flask</a>, which itself is built on many of the excellent utilities provided by <a href="http://werkzeug.pocoo.org/">Werkzeug</a>. Flask lets you do things like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&lt;string:path&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;You requested: /&#39;</span> <span class="o">+</span> <span class="n">path</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="a-simple-api">A Simple API</h2>
+<p>As you might guess, this snippet creates a simple Flask server that responds to every request with the path requested. This is cool. Let's see how we might use Flask to build a RESTful API. We need a simple API to build, so let's build an API for managing a set of tasks. A Task API.</p>
+<p>First let's define our endpoints. For this simple example, we'll only have one: <code>/tasks</code>. We need to allow creating a new task, retrieving all tasks, and retrieving a single task. Using what we know about Flask, the code for our Task API might look something like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
+<span class="kn">import</span> <span class="nn">task_db</span> <span class="c1"># handles all database interaction</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/tasks&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get_all_tasks</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">task_db</span><span class="o">.</span><span class="n">fetch_all_tasks</span><span class="p">()</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/tasks&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">create_task</span><span class="p">():</span>
+    <span class="n">task_string</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;task&#39;</span><span class="p">]</span>
+    <span class="n">task_db</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_string</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">task_string</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/tasks/&lt;int:id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get_task</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">task_db</span><span class="o">.</span><span class="n">fetch_task</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Great! We've got an API for tasks. But, do you see any issues using Flask to build a RESTful API? One of the biggest ideas behind REST is using HTTP to interact with <em>resources</em>. The problem with this code is our resource is split up over multiple methods. There's no encapsulation. While the API itself incorporates basic elements of REST, the code completely fails to capture these ideas. This is bad! There's no reason our internal code shouldn't match the external appearance of our API.</p>
+<h2 id="flask-restful">Flask-RESTful</h2>
+<p>Enter Flask-RESTful. The same API looks like this in Flask-RESTful.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">flask.ext</span> <span class="kn">import</span> <span class="n">restful</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">restful</span><span class="o">.</span><span class="n">Api</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Users</span><span class="p">(</span><span class="n">restful</span><span class="o">.</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">task_db</span><span class="o">.</span><span class="n">fetch_all_tasks</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">task_string</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;task&#39;</span><span class="p">]</span>
+        <span class="n">task_db</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_string</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">task_string</span>
+
+<span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">restful</span><span class="o">.</span><span class="n">Resource</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">task_db</span><span class="o">.</span><span class="n">fetch_task</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">Users</span><span class="p">,</span> <span class="s1">&#39;/users&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="s1">&#39;/user/&lt;int:id&gt;&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>We have classes now! This is a huge deal. Our routes now map directly to <em>objects</em>. Even better, the methods on a given class are exactly the same as their HTTP counterparts. We no longer have to deal with naming methods on our routes like <code>create_task</code>, since there's a 1 to 1 mapping between HTTP methods and methods on our classes.</p>
+<p>So what's actually happening here? Let's investigate.</p>
+<h2 id="the-api-object">The API Object</h2>
+<p>First, we create a Flask-RESTful <code>Api</code> object. The <code>Api</code> object is used to assign our eventual resources to routes. We'll temporarily skip to the end of the script to show what the <code>Api</code> is used for:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">Users</span><span class="p">,</span> <span class="s1">&#39;/users&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="s1">&#39;/user/&lt;int:id&gt;&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>As you might have guessed, these two lines add a given resource to our API at the specified route. We no longer need to enumerate what methods a route supports, since Flask-RESTful resolves this information by inspecting what methods you've defined on your resource object.</p>
+<h2 id="variable-rules">Variable Rules</h2>
+<p>You might be wondering what the <code>&lt;int:id&gt;</code> snippet means. This is called a <em>variable rule</em>. It assigns whatever is in that part of the URI for the incoming request into a variable called "id" which is passed to the get method for User. The "int" part of the rule just makes the type of variable an int instead of a string so we can pass it directly to the <code>fetch_task</code> call.</p>
+<h2 id="post-params">POST Params</h2>
+<p>Finally, you might be wondering how to get values out of the POST params. Check it out:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">task_string</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;task&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>POST params live on the <code>request</code> object in a <code>form</code> dictionary. It's as simple as that.
+That wraps up this intro. I hope you like what you've seen so far. For more on Flask-RESTful, check out the <a href="http://flask-restful.readthedocs.org/en/latest/quickstart.html">docs</a>.</p>
+<h2 id="twilio-flask-restful-3">Twilio + Flask-RESTful = &lt;3</h2>
+<p>If you have any doubts about the viability of Flask-RESTful as framework, I'd like to let you in on a little not-so-secret: the Twilio API is powered by Flask-RESTful (and some other awesome framework magic that I'm saving for another post).</p>
+    </div>
+    <div id="footer">
+        <a href="../words.html"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+</body>
+</html>

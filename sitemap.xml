@@ -6,8 +6,50 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://dougblack.io/words/test.html</loc>
+    <loc>https://dougblack.io/words/introducing-beanstalk.html</loc>
+    <lastmod>2018-03-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dougblack.io/words/introducing-keylixer.html</loc>
     <lastmod>2016-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dougblack.io/words/metaclasses.html</loc>
+    <lastmod>2014-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dougblack.io/words/a-restful-micro-framework-in-go.html</loc>
+    <lastmod>2014-01-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dougblack.io/words/a-good-vimrc.html</loc>
+    <lastmod>2014-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dougblack.io/words/a-good-terminal-setup.html</loc>
+    <lastmod>2014-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dougblack.io/words/zsh-vi-mode.html</loc>
+    <lastmod>2013-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dougblack.io/words/flask-restful-101.html</loc>
+    <lastmod>2013-09-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metaclasses in Python</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    
+    <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+</head>
+<body>
+    
+    <div id="header">
+        <a href="../index.html"><div id="logo">DB</div></a>
+    </div>
+    
+
+    
+<div id="container">
+    <div id="article">
+        <h1 id="metaclasses-in-python">Metaclasses in Python</h1>
+<h4 id="posted-on-november-11-2014">Posted on November 11, 2014</h4>
+<p>Python is&mdash;in general&mdash;a well designed, straightforward language. An
+enterprising young programmer need only run <code>import this</code> in the interpreter
+to be reminded of what it means to be "Pythonic":</p>
+<blockquote>
+<p>Beautiful is better than ugly.</p>
+<p>Explicit is better than implicit.</p>
+<p>Simple is better than complex.</p>
+</blockquote>
+<p>...and so on. But what is often glossed over when praising Python for all
+of its wonders is how incredibly mutable everything is. I mean <em>excessively</em>
+so. You can set a variable on a <em>function</em>. You can set a variable on a <em>class</em>.
+Hell, you can even set a class on a function! Generally, practices such as these
+are frowned upon in most intro CS courses, and for good reason&mdash;power such as
+this is too easily abused.</p>
+<p>But, ignore all that, for today I'm going to take you on a tour of one of the more
+amazing examples of Python's mutability&mdash;metaclasses.</p>
+<p><em>This article is written from the perspective of Python 2.7.</em></p>
+<h2 id="what-is-a-class">What Is A Class?</h2>
+<p>Before we delve into the magic of metaclasses, we should revisit classes.
+What's a class? A class is used to construct an object. Sounds simple
+enough. In compiled languages like Java, we know that we define a
+class, that class gets compiled, and then we can create objects using
+that class at runtime. Because class definitions are resolved at compile
+time, they are <em>immutable</em>. In Java, it's not possible to change a class
+definition during runtime. At least, not without significant black magic.</p>
+<p>But, what about in interpreted languages?</p>
+<p>Interestingly, interpreted languages don't suffer the same constraint.
+Since everything happens at runtime, everything is in play! In fact,
+Python classes are actually objects.</p>
+<p>I'll repeat that, because it's important.</p>
+<p><em>Python classes are actually objects.</em></p>
+<p>(The same is true in Smalltalk, a significant influence on Python.)</p>
+<h2 id="classes-are-objects">Classes Are Objects</h2>
+<p>This is a very strange concept if you're coming from a Java background,
+but if you think about it you'll quickly realize this makes sense. If
+you've ever spent time in the Python interpreter you've probably noticed
+you can set attributes on just about anything.</p>
+<div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">pass</span>
+<span class="o">...</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Foo</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Foo</span><span class="o">.</span><span class="n">bar</span>
+<span class="mi">10</span>
+</code></pre></div>
+
+<p>We just modified a class! This implies that it's not just a class, it's an
+object in memory. This means we can change it. But it <em>is</em> also class, meaning
+that it can be used to create objects.</p>
+<div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">Foo</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="nc">__main__</span><span class="o">.</span><span class="n">Foo</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">__main__</span><span class="o">.</span><span class="n">Foo</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10b45f110</span><span class="o">&gt;</span>
+</code></pre></div>
+
+<p>So in Python, a class is an object that can create objects. You could also
+call it an "object factory". Simple.</p>
+<p>But, what creates classes?</p>
+<h2 id="type">Type</h2>
+<p>Before we answer that question, let's revisit a particularly important
+part of python: <code>type</code>. You probably know <code>type</code> as the function you
+use to check the type of a variable.</p>
+<div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;str&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;int&#39;</span><span class="o">&gt;</span>
+</code></pre></div>
+
+<p>But <code>type</code> is sneaky. It has another, <em>way</em> more important use: it is
+the thing that creates classes! The syntax is <code>type(name, bases, attrs)</code>.
+In fact,</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">foo</span> <span class="o">=</span> <span class="s2">&quot;bar&quot;</span>
+</code></pre></div>
+
+<p>is really just syntactic sugar for</p>
+<div class="codehilite"><pre><span></span><code><span class="n">Foo</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;Foo&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="p">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">})</span>
+</code></pre></div>
+
+<p>Check it out:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="o">...</span>     <span class="n">foo</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Foo</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="nc">__main__</span><span class="o">.</span><span class="n">Foo</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Foo</span><span class="o">.</span><span class="n">foo</span>
+<span class="s1">&#39;bar&#39;</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;Bar&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="p">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Bar</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="nc">__main__</span><span class="o">.</span><span class="n">Bar</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Bar</span><span class="o">.</span><span class="n">foo</span>
+<span class="s1">&#39;bar&#39;</span>
+</code></pre></div>
+
+<p>This means that all the class definitions you've ever written could be
+rewritten using <code>type</code>. So, if writing a class lets us customize the creation
+of an object, is there something that lets us customize the creation of a class?</p>
+<p>Great question. It's almost like you read the title of this post. You must be smart.</p>
+<h2 id="metaclasses">Metaclasses</h2>
+<p>Enter metaclasses. If you've been following along so far, you should be
+quite comfortable with the following analogy: classes are to objects what
+metaclasses are to classes. Let's jump right into a full-fledged example.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">types</span>
+
+<span class="k">def</span> <span class="nf">crazy_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="c1"># let&#39;s pretend crazy stuff is going on here</span>
+    <span class="k">return</span> <span class="n">func</span>
+
+<span class="k">class</span> <span class="nc">MetaClass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="n">types</span><span class="o">.</span><span class="n">MethodType</span><span class="p">:</span>
+                <span class="n">attrs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">crazy_decorator</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">MetaClass</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">MetaClass</span>
+
+    <span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">baz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+</code></pre></div>
+
+<p>In this snippet, we create a metaclass named <code>MetaClass</code>. <code>MetaClass</code>
+decorates every method the input class, and makes the <em>class definition</em>
+of <code>Foo</code> automatically have <code>crazy_decorator</code> applied to each of its
+methods.</p>
+<p>There are a few things to note here.</p>
+<p>Our metaclass inherits from <code>type</code>! As we've already seen, <code>type</code>
+is used to create classes, so if we're customizing this class creation
+it only makes sense that we inherit from <code>type</code> rather than <code>object</code>.</p>
+<p>To invoke the metaclass, the <code>Foo</code> class declares the
+<code>__metaclass__</code> attribute. This is the syntax used in Python 2.7.
+If you're using Python 3+, metaclasses are declared in class bases using
+the <code>metaclass</code> keyword.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">MetaClass</span><span class="p">):</span>
+    <span class="k">pass</span>
+</code></pre></div>
+
+<p>The metaclass declares the <code>__new__</code> method. This method is invoked during
+class creation for every class that declares <code>MetaClass</code> as its metaclass.
+It receives four arguments.</p>
+<ul>
+<li><code>cls</code>: the class being declared.</li>
+<li><code>name</code>: the name of the class being declared.</li>
+<li><code>bases</code>: the bases of the class being declared. Here, 'bases' means parent classes.</li>
+<li><code>attrs</code>: the attributes of the class being declared.</li>
+</ul>
+<p>We can then modify these arguments at will, provided we remember to pass them to the
+superclass's <code>__new__</code> method.</p>
+<h2 id="runtime">Runtime</h2>
+<p>What actually happens at runtime though? Any time Python reaches a class definition
+(blocks that start with <code>class</code>), it performs the following four steps to create the
+class object.</p>
+<ol>
+<li>Checks for a <code>__metaclass__</code> attribute in the currently-executing class declaration.</li>
+<li>Checks for a <code>__metaclass__</code> attribute in the currently enclosing module.</li>
+<li>Checks for a <code>__metaclass__</code> attribute in any of that class's parent classes.</li>
+<li>If all of the above checks fail, Python defaults to the one metaclass to rule them all: <code>type</code>.</li>
+</ol>
+<p>If at anytime during those four steps, Python finds a <code>__metaclass__</code> attribute, it executes
+the code referenced by that attribute in the creation of the class.</p>
+<p>So, if we return to our metaclass example from the preceding section and pretend we're
+the Python interpreter, here (roughly) are the steps we'd take while interpreting the code
+from that example.</p>
+<ol>
+<li>import the <code>types module</code></li>
+<li>execute the <code>crazy_decorator</code> function declaration</li>
+<li>execute the <code>MetaClass</code> class declaration</li>
+<li>begin executing the <code>Foo</code> class declaration</li>
+<li>discover the <code>__metaclass__</code> attribute, consult <code>MetaClass</code> for the remaining
+creation of the class declaration.</li>
+</ol>
+<p>Pretty straightforward. If you want to use a metaclass, you need to make sure the
+<code>__metaclass__</code> attribute is correctly set somewhere in Python's resolution chain.</p>
+<h2 id="when-should-i-use-a-metaclass">When Should I Use A Metaclass?</h2>
+<p>Never.</p>
+<p>I'm serious. If you really need to use one, you likely already know you know
+it.  99% of the time plain old fashioned inheritance can get you there just
+fine with infinitely lower complexity. While metaclasses are definitely fun to
+think about and play with, they're just not that fun to have to pick apart when
+entering a new codebase for the first time.</p>
+<p>When I started at Twilio, we had a pretty important codebase whose design
+seemed to hinge upon the magic of metaclasses. As a result, the core of the
+project always had a bit of a black-box feel to me and the other engineers
+tasked with working on it. At first, I thought it was cool--getting to work on
+a project that used such an esoteric part of Python made me feel smart, clever,
+and modern. Over time, however, I began to realize that it was doing more harm
+than good to our mental understanding of the project, and started to question
+if it was even necessary.</p>
+<p>Eventually, I opened up a pull request that removed the metaclasses entirely.
+My coworkers excitedly +1'd and we merged.</p>
+<p>Metaclasses are way cool, but just aren't worth it.</p>
+<h2 id="questions">Questions?</h2>
+<p><a href="https://twitter.com/dougblackio">@dougblack.io</a></p>
+    </div>
+    <div id="footer">
+        <a href="../words.html"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+</body>
+</html>

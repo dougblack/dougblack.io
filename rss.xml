@@ -7,16 +7,81 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 26 Jan 2026 22:46:03 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 27 Jan 2026 04:44:20 +0000</lastBuildDate>
     <item>
-      <title>Introducing Keylixer</title>
-      <link>https://dougblack.io/words/test.html</link>
+      <title>Flask-RESTful 101</title>
+      <link>https://dougblack.io/words/flask-restful-101.html</link>
+      <description>An introduction to building RESTful APIs with Flask-RESTful, my favorite Python framework</description>
+      <guid isPermaLink="false">https://dougblack.io/words/flask-restful-101.html</guid>
+      <pubDate>Sat, 14 Sep 2013 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Vi Editing Mode In Zsh</title>
+      <link>https://dougblack.io/words/zsh-vi-mode.html</link>
+      <description>&lt;h1 id="adding-vi-to-your-zsh"&gt;Adding Vi To Your Zsh&lt;/h1&gt;
+&lt;h4 id="posted-october-1st-2013"&gt;Posted October 1st, 2013&lt;/h4&gt;
+&lt;h2 id="the-omnipresence-of-vim"&gt;The Omnipresence Of Vim&lt;/h2&gt;
+&lt;p&gt;Vim is the bes</description>
+      <guid isPermaLink="false">https://dougblack.io/words/zsh-vi-mode.html</guid>
+      <pubDate>Tue, 01 Oct 2013 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>A Good Terminal Setup</title>
+      <link>https://dougblack.io/words/a-good-terminal-setup.html</link>
+      <description>&lt;h1 id="a-good-terminal-setup"&gt;A Good Terminal Setup&lt;/h1&gt;
+&lt;h4 id="posted-january-1-2014"&gt;Posted January 1, 2014&lt;/h4&gt;
+&lt;h2 id="terminal"&gt;Terminal?&lt;/h2&gt;
+&lt;p&gt;Terminal. Even in the modern age of indisputabl</description>
+      <guid isPermaLink="false">https://dougblack.io/words/a-good-terminal-setup.html</guid>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>A Good Vimrc</title>
+      <link>https://dougblack.io/words/a-good-vimrc.html</link>
+      <description>&lt;h1 id="a-good-vimrc"&gt;A Good Vimrc&lt;/h1&gt;
+&lt;h4 id="posted-january-21th-2014"&gt;Posted January 21th, 2014&lt;/h4&gt;
+&lt;h2 id="how-to-vimrc"&gt;How To Vimrc&lt;/h2&gt;
+&lt;p&gt;There is just one rule you must follow when crafting</description>
+      <guid isPermaLink="false">https://dougblack.io/words/a-good-vimrc.html</guid>
+      <pubDate>Tue, 21 Jan 2014 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>A RESTful Micro-Framework in Go</title>
+      <link>https://dougblack.io/words/a-restful-micro-framework-in-go.html</link>
+      <description>&lt;h1 id="a-restful-micro-framework-in-go"&gt;A RESTful Micro-Framework in Go&lt;/h1&gt;
+&lt;h4 id="posted-january-25th-2014"&gt;Posted January 25th, 2014&lt;/h4&gt;
+&lt;h2 id="why-go"&gt;Why Go?&lt;/h2&gt;
+&lt;p&gt;After reading countless a</description>
+      <guid isPermaLink="false">https://dougblack.io/words/a-restful-micro-framework-in-go.html</guid>
+      <pubDate>Sat, 25 Jan 2014 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Metaclasses in Python</title>
+      <link>https://dougblack.io/words/metaclasses.html</link>
+      <description>&lt;h1 id="metaclasses-in-python"&gt;Metaclasses in Python&lt;/h1&gt;
+&lt;h4 id="posted-on-november-11-2014"&gt;Posted on November 11, 2014&lt;/h4&gt;
+&lt;p&gt;Python is&amp;mdash;in general&amp;mdash;a well designed, straightforward lang</description>
+      <guid isPermaLink="false">https://dougblack.io/words/metaclasses.html</guid>
+      <pubDate>Tue, 11 Nov 2014 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Keylixer</title>
+      <link>https://dougblack.io/words/introducing-keylixer.html</link>
       <description>&lt;h1 id="introducing-keylixer"&gt;Introducing Keylixer&lt;/h1&gt;
 &lt;h4 id="posted-september-19-2016"&gt;Posted September 19, 2016&lt;/h4&gt;
 &lt;p&gt;&lt;img src="../assets/images/keylixer-screen1.png" width="300"/&gt;&lt;/p&gt;
 &lt;p&gt;From t</description>
-      <guid isPermaLink="false">https://dougblack.io/words/test.html</guid>
+      <guid isPermaLink="false">https://dougblack.io/words/introducing-keylixer.html</guid>
       <pubDate>Mon, 19 Sep 2016 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Beanstalk</title>
+      <link>https://dougblack.io/words/introducing-beanstalk.html</link>
+      <description>&lt;h1 id="introducing-beanstalk-a-netrunner-discord-bot"&gt;Introducing Beanstalk: A Netrunner Discord Bot&lt;/h1&gt;
+&lt;h4 id="posted-march-18-2018"&gt;Posted March 18, 2018&lt;/h4&gt;
+&lt;p&gt;&lt;a href="../assets/images/beansta</description>
+      <guid isPermaLink="false">https://dougblack.io/words/introducing-beanstalk.html</guid>
+      <pubDate>Sun, 18 Mar 2018 00:00:00 +0000</pubDate>
     </item>
   </channel>
 </rss>

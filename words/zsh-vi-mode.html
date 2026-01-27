@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vi Editing Mode In Zsh</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    
+    <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+</head>
+<body>
+    
+    <div id="header">
+        <a href="../index.html"><div id="logo">DB</div></a>
+    </div>
+    
+
+    
+<div id="container">
+    <div id="article">
+        <h1 id="adding-vi-to-your-zsh">Adding Vi To Your Zsh</h1>
+<h4 id="posted-october-1st-2013">Posted October 1st, 2013</h4>
+<h2 id="the-omnipresence-of-vim">The Omnipresence Of Vim</h2>
+<p>Vim is the best editor you've ever used.</p>
+<p>Vim emulation seems to be everywhere: Eclipse has Vrapper, Sublime
+has Vintage, Emacs has Evil. Vim bindings are so ubiquitous, you can
+even find them in desktop applications such as Chrome and web apps
+like Gmail. This is great. You are happy.</p>
+<p>But do you vi while you zsh?</p>
+<h2 id="zsh-line-editing">Zsh Line Editing</h2>
+<p>When you type characters at your zsh prompt you're engaging the zsh
+line editing module, often abbreviated <code>zle</code>. The <code>zle</code> module lets you
+do fancy things like delete the entire line you're working on and
+move by words instead of individual characters. The <code>zle</code> module operates
+in two modes:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Emacs mode</span>
+bindkey<span class="w"> </span>-e
+
+<span class="c1"># Vi mode</span>
+bindkey<span class="w"> </span>-v
+</code></pre></div>
+
+<p>Emacs mode is the default. Gross. Let's change it to Vi.</p>
+<h2 id="vi-mode">Vi Mode</h2>
+<p>Engaging Vi mode is easy. As previously mentioned, all you need is
+this line:</p>
+<div class="codehilite"><pre><span></span><code>bindkey<span class="w"> </span>-v
+</code></pre></div>
+
+<p>This allows you to press <code>&lt;ESC&gt;</code> to switch to <code>NORMAL</code> mode.
+Predictably, this lets you move around the line in standard Vim fashion.
+You can then use any of the standard vim insert keystrokes to move back
+to insert mode.</p>
+<p>The default setup will you get pretty far, but if you use it frequently
+you will quickly realize it has a few shortcomings. First, there is
+noticeable lag when moving between modes. Second, there is no visual
+indication of which mode you're currently in. We will address these
+shortcomings in the next two sections.</p>
+<h2 id="kill-the-lag">Kill The Lag</h2>
+<p>By default, there is a 0.4 second delay after you hit the
+<code>&lt;ESC&gt;</code> key and when the mode change is registered. This results
+in a very jarring and frustrating transition between modes. Let's
+reduce this delay to 0.1 seconds.</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KEYTIMEOUT</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+
+<p>This can result in issues with other terminal commands that depended
+on this delay. If you have issues try raising the delay.</p>
+<h2 id="visual-indication">Visual Indication</h2>
+<p>This is the second and far more frustrating problem. If you can't definitely
+tell which mode you're in, you feel much less confident when moving around
+Vi mode. To fix this problem, we need to take advantage of a few special features
+of <code>zle</code>.</p>
+<p><code>zle</code> provides an interface for extension and customization through <em>widgets</em>. In
+addition to being able to define your own widgets, <code>zle</code> comes with quite a few
+handy built-in widgets that we can hijack to accomplish what we want.</p>
+<p>The first is <code>zle-line-init</code>. Per the zsh documentation:</p>
+<blockquote>
+<p>Executed every time the line editor is started to read a new line of input.</p>
+</blockquote>
+<p>The second is <code>zle-keymap-select</code>. Per the zsh documentation:</p>
+<blockquote>
+<p>Executed every time the keymap changes, i.e. the special parameter KEYMAP is set to a different value, while the line editor is active. Initialising the keymap when the line editor starts does not cause the widget to be called. This can be used for detecting switches between the vi command (vicmd) and insert (usually main) keymaps.</p>
+</blockquote>
+<p>Sounds perfect, if we can modify the code run during these two events, we have
+found the hooks we need to modify our prompt depending on which mode we're in!</p>
+<p>The syntax for adding custom a function to a <code>zle</code> widget looks like this:</p>
+<div class="codehilite"><pre><span></span><code>something<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>zle<span class="w"> </span>backward-word
+<span class="o">}</span>
+zle<span class="w"> </span>-N<span class="w"> </span>something
+</code></pre></div>
+
+<p>This has just added a brand new widget to zsh that executes <code>something()</code> when called.
+But this widget won't ever get run, since the <code>something()</code> widget doesn't get called
+by default. Using the widgets from above, we can rewrite the prompt every time we
+leave or enter the different Vim modes.</p>
+<h2 id="color-prompt-function">Color Prompt Function</h2>
+<p>Currently, my prompt looks something like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>~/code<span class="o">]</span>:<span class="w">                                  </span><span class="o">[</span>master<span class="o">]</span>
+</code></pre></div>
+
+<p>The current directory is on the left and my current git branch is on the right.
+I want to add a <code>[NORMAL]</code> status message to the right prompt when I'm in command
+mode for vim so that it looks like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>~/code<span class="o">]</span>:<span class="w">                         </span><span class="o">[</span>NORMAL<span class="o">]</span><span class="w"> </span><span class="o">[</span>master<span class="o">]</span>
+</code></pre></div>
+
+<p>So let's take a look at our actual function that updates my prompt. I'll present
+it in full here first, and then step through it slowly and explain more.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">function</span><span class="w"> </span>zle-line-init<span class="w"> </span>zle-keymap-select<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nv">VIM_PROMPT</span><span class="o">=</span><span class="s2">&quot;%{</span><span class="nv">$fg_bold</span><span class="s2">[yellow]%} [% NORMAL]% %{</span><span class="nv">$reset_color</span><span class="s2">%}&quot;</span>
+<span class="w">    </span><span class="nv">RPS1</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${${</span><span class="nv">KEYMAP</span><span class="p">/vicmd/</span><span class="nv">$VIM_PROMPT</span><span class="si">}</span><span class="p">/(main|viins)/</span><span class="si">}</span><span class="s2"> </span><span class="k">$(</span>git_custom_status<span class="k">)</span><span class="s2"> </span><span class="nv">$EPS1</span><span class="s2">&quot;</span>
+<span class="w">    </span>zle<span class="w"> </span>reset-prompt
+<span class="o">}</span>
+</code></pre></div>
+
+<p>Let's look at the <code>VIM_PROMPT</code> variable. If you've never messed with zsh colors, take
+note that the <code>%{fg_bold[yellow]%}</code> snippet sets the text color of everything that
+comes after it to yellow. So, the <code>[% NORMAL]%</code> bit outputs <code>[NORMAL]</code> in yellow. The
+<code>%</code> symbols are used to escape the brackets. Finally, we'll have to end with <code>%{$reset_color%}</code>
+to stop outputting yellow.</p>
+<p>Next, we have to put this snippet in the right prompt depending on the current vim mode.
+To understand the next line, you'll need to know about zsh parameter expansion. Basically,
+it's just <code>${VARIABLE/PATTERN/REPLACEMENT}</code>.  If the <code>VARIABLE</code> matches the <code>PATTERN</code>,
+replace it with <code>REPLACEMENT</code>. The line we're looking at is this:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">RPS1</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${${</span><span class="nv">KEYMAP</span><span class="p">/vicmd/</span><span class="nv">$VIM_PROMPT</span><span class="si">}</span><span class="p">/(main|viins)/</span><span class="si">}</span><span class="k">$(</span>git_custom_status<span class="k">)</span><span class="s2"> </span><span class="nv">$EPS1</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+<p>In this case, we use a double parameter expansion. The first replaces the expansion
+of <code>KEYMAP</code> (the current vim mode) with our yellow <code>[NORMAL]</code> prompt <em>if</em> <code>KEYMAP</code> is
+currently set to <code>vimcmd</code> (command mode). But, what if <code>KEYMAP</code> isn't set to <code>vicmd</code>?
+Then the <code>KEYMAP</code> expansion won't be set to <code>$VIM_PROMPT</code>, in which case it will be
+either <code>main</code> or <code>viins</code>. The last half of the expansion replaces either of those
+strings with nothing, so we don't add the yellow <code>[NORMAL]</code> string to our prompt.
+Perfect.</p>
+<p>Finally, we run:</p>
+<div class="codehilite"><pre><span></span><code>zle<span class="w"> </span>reset-prompt
+</code></pre></div>
+
+<p>To redraw the current prompt.</p>
+<h2 id="attach-the-widgets">Attach The Widgets</h2>
+<p>We have a working function, but how do we register with <code>zle</code>? You'll notice our
+function is named <code>zle-line-init</code> and <code>zle-keymap-select</code>. As previously discussed, these
+are also the names of two important widgets that get triggered when moving between Vim modes.
+So, to make our new widget respond to the correct Vim mode we have to add these widgets to
+the <code>zle</code> module. This is easy, the lines are:</p>
+<div class="codehilite"><pre><span></span><code>zle<span class="w"> </span>-N<span class="w"> </span>zle-line-init
+zle<span class="w"> </span>-N<span class="w"> </span>zle-keymap-select
+</code></pre></div>
+
+<h2 id="common-key-bindings">Common Key Bindings</h2>
+<p>As awesome as vim mode is, you might still miss some bindings that are standard
+in most shells. For example, <code>&lt;Ctrl-P&gt;</code> to cycle backwards through previous
+commands. As you might assume, <code>zle</code> lets you create custom bindings too. Here
+are a few that I've found useful.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Use vim cli mode</span>
+bindkey<span class="w"> </span><span class="s1">&#39;^P&#39;</span><span class="w"> </span>up-history
+bindkey<span class="w"> </span><span class="s1">&#39;^N&#39;</span><span class="w"> </span>down-history
+
+<span class="c1"># backspace and ^h working even after</span>
+<span class="c1"># returning from command mode</span>
+bindkey<span class="w"> </span><span class="s1">&#39;^?&#39;</span><span class="w"> </span>backward-delete-char
+bindkey<span class="w"> </span><span class="s1">&#39;^h&#39;</span><span class="w"> </span>backward-delete-char
+
+<span class="c1"># ctrl-w removed word backwards</span>
+bindkey<span class="w"> </span><span class="s1">&#39;^w&#39;</span><span class="w"> </span>backward-kill-word
+
+<span class="c1"># ctrl-r starts searching history backward</span>
+bindkey<span class="w"> </span><span class="s1">&#39;^r&#39;</span><span class="w"> </span>history-incremental-search-backward
+</code></pre></div>
+
+<h2 id="full-snippet">Full Snippet</h2>
+<p>Here's the full snippet:</p>
+<div class="codehilite"><pre><span></span><code>bindkey<span class="w"> </span>-v
+
+bindkey<span class="w"> </span><span class="s1">&#39;^P&#39;</span><span class="w"> </span>up-history
+bindkey<span class="w"> </span><span class="s1">&#39;^N&#39;</span><span class="w"> </span>down-history
+bindkey<span class="w"> </span><span class="s1">&#39;^?&#39;</span><span class="w"> </span>backward-delete-char
+bindkey<span class="w"> </span><span class="s1">&#39;^h&#39;</span><span class="w"> </span>backward-delete-char
+bindkey<span class="w"> </span><span class="s1">&#39;^w&#39;</span><span class="w"> </span>backward-kill-word
+bindkey<span class="w"> </span><span class="s1">&#39;^r&#39;</span><span class="w"> </span>history-incremental-search-backward
+
+<span class="k">function</span><span class="w"> </span>zle-line-init<span class="w"> </span>zle-keymap-select<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nv">VIM_PROMPT</span><span class="o">=</span><span class="s2">&quot;%{</span><span class="nv">$fg_bold</span><span class="s2">[yellow]%} [% NORMAL]%  %{</span><span class="nv">$reset_color</span><span class="s2">%}&quot;</span>
+<span class="w">    </span><span class="nv">RPS1</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${${</span><span class="nv">KEYMAP</span><span class="p">/vicmd/</span><span class="nv">$VIM_PROMPT</span><span class="si">}</span><span class="p">/(main|viins)/</span><span class="si">}</span><span class="k">$(</span>git_custom_status<span class="k">)</span><span class="s2"> </span><span class="nv">$EPS1</span><span class="s2">&quot;</span>
+<span class="w">    </span>zle<span class="w"> </span>reset-prompt
+<span class="o">}</span>
+
+zle<span class="w"> </span>-N<span class="w"> </span>zle-line-init
+zle<span class="w"> </span>-N<span class="w"> </span>zle-keymap-select
+<span class="nb">export</span><span class="w"> </span><span class="nv">KEYTIMEOUT</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+
+<p>This goes in your <code>.zshrc</code> file.</p>
+<h2 id="wrapping-it-up">Wrapping It Up</h2>
+<p>That's pretty much it. You should now have a more informative, prettier prompt and know
+a little more about how <code>zle</code> works!</p>
+<p><strong>Update:</strong> From the short discussion of this article on <a href="https://lobste.rs/s/tfjs4k/adding_vi_to_your_zsh">lobsters</a>
+I was tipped off to the existence of <a href="https://github.com/hchbaw/opp.zsh">opp.zsh</a>, a wonderful
+plugin for zsh that makes vi mode even better! This enables text objects&mdash;a wonderful
+magical feature added in Vim. Text object support lets you run commands like <code>ciw</code> (for change
+inner word) that make line editing even simpler. I highly recommend checking out opp.zsh for an
+even better vi-mode in zsh.</p>
+<p>Questions? <a href="https://twitter.com/dougblackio">@dougblackio</a></p>
+    </div>
+    <div id="footer">
+        <a href="../words.html"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+</body>
+</html>

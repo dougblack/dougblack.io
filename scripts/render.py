@@ -115,6 +115,9 @@ class SiteGenerator:
         self.posts = []
 
         for filepath in markdown_dir.glob('*.md'):
+            # Skip about.md - it's rendered separately as a static page
+            if filepath.name == 'about.md':
+                continue
             try:
                 post = Post(filepath, self.config)
                 self.posts.append(post)
@@ -145,7 +148,7 @@ class SiteGenerator:
             print(f"Rendered: {post.slug}")
 
     def render_static_pages(self) -> None:
-        """Render static pages (index and words listing)"""
+        """Render static pages (index, words listing, and about)"""
         # Render index
         index_template = self.jinja_env.get_template('index.html')
         with open('index.html', 'w', encoding='utf-8') as f:
@@ -157,6 +160,36 @@ class SiteGenerator:
         with open('words.html', 'w', encoding='utf-8') as f:
             f.write(words_template.render(posts=self.posts, root_path=''))
         print("Rendered: words.html")
+
+        # Render about page
+        self.render_about_page()
+
+    def render_about_page(self) -> None:
+        """Render the about page from markdown"""
+        about_md = Path(self.config['paths']['markdown']) / 'about.md'
+        if not about_md.exists():
+            return
+
+        # Parse front matter and render markdown
+        with open(about_md, 'r', encoding='utf-8') as f:
+            post = frontmatter.load(f)
+
+        extensions = self.config['build'].get('markdown_extensions', [])
+        extension_configs = {}
+        if 'codehilite' in extensions:
+            extension_configs['codehilite'] = self.config['build'].get('codehilite', {})
+
+        content = markdown.markdown(
+            post.content,
+            extensions=extensions,
+            extension_configs=extension_configs
+        )
+
+        # Render with template
+        about_template = self.jinja_env.get_template('about.html')
+        with open('about.html', 'w', encoding='utf-8') as f:
+            f.write(about_template.render(content=content, root_path=''))
+        print("Rendered: about.html")
 
     def generate_rss(self) -> None:
         """Generate RSS feed"""
