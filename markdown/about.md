@@ -16,11 +16,15 @@ something new and interesting to work on.
 I live in Denver, where I like to make music, ski powder, and build things.
 
 You can find assorted side projects on my
-[github](https://github.com/dougblack){:target="_blank"}. You can look at my running times from
-years back on my
-[tfrrs](https://www.tfrrs.org/athletes/2708303/Georgia_Tech/Doug_Black.html){:target="_blank"}.
+[github](https://github.com/dougblack){:target="_blank"}. We can both look
+together at my running times from years back and wonder how I ever did that on
+my [tfrrs](https://www.tfrrs.org/athletes/2708303/Georgia_Tech/Doug_Black.html){:target="_blank"}.
 
-I've written a couple of small blog [posts](words.html) over the years. Some
-are a little embarassing to reread now, but I've left them up for posterity.
+I've written a couple of small blog [posts](words.html) over the years. My
+[vimrc](words/a-good-vimrc.md) post hit [#1 on
+HackerNews](https://news.ycombinator.com/item?id=10364760) on October 10th,
+2015 and has been [reposted](https://news.ycombinator.com/item?id=13905191) a
+few times. Several of my posts are a little embarassing to reread now, but I've
+left them up for posterity.
 
 If you'd like to talk, [email me](mailto:doug@dougblack.io).
