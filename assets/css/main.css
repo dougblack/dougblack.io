@@ -71,6 +71,7 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 body {
@@ -219,7 +220,7 @@ img {
 
 .grid-line-h {
   height: 1px;
-  width: 100vw;
+  width: 100%;
   top: 45%;
 }
 
