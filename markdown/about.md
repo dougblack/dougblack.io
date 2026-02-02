@@ -4,7 +4,7 @@ title: About
 
 ### Hi! I'm Doug.
 
-I'm interested in building things that solve big problems... and small ones too.
+I'm interested in building things that solve problems big and small.
 
 <!-- <p style="text-align: right; margin-top: -1em;">and small ones too.</p> -->
 
