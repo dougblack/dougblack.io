@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career - Doug Black</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+</head>
+<body>
+    
+    <div id="header">
+        <a href="index.html"><div id="logo">DB</div></a>
+    </div>
+    
+
+    
+<div id="container">
+    <div id="resume">
+        <div class="timeline">
+            <div class="timeline-line"></div>
+
+            <div class="timeline-label">Career</div>
+
+            <div class="timeline-entry current">
+                <div class="timeline-date">2026 &ndash; present</div>
+                <div class="timeline-content">
+                    <div class="timeline-company">Candid Health</div>
+                    <div class="timeline-role">Senior Software Engineer</div>
+                </div>
+            </div>
+
+            <div class="timeline-entry">
+                <div class="timeline-date">2021 &ndash; 2023</div>
+                <div class="timeline-content">
+                    <div class="timeline-company">Stripe</div>
+                    <div class="timeline-role">Senior Software Engineer - Recurring Billing</div>
+                </div>
+            </div>
+
+            <div class="timeline-entry">
+                <div class="timeline-date">2017 &ndash; 2021</div>
+                <div class="timeline-content">
+                    <div class="timeline-company">Discord</div>
+                    <div class="timeline-role">Senior Software Engineer - Data Platform</div>
+                </div>
+            </div>
+
+            <div class="timeline-entry">
+                <div class="timeline-date">2013 &ndash; 2017</div>
+                <div class="timeline-content">
+                    <div class="timeline-company">Twilio</div>
+                    <div class="timeline-role">Lead Software Engineer - API</div>
+                </div>
+            </div>
+
+            <div class="timeline-entry">
+                <div class="timeline-date">2009 &ndash; 2013</div>
+                <div class="timeline-content">
+                    <div class="timeline-company">Georgia Institute of Technology</div>
+                    <div class="timeline-role">B.S. Computer Science</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resume-pdf-link">
+            <a href="resume.pdf">resume.pdf</a>
+        </div>
+    </div>
+</div>
+<script>
+    function positionLine() {
+        var companies = document.querySelectorAll('.timeline-company');
+        var first = companies[0];
+        var last = companies[companies.length - 1];
+        var timeline = document.querySelector('.timeline');
+        var line = document.querySelector('.timeline-line');
+        var timelineRect = timeline.getBoundingClientRect();
+        var firstRect = first.getBoundingClientRect();
+        var lastRect = last.getBoundingClientRect();
+        var top = firstRect.top + firstRect.height / 2 - timelineRect.top;
+        var bottom = lastRect.top + lastRect.height / 2 - timelineRect.top;
+        line.style.top = top + 'px';
+        line.style.height = (bottom - top) + 'px';
+    }
+    document.fonts.ready.then(positionLine);
+</script>
+
+</body>
+</html>

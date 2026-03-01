@@ -161,6 +161,12 @@ class SiteGenerator:
             f.write(words_template.render(posts=self.posts, root_path=''))
         print("Rendered: words.html")
 
+        # Render career page
+        career_template = self.jinja_env.get_template('career.html')
+        with open('career.html', 'w', encoding='utf-8') as f:
+            f.write(career_template.render(root_path=''))
+        print("Rendered: career.html")
+
         # Render about page
         self.render_about_page()
 

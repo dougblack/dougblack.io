@@ -639,6 +639,112 @@ blockquote p {
 }
 
 /* --------------------------------------------------------------------------
+   Resume Page
+   -------------------------------------------------------------------------- */
+
+#resume {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.resume-pdf-link {
+  margin-top: 5em;
+  margin-bottom: 6em;
+  text-align: center;
+}
+
+.resume-pdf-link a {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  color: var(--color-accent);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.resume-pdf-link a:hover {
+  text-decoration: underline;
+}
+
+.timeline {
+  position: relative;
+  margin-top: 2.5em;
+}
+
+
+.timeline-label {
+  position: relative;
+  padding-left: 2rem;
+  padding-bottom: 1.5em;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.timeline-entry {
+  position: relative;
+  padding-left: 2rem;
+  padding-bottom: 2.5em;
+}
+
+.timeline-entry:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-light);
+  letter-spacing: 0.02em;
+}
+
+.timeline-company {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.timeline-company::before {
+  content: '';
+  position: absolute;
+  left: calc(-2rem + 3.5px);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-bg);
+  z-index: 1;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 3px;
+  width: 1px;
+  background: var(--color-border);
+}
+
+
+.timeline-entry.current .timeline-date {
+  color: var(--color-accent);
+}
+
+.timeline-entry.current .timeline-company::before {
+  border-color: var(--color-accent);
+}
+
+.timeline-role {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* --------------------------------------------------------------------------
    Responsive Design
    -------------------------------------------------------------------------- */
 
