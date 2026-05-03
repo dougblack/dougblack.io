@@ -10,8 +10,8 @@ I'm interested in building things that solve problems big and small.
 
 I've worked on the API at [Twilio](https://twilio.com){:target="_blank"}, the data platform at
 [Discord](https://discord.com){:target="_blank"}, and recurring billing at
-[Stripe](https://stripe.com){:target="_blank"}. I'm currently looking for
-something new and interesting to work on.
+[Stripe](https://stripe.com){:target="_blank"}. I recently joined [Candid
+Health](https://joincandidhealth.com) to lower the GDP of the healthcare industry.
 
 I live in Denver, where I like to make music, ski powder, and build things.
 
