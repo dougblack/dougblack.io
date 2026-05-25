@@ -1,7 +1,10 @@
 # Modern static site generator for dougblack.io
 # No SCSS compilation needed - using modern CSS!
 
-.PHONY: all build serve install clean help
+.PHONY: all build serve install clean cubing help
+
+# Path to the sibling cubing repo (override with CUBING_REPO=...).
+CUBING_REPO ?= ../cubing
 
 # Default target
 all: build
@@ -12,6 +15,13 @@ build:
 
 # Alias for build (backwards compatibility)
 render: build
+
+# Build the cubing SvelteKit app and sync its output into cubing/.
+# Expects the cubing repo to live at $(CUBING_REPO) with deps already installed.
+cubing:
+	cd $(CUBING_REPO)/web && CUBING_BASE=/cubing npm run build
+	rm -rf cubing
+	cp -R $(CUBING_REPO)/web/build cubing
 
 # Development server with live reload
 serve:
@@ -39,6 +49,7 @@ help:
 	@echo "  make          - Build the site (default)"
 	@echo "  make build    - Build the site"
 	@echo "  make serve    - Run dev server with live reload"
+	@echo "  make cubing   - Rebuild the cubing app from $(CUBING_REPO) into cubing/"
 	@echo "  make install  - Set up virtual environment and install dependencies"
 	@echo "  make update   - Pull latest changes and rebuild"
 	@echo "  make clean    - Remove virtual environment"

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 152.8 152.8" width="152.8" height="152.8">
+  <rect x="10.40" y="10.40" width="40.00" height="40.00" rx="3.20" fill="#5A5A5A" stroke="#888888" stroke-width="1.5"/>
+  <rect x="50.40" y="10.40" width="40.00" height="40.00" rx="3.20" fill="#5A5A5A" stroke="#888888" stroke-width="1.5"/>
+  <rect x="90.40" y="10.40" width="40.00" height="40.00" rx="3.20" fill="#5A5A5A" stroke="#888888" stroke-width="1.5"/>
+  <rect x="10.40" y="50.40" width="40.00" height="40.00" rx="3.20" fill="#5A5A5A" stroke="#888888" stroke-width="1.5"/>
+  <rect x="50.40" y="50.40" width="40.00" height="40.00" rx="3.20" fill="#FFD500" stroke="#888888" stroke-width="1.5"/>
+  <rect x="90.40" y="50.40" width="40.00" height="40.00" rx="3.20" fill="#5A5A5A" stroke="#888888" stroke-width="1.5"/>
+  <rect x="10.40" y="90.40" width="40.00" height="40.00" rx="3.20" fill="#5A5A5A" stroke="#888888" stroke-width="1.5"/>
+  <rect x="50.40" y="90.40" width="40.00" height="40.00" rx="3.20" fill="#5A5A5A" stroke="#888888" stroke-width="1.5"/>
+  <rect x="90.40" y="90.40" width="40.00" height="40.00" rx="3.20" fill="#FFD500" stroke="#888888" stroke-width="1.5"/>
+  <polygon points="14.80,0.00 51.87,0.00 50.40,8.80 10.40,8.80" fill="#5A5A5A" stroke="#888888" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="51.87,0.00 88.93,0.00 90.40,8.80 50.40,8.80" fill="#FFD500" stroke="#888888" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="88.93,0.00 126.00,0.00 130.40,8.80 90.40,8.80" fill="#FFD500" stroke="#888888" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="10.40,132.00 50.40,132.00 51.87,140.80 14.80,140.80" fill="#FFD500" stroke="#888888" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="50.40,132.00 90.40,132.00 88.93,140.80 51.87,140.80" fill="#FFD500" stroke="#888888" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="90.40,132.00 130.40,132.00 126.00,140.80 88.93,140.80" fill="#5A5A5A" stroke="#888888" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="0.00,14.80 8.80,10.40 8.80,50.40 0.00,51.87" fill="#FFD500" stroke="#888888" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="0.00,51.87 8.80,50.40 8.80,90.40 0.00,88.93" fill="#FFD500" stroke="#888888" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="0.00,88.93 8.80,90.40 8.80,130.40 0.00,126.00" fill="#5A5A5A" stroke="#888888" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="132.00,10.40 140.80,14.80 140.80,51.87 132.00,50.40" fill="#5A5A5A" stroke="#888888" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="132.00,50.40 140.80,51.87 140.80,88.93 132.00,90.40" fill="#FFD500" stroke="#888888" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="132.00,90.40 140.80,88.93 140.80,126.00 132.00,130.40" fill="#5A5A5A" stroke="#888888" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>

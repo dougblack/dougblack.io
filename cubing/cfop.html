@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      // Set the html.dark class before first paint so the page doesn't flash
+      // light-then-dark on load. Kept in sync with src/lib/theme.svelte.ts.
+      (function () {
+        try {
+          var saved = localStorage.getItem("cubing_theme");
+          var prefersDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var dark = saved === "dark" || (saved !== "light" && prefersDark);
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (_) {}
+      })();
+    </script>
+    <link href="./_app/immutable/entry/start.QYW0ZGSR.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/HbIPdgD9.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/DO8C_9eZ.js" rel="modulepreload">
+		<link href="./_app/immutable/entry/app.BXQbuiXz.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/kNaey6uv.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/xihTtKlq.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/0.BikYit4y.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/D4suPb0i.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/DB-ZKAMH.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/BCv6Lkf9.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/3.CaCvIICe.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/Xiu-DNC-.js" rel="modulepreload">
+		<!--p6mwgf--><!----><title>CFOP algs — cubing</title>
+		<link href="./_app/immutable/assets/0.9sftxcp4.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/3.BetBy2-9.css" rel="stylesheet">
+  </head>
+  <body>
+    <div style="display: contents"><!--[--><!--[0--><!--[--><header class="site-header svelte-12qhfyh"><a href="./" class="brand svelte-12qhfyh">cubing</a> <nav class="svelte-12qhfyh"><a href="./cfop" class="svelte-12qhfyh">algs</a> <!--[--><a href="./cfop/pll" class="svelte-12qhfyh">PLL</a><a href="./cfop/oll" class="svelte-12qhfyh">OLL</a><a href="./cfop/2loll" class="svelte-12qhfyh">2-Look OLL</a><!--]--> <button class="theme-toggle svelte-lu0t34" aria-label="Toggle dark mode" title="Switch to dark mode"><!--[-1--><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><!--]--></button><!----></nav></header> <main class="svelte-12qhfyh"><!--[--><section class="hero svelte-p6mwgf"><h1 class="svelte-p6mwgf">Cubing algorithm reference</h1> <p class="svelte-p6mwgf">A flat, browsable index of CFOP algorithms with pre-rendered cube state
+    diagrams. Click any case to see all known variants, sorted by community
+    popularity. Track your progress with the per-case learning flag.</p></section> <section class="method-grid svelte-p6mwgf"><!--[--><a class="method-card svelte-p6mwgf" href="./cfop/pll"><h2 class="svelte-p6mwgf">PLL</h2> <p class="method-subtitle svelte-p6mwgf">Permutation of the Last Layer</p> <p class="method-meta svelte-p6mwgf">21 cases · 527 algorithms</p> <p class="method-learned svelte-p6mwgf">0 / 21 learned</p> <p class="method-desc svelte-p6mwgf">The final CFOP step. With the top face oriented, permute the remaining last-layer pieces to solve the cube. 21 standard cases.</p></a><a class="method-card svelte-p6mwgf" href="./cfop/oll"><h2 class="svelte-p6mwgf">OLL</h2> <p class="method-subtitle svelte-p6mwgf">Orientation of the Last Layer</p> <p class="method-meta svelte-p6mwgf">57 cases · 743 algorithms</p> <p class="method-learned svelte-p6mwgf">0 / 57 learned</p> <p class="method-desc svelte-p6mwgf">The third CFOP step (full version). Orient every last-layer piece so the top face is one color in a single algorithm. 57 cases.</p></a><a class="method-card svelte-p6mwgf" href="./cfop/2loll"><h2 class="svelte-p6mwgf">2-Look OLL</h2> <p class="method-subtitle svelte-p6mwgf">Two-Look OLL</p> <p class="method-meta svelte-p6mwgf">9 cases · 18 algorithms</p> <p class="method-learned svelte-p6mwgf">0 / 9 learned</p> <p class="method-desc svelte-p6mwgf">Beginner-friendly OLL: orient the edges first (3 cases), then the corners (7 cases). 10 algorithms total versus 57 for full OLL.</p></a><!--]--></section><!--]--><!----></main> <footer class="site-footer svelte-12qhfyh"><span>87 cases, 1288 algorithms · data from algdb.net,
+    jperm.net, speedcubedb.com</span></footer><!--]--><!--]--> <!--[-1--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_1aktiye = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						assets: "/cubing"
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("./_app/immutable/entry/start.QYW0ZGSR.js"),
+						import("./_app/immutable/entry/app.BXQbuiXz.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 3],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>

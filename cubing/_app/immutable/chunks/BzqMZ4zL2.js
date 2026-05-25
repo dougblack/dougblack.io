@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./BBKNKy-v.js","./kNaey6uv.js","./BdpGOGGd.js","./2lX7CMDX.js","./DxkcYXfb.js","./Cc1gj6Y1.js"])))=>i.map(i=>d[i]);
+import{t as e}from"./kNaey6uv.js";import{t}from"./pdMlnyl7.js";t.expose&&(await e(()=>import(`./BBKNKy-v.js`),__vite__mapDeps([0,1,2,3,4,5]),import.meta.url),globalThis.postMessage?globalThis.postMessage(`comlink-exposed`):globalThis.process.getBuiltinModule(`node:worker_threads`).parentPort?.postMessage(`comlink-exposed`));var n=import.meta.url;export{n as WORKER_ENTRY_FILE_URL};

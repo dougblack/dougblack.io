@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 132 132" width="132" height="132">
+  <rect x="0.00" y="0.00" width="40.00" height="40.00" rx="3.20" fill="#5A5A5A" stroke="#888888" stroke-width="1.5"/>
+  <rect x="40.00" y="0.00" width="40.00" height="40.00" rx="3.20" fill="#FFD500" stroke="#888888" stroke-width="1.5"/>
+  <rect x="80.00" y="0.00" width="40.00" height="40.00" rx="3.20" fill="#5A5A5A" stroke="#888888" stroke-width="1.5"/>
+  <rect x="0.00" y="40.00" width="40.00" height="40.00" rx="3.20" fill="#FFD500" stroke="#888888" stroke-width="1.5"/>
+  <rect x="40.00" y="40.00" width="40.00" height="40.00" rx="3.20" fill="#FFD500" stroke="#888888" stroke-width="1.5"/>
+  <rect x="80.00" y="40.00" width="40.00" height="40.00" rx="3.20" fill="#5A5A5A" stroke="#888888" stroke-width="1.5"/>
+  <rect x="0.00" y="80.00" width="40.00" height="40.00" rx="3.20" fill="#5A5A5A" stroke="#888888" stroke-width="1.5"/>
+  <rect x="40.00" y="80.00" width="40.00" height="40.00" rx="3.20" fill="#5A5A5A" stroke="#888888" stroke-width="1.5"/>
+  <rect x="80.00" y="80.00" width="40.00" height="40.00" rx="3.20" fill="#5A5A5A" stroke="#888888" stroke-width="1.5"/>
+</svg>
