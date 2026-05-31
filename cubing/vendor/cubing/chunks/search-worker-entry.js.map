@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/cubing/search/worker-workarounds/search-worker-entry.js"],
+  "sourcesContent": ["import { exposeAPI } from \"./worker-guard\";\n\nif (exposeAPI.expose) {\n  await import(\"../inside\");\n\n  // Workaround for `node`'\n  if (globalThis.postMessage) {\n    globalThis.postMessage(\"comlink-exposed\"); // TODO: remove this\n  } else {\n    globalThis.process\n      .getBuiltinModule(\"node:worker_threads\")\n      .parentPort?.postMessage(\"comlink-exposed\");\n  }\n}\n\n// Workaround for `esbuild`: https://github.com/evanw/esbuild/issues/312#issuecomment-1092195778\nexport const WORKER_ENTRY_FILE_URL = import.meta.url;\n"],
+  "mappings": ";;;;;AAEA,IAAI,UAAU,QAAQ;AACpB,QAAM,OAAO,sBAAW;AAGxB,MAAI,WAAW,aAAa;AAC1B,eAAW,YAAY,iBAAiB;AAAA,EAC1C,OAAO;AACL,eAAW,QACR,iBAAiB,qBAAqB,EACtC,YAAY,YAAY,iBAAiB;AAAA,EAC9C;AACF;AAGO,IAAM,wBAAwB,YAAY;",
+  "names": []
+}

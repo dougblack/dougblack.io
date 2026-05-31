@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/cubing/search/index.ts"],
+  "sourcesContent": ["// TODO: handle centers properly.\nexport { random333Pattern } from \"./inside/solve/puzzles/3x3x3\";\nexport {\n  experimentalSolve2x2x2,\n  experimentalSolve3x3x3IgnoringCenters,\n  setSearchDebug,\n  solveMegaminx,\n  solvePyraminx,\n  solveSkewb,\n  solveTwips as experimentalSolveTwips,\n} from \"./outside\";\n\nimport { solveTwips as experimentalSolveTwips } from \"./outside\";\n\n/** @deprecated */\nexport const experimentalSolveTwsearch: typeof experimentalSolveTwips = (\n  ...args\n) => {\n  console.error(\n    \"`experimentalSolveTwsearch(\u2026)` is deprecated. Please call `experimentalSolveTwips(\u2026)` instead.\",\n  );\n  return experimentalSolveTwips(...args);\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;AAeO,IAAM,4BAA2D,IACnE,SACA;AACH,UAAQ;AAAA,IACN;AAAA,EACF;AACA,SAAO,WAAuB,GAAG,IAAI;AACvC;",
+  "names": []
+}
