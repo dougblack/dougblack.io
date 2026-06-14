@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap"
+      rel="stylesheet"
+    />
+    <script type="importmap">
+      {
+        "imports": {
+          "cubing/scramble": "../vendor/cubing/scramble/index.js",
+          "cubing/alg": "../vendor/cubing/alg/index.js"
+        }
+      }
+    </script>
+    <script>
+      // Set the html.dark class before first paint so the page doesn't flash
+      // light-then-dark on load. Kept in sync with src/lib/theme.svelte.ts.
+      (function () {
+        try {
+          var saved = localStorage.getItem("cubing_theme");
+          var prefersDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var dark = saved === "dark" || (saved !== "light" && prefersDark);
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (_) {}
+      })();
+    </script>
+    <link href="../_app/immutable/entry/start.B77iS3v9.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/DHiYdZyb.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/lcayOAKz.js" rel="modulepreload">
+		<link href="../_app/immutable/entry/app.X1WqWTlK.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/xihTtKlq.js" rel="modulepreload">
+		<link href="../_app/immutable/nodes/0.CPkGyg-a.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/D4suPb0i.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/DB-ZKAMH.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/Ked52gOU.js" rel="modulepreload">
+		<link href="../_app/immutable/nodes/7.B0X9gXuw.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/CQ4JRrjz.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/BJ6Q9WQq.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/DesfI1lD.js" rel="modulepreload">
+		
+		<link href="../_app/immutable/assets/0.CYoiR-pb.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/OrientationPicker.WQFdLjFr.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/format.CWjMmIop.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/7.DMcOZUcw.css" rel="stylesheet">
+  </head>
+  <body>
+    <div style="display: contents">
+			<script>
+				{
+					__sveltekit_14i13g4 = {
+						base: new URL("..", location).pathname.slice(0, -1),
+						assets: "/cubing"
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("../_app/immutable/entry/start.B77iS3v9.js"),
+						import("../_app/immutable/entry/app.X1WqWTlK.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element);
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>
